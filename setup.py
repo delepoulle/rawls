@@ -36,7 +36,7 @@ setup(
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.7',
-        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'Topic :: Scientific/Engineering',
         'Topic :: Utilities'
     ],
     url='https://github.com/prise-3d/ipfml',

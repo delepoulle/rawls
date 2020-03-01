@@ -18,7 +18,6 @@ To use, simply do :
 
 .. code:: python
     
-   from PIL import Image
-   from ipfml.processing import transform
-   img = Image.open('path/to/image.png')
-   s = transform.get_LAB_L_SVD_s(img)
+   from rawls.converter import rawls_to_png
+   path = 'images/p3d_bathroom-S1-00000.rawls'
+   rawls_to_png(path, 'test.png')
