@@ -9,6 +9,7 @@ from PIL import Image
 from .classes.rawls import Rawls
 from .converter import rawls_to_png, rawls_to_pil
 
+
 def merge_mean_rawls(filepaths):
     """Merge mean `.rawls` samples images from list of files
     
@@ -35,7 +36,7 @@ def merge_mean_rawls(filepaths):
         raise Exception('Input rawls images do not have same shapes')
 
     # compute merge mean values
-    merged_values = np.array([ img.data for img in rawls_images ])
+    merged_values = np.array([img.data for img in rawls_images])
     merged_values_mean = np.mean(merged_values, axis=0)
 
     # construct output data
@@ -96,12 +97,13 @@ def merge_var_rawls(filepaths):
         raise Exception('Input rawls images do not have same shapes')
 
     # compute merge mean values
-    merged_values = np.array([ img.data for img in rawls_images ])
+    merged_values = np.array([img.data for img in rawls_images])
     merged_values_mean = np.var(merged_values, axis=0)
 
     # construct output data
     return Rawls(rawls_images[0].shape, merged_values_mean,
                  rawls_images[0].comments)
+
 
 def merge_var_rawls_to_pil(filepaths):
     """Return var merged image into PNG
