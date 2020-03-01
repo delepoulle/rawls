@@ -5,9 +5,6 @@ import numpy as np
 # image imports
 from PIL import Image
 
-# class import
-from rawls.classes.rawls import Rawls
-
 
 def rawls_to_pil(rawls_img):
     """Read and convert rawls image file into PIL image
@@ -15,12 +12,13 @@ def rawls_to_pil(rawls_img):
     Arguments:
         rawls_img: {Rawls} .rawls image file loaded
     Returns:
-        Pil RGB image
+        PIL RGB image
 
     Example:
 
     >>> import numpy as np
     >>> from rawls.converter import rawls_to_pil
+    >>> from rawls.classes.rawls import Rawls
     >>> path = 'images/example.rawls'
     >>> rawls_img = Rawls.fromfile(path)
     >>> rawls_pil_img = rawls_to_pil(rawls_img)
@@ -32,11 +30,11 @@ def rawls_to_pil(rawls_img):
     return Image.fromarray(np.array(gamma_converted, 'uint8'))
 
 
-def rawls_to_png(filepath, outfile):
+def rawls_to_png(rawls_img, outfile):
     """Convert rawls image into PNG image
     
     Arguments:
-        filepath: {str} path of the .rawls file to open
+        rawls_img: {Rawls} rawls image object
         outfile: {str} output path of the .png image to save
     """
 
@@ -54,4 +52,4 @@ def rawls_to_png(filepath, outfile):
     if '.png' not in outfile:
         raise Exception('output filename is not `.png` format')
 
-    rawls_to_pil(filepath).save(outfile)
+    rawls_to_pil(rawls_img).save(outfile)

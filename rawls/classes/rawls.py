@@ -3,6 +3,9 @@ import math
 import numpy as np
 import struct
 
+# package imports
+from ..converter import rawls_to_png, rawls_to_pil
+
 
 class Rawls():
     """Rawls class used to open `.rawls` path image
@@ -160,3 +163,19 @@ class Rawls():
                     output[y][x][c] = self.__gamma_convert(self.data[y][x][c])
 
         return output
+
+    def to_pil(self):
+        """Convert current rawls image into PIL RGB Image
+        
+        Returns:
+            PIL RGB image converted
+        """
+        return rawls_to_pil(self)
+
+    def to_png(self, outfile):
+        """Save rawls image into PNG
+        
+        Arguments:
+            outfile: {str} png output filename
+        """
+        return rawls_to_png(self, outfile)
