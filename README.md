@@ -1,5 +1,5 @@
 RAW Light Simulation reader/converter package
-=====================================
+=============================================
 
 Installation
 ------------
