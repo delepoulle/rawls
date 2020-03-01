@@ -18,6 +18,7 @@ To use, simply do :
 
 .. code:: python
     
-   from rawls.converter import rawls_to_png
-   path = 'images/example.rawls'
-   rawls_to_png(path, 'example.png')
+    from rawls.classes.rawls import Rawls
+    path = 'images/example.rawls'
+    rawls_img = Rawls.fromfile(path)
+    rawls_img.to_png('output.png')

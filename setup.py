@@ -29,7 +29,7 @@ class BuildTestCommand(setuptools.command.build_py.build_py):
 
 setup(
     name='rawls',
-    version='0.0.1',
+    version='0.0.2',
     description='RAW Light Simulation file reader/converter package',
     long_description=readme(),
     classifiers=[
