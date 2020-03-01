@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rawls.merger &mdash; rawls v0.1.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> rawls
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../description.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rawls.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">rawls</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>rawls.merger</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for rawls.merger</h1><div class="highlight"><pre>
+<span></span><span class="c1"># main imports</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># image imports</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+
+<span class="c1"># class import</span>
+<span class="kn">from</span> <span class="nn">rawls.classes.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<span class="kn">from</span> <span class="nn">rawls.converter</span> <span class="k">import</span> <span class="n">rawls_to_png</span><span class="p">,</span> <span class="n">rawls_to_pil</span>
+
+
+<div class="viewcode-block" id="merge_mean_rawls"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_mean_rawls">[docs]</a><span class="k">def</span> <span class="nf">merge_mean_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Merger `.rawls` samples images from list of files</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        new rawls object with mean data of rawls files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#</span>
+    <span class="n">rawls_images</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+        <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+
+    <span class="c1"># getting and check shapes of images</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">:</span>
+        <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">shapes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">shapes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Input rawls images do not have same shapes&#39;</span><span class="p">)</span>
+
+    <span class="c1"># compute merge values&lt;</span>
+    <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">chanels</span> <span class="o">=</span> <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">merged_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">chanels</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">:</span>
+
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">chanels</span><span class="p">):</span>
+                    <span class="n">merged_values</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">img</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="n">c</span><span class="p">]</span>
+
+    <span class="n">nb_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rawls_images</span><span class="p">)</span>
+
+    <span class="c1"># compute mean of values</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">chanels</span><span class="p">):</span>
+                <span class="n">merged_values</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">/=</span> <span class="n">nb_images</span>
+
+    <span class="c1"># construct output data</span>
+    <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">merged_values</span><span class="p">,</span>
+                 <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">comments</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="merge_mean_rawls_to_pil"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_mean_rawls_to_pil">[docs]</a><span class="k">def</span> <span class="nf">merge_mean_rawls_to_pil</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return mean merged image into PNG</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        PNG PIL mean merged image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">merged_image</span> <span class="o">=</span> <span class="n">merge_mean_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rawls_to_pil</span><span class="p">(</span><span class="n">merged_image</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="merge_mean_rawls_to_png"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_mean_rawls_to_png">[docs]</a><span class="k">def</span> <span class="nf">merge_mean_rawls_to_png</span><span class="p">(</span><span class="n">filepaths</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return mean merged image into PNG</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">        outfile: {str} output path of the .png image to save</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        save mean merged image as png</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">merged_image</span> <span class="o">=</span> <span class="n">merge_mean_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rawls_to_png</span><span class="p">(</span><span class="n">merged_image</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jérôme BUISINE
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
