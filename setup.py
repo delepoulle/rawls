@@ -15,14 +15,14 @@ class BuildTestCommand(setuptools.command.build_py.build_py):
         
         # filters folder
         from rawls import converter
-        from rawls import reader
+        from rawls import merger
 
         print("==============================")
         print("Runs test command...")
 
         # pass test using doctest
         doctest.testmod(converter)
-        doctest.testmod(reader)
+        doctest.testmod(merger)
 
         setuptools.command.build_py.build_py.run(self)
 
@@ -39,11 +39,11 @@ setup(
         'Topic :: Scientific/Engineering',
         'Topic :: Utilities'
     ],
-    url='https://github.com/prise-3d/ipfml',
+    url='https://github.com/prise-3d/rawls',
     author='Jérôme BUISINE',
     author_email='jerome.buisine@univ-littoral.fr',
     license='MIT',
-    packages=['rawls', 'rawls.converter', 'rawls.reader'],
+    packages=['rawls'],
     install_requires=[
         'numpy',
         'Pillow',

@@ -9,36 +9,35 @@ from PIL import Image
 from rawls.classes.rawls import Rawls
 
 
-def rawls_to_pil(filepath):
-    """[read and convert rawls image file into Pil image]
+def rawls_to_pil(rawls_img):
+    """Read and convert rawls image file into PIL image
     
     Arguments:
-        filepath {[str]} -- [path of the .rawls file to open]
-    
+        rawls_img: {Rawls} .rawls image file loaded
     Returns:
-        [Pil] -- [Pil RGB image]
+        Pil RGB image
 
     Example:
 
     >>> import numpy as np
     >>> from rawls.converter import rawls_to_pil
-    >>> path = 'images/p3d_bathroom-S1-00000.rawls'
-    >>> rawls_pil_img = rawls_to_pil(path)
+    >>> path = 'images/example.rawls'
+    >>> rawls_img = Rawls.fromfile(path)
+    >>> rawls_pil_img = rawls_to_pil(rawls_img)
     >>> np.array(rawls_pil_img).shape
-    (1080, 1920, 3)
+    (100, 100, 3)
     """
-    rawls_img = Rawls(filepath)
     gamma_converted = rawls_img.gammaConvert()
 
     return Image.fromarray(np.array(gamma_converted, 'uint8'))
 
 
 def rawls_to_png(filepath, outfile):
-    """[convert rawls image into PNG image]
+    """Convert rawls image into PNG image
     
     Arguments:
-        filepath {[str]} -- [path of the .rawls file to open]
-        outfile {[str]} -- [output path of the .png image to save]
+        filepath: {str} path of the .rawls file to open
+        outfile: {str} output path of the .png image to save
     """
 
     if '/' in outfile:

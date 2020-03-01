@@ -5,20 +5,23 @@ import struct
 
 
 class Rawls():
-    """[Rawls class used to open `.rawls` path image]
+    """Rawls class used to open `.rawls` path image
     """
 
-    def __init__(self, filepath):
-        self.shape = None
-        self.data = None
-        self.comments = None
-        self.__read(filepath)
+    def __init__(self, shape, data, comments):
+        self.shape = shape
+        self.data = data
+        self.comments = comments
 
-    def __read(self, filepath):
-        """[open data of rawls file]
+    @classmethod
+    def fromfile(self, filepath):
+        """Open data of rawls file
         
         Arguments:
-            filepath {[str]} -- [path of the .rawls file to open]
+            filepath: {str} path of the .rawls file to open
+
+        Returns:
+            Rawls instance
         """
 
         if '.rawls' not in filepath:
@@ -100,31 +103,29 @@ class Rawls():
 
         f.close()
 
-        self.shape = data.shape
-        self.comments = comments
-        self.data = data
+        return Rawls(data.shape, data, comments)
 
     def __clamp(self, n, smallest, largest):
-        """[clamp number using two numbers]
+        """Clamp number using two numbers
         
         Arguments:
-            n {[float]} -- [the number to clamp]
-            smallest {[float]} -- [the smallest number interval]
-            largest {[float]} -- [the larget number interval]
+            n {float}: the number to clamp
+            smallest {float}: the smallest number interval
+            largest {float}: the larget number interval
         
         Returns:
-            [float] -- [the clamped value]
+            the clamped float value
         """
         return max(smallest, min(n, largest))
 
     def __gamma_correct(self, value):
-        """[correct gamma of luminance value]
+        """Correct gamma of luminance value
         
         Arguments:
-            value {[float]} -- [luminance value to correct]
+            value {float}: luminance value to correct
         
         Returns:
-            [float] -- [correct value with specific gamma]
+            Correct float value with specific gamma
         """
         if value <= 0.0031308:
             return 12.92 * value
@@ -132,21 +133,21 @@ class Rawls():
             return 1.055 * math.pow(value, float(1. / 2.4)) - 0.055
 
     def __gamma_convert(self, value):
-        """[correct gamma value and clamp it]
+        """Correct gamma value and clamp it
         
         Arguments:
-            value {[float]} -- [luminance value to correct and clamp]
+            value {float}: luminance value to correct and clamp
         
         Returns:
-            [float] -- [final chanel value]
+            final chanel float value
         """
         return self.__clamp(255. * self.__gamma_correct(value) + 0., 0., 255.)
 
     def gammaConvert(self):
-        """[convert gamma of luminance chanel values of rawls image]
+        """Convert gamma of luminance chanel values of rawls image
         
         Returns:
-            [buffer] -- [image buffer with converted gamma values]
+            numpy image buffer with converted gamma values
         """
 
         height, width, chanels = self.shape

@@ -58,6 +58,7 @@ target/
 
 # Docs
 !docs/build
+test_rawls.py
 
 # IDE
 .vscode
