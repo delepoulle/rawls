@@ -1,6 +1,10 @@
 Description
 =====================================
 
+.. image:: _static/rawls_logo.png
+   :width: 350 px
+   :align: center
+   
 Installation
 ------------
 

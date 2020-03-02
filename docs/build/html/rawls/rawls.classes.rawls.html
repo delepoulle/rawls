@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.classes.rawls &mdash; rawls v0.0.2 documentation</title>
+  <title>rawls.classes.rawls &mdash; rawls v0.0.3 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Examples" href="../examples.html" />
+    <link rel="next" title="rawls.classes.renderer" href="rawls.classes.renderer.html" />
     <link rel="prev" title="rawls.merger" href="rawls.merger.html" /> 
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.0.2
+                0.0.3
               </div>
             
           
@@ -89,6 +89,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../rawls.html#rawls">rawls</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../rawls.html#rawls-classes">rawls.classes</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.classes.rawls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.renderer.html">rawls.classes.renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.resolution.html">rawls.classes.resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.camera.html">rawls.classes.camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.integrator.html">rawls.classes.integrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.sampler.html">rawls.classes.sampler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.lookAt.html">rawls.classes.lookAt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.vector.html">rawls.classes.vector</a></li>
 </ul>
 </li>
 </ul>
@@ -172,15 +179,33 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.rawls.Rawls" title="rawls.classes.rawls.Rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rawls</span></code></a>(shape,&nbsp;data,&nbsp;comments)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.rawls.Rawls" title="rawls.classes.rawls.Rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rawls</span></code></a>(shape,&nbsp;data,&nbsp;renderer)</td>
 <td>Rawls class used to open <cite>.rawls</cite> path image</td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="rawls.classes.rawls.Rawls">
-<em class="property">class </em><code class="descclassname">rawls.classes.rawls.</code><code class="descname">Rawls</code><span class="sig-paren">(</span><em>shape</em>, <em>data</em>, <em>comments</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/rawls.html#Rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.rawls.Rawls" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rawls.classes.rawls.</code><code class="descname">Rawls</code><span class="sig-paren">(</span><em>shape</em>, <em>data</em>, <em>renderer</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/rawls.html#Rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.rawls.Rawls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rawls class used to open <cite>.rawls</cite> path image</p>
+<dl class="attribute">
+<dt id="rawls.classes.rawls.Rawls.shape">
+<code class="descname">shape</code><a class="headerlink" href="#rawls.classes.rawls.Rawls.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>{(int, int, int)} – describe shape of the image</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.classes.rawls.Rawls.data">
+<code class="descname">data</code><a class="headerlink" href="#rawls.classes.rawls.Rawls.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>{ndrray} – buffer data numpy array</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.classes.rawls.Rawls.renderer">
+<code class="descname">renderer</code><a class="headerlink" href="#rawls.classes.rawls.Rawls.renderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>{Renderer} – renderer instance information</p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="rawls.classes.rawls.Rawls.fromfile">
 <em class="property">classmethod </em><code class="descname">fromfile</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/rawls.html#Rawls.fromfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.rawls.Rawls.fromfile" title="Permalink to this definition">¶</a></dt>
@@ -189,7 +214,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> – {str} path of the .rawls file to open</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> – {str} – path of the .rawls file to open</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Rawls instance</td>
 </tr>
@@ -205,7 +230,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">numpy image buffer with converted gamma values</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{ndarray} – image buffer with converted gamma values</td>
 </tr>
 </tbody>
 </table>
@@ -219,7 +244,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">PIL RGB image converted</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{PIL} – RGB image converted</td>
 </tr>
 </tbody>
 </table>
@@ -233,7 +258,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>outfile</strong> – {str} png output filename</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>outfile</strong> – {str} – PNG output filename</td>
 </tr>
 </tbody>
 </table>
@@ -251,7 +276,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="rawls.classes.renderer.html" class="btn btn-neutral float-right" title="rawls.classes.renderer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="rawls.merger.html" class="btn btn-neutral" title="rawls.merger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

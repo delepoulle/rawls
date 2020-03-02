@@ -45,7 +45,7 @@ def merge_mean_rawls(filepaths):
 
 
 def merge_mean_rawls_to_pil(filepaths):
-    """Return mean merged image into PNG
+    """Return mean merged image into RGB PIL
     
     Arguments:
         filepaths: {[str]} image filepaths list
@@ -106,7 +106,7 @@ def merge_var_rawls(filepaths):
 
 
 def merge_var_rawls_to_pil(filepaths):
-    """Return var merged image into PNG
+    """Return var merged image into RGB PIL
     
     Arguments:
         filepaths: {[str]} image filepaths list

@@ -17,3 +17,10 @@ rawls.classes
    :toctree: rawls
 
    rawls.classes.rawls
+   rawls.classes.renderer
+   rawls.classes.resolution
+   rawls.classes.camera
+   rawls.classes.integrator
+   rawls.classes.sampler
+   rawls.classes.lookAt
+   rawls.classes.vector
