@@ -1,10 +1,6 @@
 from setuptools import setup
 import setuptools.command.build_py
 
-def readme():
-    with open('README.rst') as f:
-        return f.read()
-
 class BuildTestCommand(setuptools.command.build_py.build_py):
     """Custom build command."""
 
@@ -29,9 +25,10 @@ class BuildTestCommand(setuptools.command.build_py.build_py):
 
 setup(
     name='rawls',
-    version='0.0.2',
+    version='0.0.3',
     description='RAW Light Simulation file reader/converter package',
-    long_description=readme(),
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
