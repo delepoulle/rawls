@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.merger &mdash; rawls v0.0.3 documentation</title>
+  <title>rawls.merger &mdash; rawls v0.0.4 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -173,6 +173,12 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#rawls.merger.merge_kurtosis_norm_rawls" title="rawls.merger.merge_kurtosis_norm_rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_kurtosis_norm_rawls</span></code></a>(filepaths)</td>
+<td>Compute kurtosis from .rawls files and normalize data</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#rawls.merger.merge_kurtosis_rawls" title="rawls.merger.merge_kurtosis_rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_kurtosis_rawls</span></code></a>(filepaths)</td>
+<td>Merge kurtosis <cite>.rawls</cite> samples images from list of files</td>
+</tr>
 <tr class="row-odd"><td><a class="reference internal" href="#rawls.merger.merge_mean_rawls" title="rawls.merger.merge_mean_rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_mean_rawls</span></code></a>(filepaths)</td>
 <td>Merge mean <cite>.rawls</cite> samples images from list of files</td>
 </tr>
@@ -180,7 +186,13 @@
 <td>Return mean merged image into RGB PIL</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#rawls.merger.merge_mean_rawls_to_png" title="rawls.merger.merge_mean_rawls_to_png"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_mean_rawls_to_png</span></code></a>(filepaths,&nbsp;outfile)</td>
-<td>Return mean merged image into PNG</td>
+<td>Save mean merged image into PNG</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#rawls.merger.merge_skew_norm_rawls" title="rawls.merger.merge_skew_norm_rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_skew_norm_rawls</span></code></a>(filepaths)</td>
+<td>Compute skewness from .rawls files and normalize data</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#rawls.merger.merge_skew_rawls" title="rawls.merger.merge_skew_rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_skew_rawls</span></code></a>(filepaths)</td>
+<td>Merge skew <cite>.rawls</cite> samples images from list of files</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#rawls.merger.merge_var_rawls" title="rawls.merger.merge_var_rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_var_rawls</span></code></a>(filepaths)</td>
 <td>Merge variance <cite>.rawls</cite> samples images from list of files</td>
@@ -189,10 +201,42 @@
 <td>Return var merged image into RGB PIL</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#rawls.merger.merge_var_rawls_to_png" title="rawls.merger.merge_var_rawls_to_png"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_var_rawls_to_png</span></code></a>(filepaths,&nbsp;outfile)</td>
-<td>Return var merged image into PNG</td>
+<td>Save variance merged image into PNG</td>
 </tr>
 </tbody>
 </table>
+<dl class="function">
+<dt id="rawls.merger.merge_kurtosis_norm_rawls">
+<code class="descclassname">rawls.merger.</code><code class="descname">merge_kurtosis_norm_rawls</code><span class="sig-paren">(</span><em>filepaths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/merger.html#merge_kurtosis_norm_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.merger.merge_kurtosis_norm_rawls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute kurtosis from .rawls files and normalize data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} image filepaths list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with kurtosis normalized data of rawls files</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rawls.merger.merge_kurtosis_rawls">
+<code class="descclassname">rawls.merger.</code><code class="descname">merge_kurtosis_rawls</code><span class="sig-paren">(</span><em>filepaths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/merger.html#merge_kurtosis_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.merger.merge_kurtosis_rawls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge kurtosis <cite>.rawls</cite> samples images from list of files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} – image filepaths list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with kurtosis data of rawls files</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="function">
 <dt id="rawls.merger.merge_mean_rawls">
 <code class="descclassname">rawls.merger.</code><code class="descname">merge_mean_rawls</code><span class="sig-paren">(</span><em>filepaths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/merger.html#merge_mean_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.merger.merge_mean_rawls" title="Permalink to this definition">¶</a></dt>
@@ -201,9 +245,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} image filepaths list</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} – image filepaths list</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">new rawls object with mean data of rawls files</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with mean data of rawls files</td>
 </tr>
 </tbody>
 </table>
@@ -217,9 +261,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} image filepaths list</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} – image filepaths list</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">PNG PIL mean merged image</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{PIL} – RGB PIL mean merged image</td>
 </tr>
 </tbody>
 </table>
@@ -228,19 +272,48 @@
 <dl class="function">
 <dt id="rawls.merger.merge_mean_rawls_to_png">
 <code class="descclassname">rawls.merger.</code><code class="descname">merge_mean_rawls_to_png</code><span class="sig-paren">(</span><em>filepaths</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/merger.html#merge_mean_rawls_to_png"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.merger.merge_mean_rawls_to_png" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return mean merged image into PNG</p>
+<dd><p>Save mean merged image into PNG</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filepaths</strong> – {[str]} image filepaths list</li>
-<li><strong>outfile</strong> – {str} output path of the .png image to save</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filepaths</strong> – {[str]} – image filepaths list</li>
+<li><strong>outfile</strong> – {str} – output path of the .png image to save</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">save mean merged image as png</p>
-</td>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rawls.merger.merge_skew_norm_rawls">
+<code class="descclassname">rawls.merger.</code><code class="descname">merge_skew_norm_rawls</code><span class="sig-paren">(</span><em>filepaths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/merger.html#merge_skew_norm_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.merger.merge_skew_norm_rawls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute skewness from .rawls files and normalize data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} image filepaths list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with skewness normalized data of rawls files</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rawls.merger.merge_skew_rawls">
+<code class="descclassname">rawls.merger.</code><code class="descname">merge_skew_rawls</code><span class="sig-paren">(</span><em>filepaths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/merger.html#merge_skew_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.merger.merge_skew_rawls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge skew <cite>.rawls</cite> samples images from list of files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} – image filepaths list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with skew data of rawls files</td>
 </tr>
 </tbody>
 </table>
@@ -254,9 +327,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} image filepaths list</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} – image filepaths list</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">new rawls object with variance data of rawls files</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with variance data of rawls files</td>
 </tr>
 </tbody>
 </table>
@@ -270,9 +343,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} image filepaths list</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepaths</strong> – {[str]} – image filepaths list</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">PNG PIL var merged image</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{PIL} – RGB PIL var merged image</td>
 </tr>
 </tbody>
 </table>
@@ -281,18 +354,15 @@
 <dl class="function">
 <dt id="rawls.merger.merge_var_rawls_to_png">
 <code class="descclassname">rawls.merger.</code><code class="descname">merge_var_rawls_to_png</code><span class="sig-paren">(</span><em>filepaths</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/merger.html#merge_var_rawls_to_png"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.merger.merge_var_rawls_to_png" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return var merged image into PNG</p>
+<dd><p>Save variance merged image into PNG</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filepaths</strong> – {[str]} image filepaths list</li>
-<li><strong>outfile</strong> – {str} output path of the .png image to save</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filepaths</strong> – {[str]} – image filepaths list</li>
+<li><strong>outfile</strong> – {str} – output path of the .png image to save</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">save var merged image as png</p>
 </td>
 </tr>
 </tbody>

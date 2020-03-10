@@ -8,7 +8,7 @@ class Camera():
         lensradius: {float} -- lens radius of camera
     """
 
-    def __init__(self, name, fov, focaldistance, lensradius):
+    def __init__(self, name, fov, focaldistance=None, lensradius=None):
         """Construct camera with all information
         
         Arguments:
@@ -19,8 +19,16 @@ class Camera():
         """
         self.name = name
         self.fov = float(fov)
-        self.focaldistance = float(focaldistance)
-        self.lensradius = float(lensradius)
+
+        if focaldistance is not None:
+            self.focaldistance = float(focaldistance)
+        else:
+            self.focaldistance = None
+
+        if lensradius is not None:
+            self.lensradius = float(lensradius)
+        else:
+            self.lensradius = None
 
     def __str__(self):
         """Display Camera information

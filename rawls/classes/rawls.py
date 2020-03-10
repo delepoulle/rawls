@@ -24,7 +24,7 @@ class Rawls():
         self.renderer = renderer
 
     @classmethod
-    def fromfile(self, filepath):
+    def load(self, filepath):
         """Open data of rawls file
         
         Arguments:
@@ -188,3 +188,13 @@ class Rawls():
             outfile: {str} -- PNG output filename
         """
         return rawls_to_png(self, outfile)
+
+    def h_flip(self):
+        """Flip horizontally current Rawls instance 
+        """
+        self.data = np.flip(self.data, axis=1)
+
+    def v_flip(self):
+        """Flip vectically current Rawls instance 
+        """
+        self.data = np.flip(self.data, axis=0)

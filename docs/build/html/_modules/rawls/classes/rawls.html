@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.classes.rawls &mdash; rawls v0.0.3 documentation</title>
+  <title>rawls.classes.rawls &mdash; rawls v0.0.4 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -174,8 +174,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span> <span class="o">=</span> <span class="n">renderer</span>
 
-<div class="viewcode-block" id="Rawls.fromfile"><a class="viewcode-back" href="../../../rawls/rawls.classes.rawls.html#rawls.classes.rawls.Rawls.fromfile">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fromfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.load"><a class="viewcode-back" href="../../../rawls/rawls.classes.rawls.html#rawls.classes.rawls.Rawls.load">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Open data of rawls file</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -338,7 +338,17 @@
 <span class="sd">        Arguments:</span>
 <span class="sd">            outfile: {str} -- PNG output filename</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">rawls_to_png</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">rawls_to_png</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rawls.h_flip"><a class="viewcode-back" href="../../../rawls/rawls.classes.rawls.html#rawls.classes.rawls.Rawls.h_flip">[docs]</a>    <span class="k">def</span> <span class="nf">h_flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Flip horizontally current Rawls instance </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rawls.v_flip"><a class="viewcode-back" href="../../../rawls/rawls.classes.rawls.html#rawls.classes.rawls.Rawls.v_flip">[docs]</a>    <span class="k">def</span> <span class="nf">v_flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Flip vectically current Rawls instance </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

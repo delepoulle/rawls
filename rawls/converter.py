@@ -20,7 +20,7 @@ def rawls_to_pil(rawls_img):
     >>> from rawls.converter import rawls_to_pil
     >>> from rawls.classes.rawls import Rawls
     >>> path = 'images/example.rawls'
-    >>> rawls_img = Rawls.fromfile(path)
+    >>> rawls_img = Rawls.load(path)
     >>> rawls_pil_img = rawls_to_pil(rawls_img)
     >>> np.array(rawls_pil_img).shape
     (100, 100, 3)
