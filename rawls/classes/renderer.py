@@ -82,8 +82,13 @@ class Renderer():
                 camera_name = line.split(' ')[-1]
                 res = re.findall(r'\[\d*', comments_line[index + 1])
                 parsed_res = [float(r.replace('[', '')) for r in res]
-                camera = Camera(camera_name, parsed_res[0], parsed_res[1],
-                                parsed_res[2])
+
+                # check default value
+                if len(parsed_res) > 2:
+                    camera = Camera(camera_name, parsed_res[0], parsed_res[1],
+                                    parsed_res[2])
+                else:
+                    camera = Camera(camera_name, parsed_res[0])
 
             if 'LookAt' in line:
                 info = line.split()

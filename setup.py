@@ -44,6 +44,7 @@ setup(
     install_requires=[
         'numpy',
         'Pillow',
+        'scipy',
     ],
     cmdclass={
         'build_py': BuildTestCommand,
