@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.converter &mdash; rawls v0.0.3 documentation</title>
+  <title>rawls.converter &mdash; rawls v0.0.4 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -171,7 +171,7 @@
 <span class="sd">    &gt;&gt;&gt; from rawls.converter import rawls_to_pil</span>
 <span class="sd">    &gt;&gt;&gt; from rawls.classes.rawls import Rawls</span>
 <span class="sd">    &gt;&gt;&gt; path = &#39;images/example.rawls&#39;</span>
-<span class="sd">    &gt;&gt;&gt; rawls_img = Rawls.fromfile(path)</span>
+<span class="sd">    &gt;&gt;&gt; rawls_img = Rawls.load(path)</span>
 <span class="sd">    &gt;&gt;&gt; rawls_pil_img = rawls_to_pil(rawls_img)</span>
 <span class="sd">    &gt;&gt;&gt; np.array(rawls_pil_img).shape</span>
 <span class="sd">    (100, 100, 3)</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.merger &mdash; rawls v0.0.3 documentation</title>
+  <title>rawls.merger &mdash; rawls v0.0.4 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -156,29 +156,52 @@
 <span class="c1"># image imports</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
 
+<span class="c1"># stats import</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">skew</span><span class="p">,</span> <span class="n">kurtosis</span>
+
 <span class="c1"># class import</span>
 <span class="kn">from</span> <span class="nn">.classes.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
 <span class="kn">from</span> <span class="nn">.converter</span> <span class="k">import</span> <span class="n">rawls_to_png</span><span class="p">,</span> <span class="n">rawls_to_pil</span>
+
+
+<span class="k">def</span> <span class="nf">_check_file_paths</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check filepaths input extension</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
+<span class="sd">    </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception: Need at least two .rawls image filepaths</span>
+<span class="sd">        Exception: Invalid input filepaths extension</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Need at least two rawls image filepaths as input&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="s1">&#39;.rawls&#39;</span> <span class="ow">in</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unvalid input filepath images, need .rawls image&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="merge_mean_rawls"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_mean_rawls">[docs]</a><span class="k">def</span> <span class="nf">merge_mean_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Merge mean `.rawls` samples images from list of files</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        new rawls object with mean data of rawls files</span>
+<span class="sd">        {Rawls} -- new rawls object with mean data of rawls files</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># read rawls</span>
     <span class="n">rawls_images</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
-        <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+        <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
 
     <span class="c1"># getting and check shapes of images</span>
     <span class="n">shapes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">_check_file_paths</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">:</span>
         <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -191,52 +214,51 @@
     <span class="n">merged_values_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">merged_values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># construct output data</span>
-    <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">merged_values_mean</span><span class="p">,</span>
-                 <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">comments</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">merged_values_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">merged_values_mean</span><span class="p">,</span>
+                 <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="merge_mean_rawls_to_pil"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_mean_rawls_to_pil">[docs]</a><span class="k">def</span> <span class="nf">merge_mean_rawls_to_pil</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return mean merged image into RGB PIL</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        PNG PIL mean merged image</span>
+<span class="sd">        {PIL} -- RGB PIL mean merged image</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">merged_image</span> <span class="o">=</span> <span class="n">merge_mean_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rawls_to_pil</span><span class="p">(</span><span class="n">merged_image</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="merge_mean_rawls_to_png"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_mean_rawls_to_png">[docs]</a><span class="k">def</span> <span class="nf">merge_mean_rawls_to_png</span><span class="p">(</span><span class="n">filepaths</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return mean merged image into PNG</span>
+    <span class="sd">&quot;&quot;&quot;Save mean merged image into PNG</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        filepaths: {[str]} image filepaths list</span>
-<span class="sd">        outfile: {str} output path of the .png image to save</span>
-<span class="sd">    </span>
-<span class="sd">    Returns:</span>
-<span class="sd">        save mean merged image as png</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
+<span class="sd">        outfile: {str} -- output path of the .png image to save</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">merged_image</span> <span class="o">=</span> <span class="n">merge_mean_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">rawls_to_png</span><span class="p">(</span><span class="n">merged_image</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+    <span class="n">rawls_to_png</span><span class="p">(</span><span class="n">merged_image</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="merge_var_rawls"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_var_rawls">[docs]</a><span class="k">def</span> <span class="nf">merge_var_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Merge variance `.rawls` samples images from list of files</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        new rawls object with variance data of rawls files</span>
+<span class="sd">        {Rawls} -- new rawls object with variance data of rawls files</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># read rawls</span>
     <span class="n">rawls_images</span> <span class="o">=</span> <span class="p">[]</span>
 
+    <span class="n">_check_file_paths</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+
     <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
-        <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+        <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
 
     <span class="c1"># getting and check shapes of images</span>
     <span class="n">shapes</span> <span class="o">=</span> <span class="p">[]</span>
@@ -247,40 +269,148 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">shapes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">shapes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Input rawls images do not have same shapes&#39;</span><span class="p">)</span>
 
-    <span class="c1"># compute merge mean values</span>
+    <span class="c1"># compute merge var values</span>
     <span class="n">merged_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">img</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">])</span>
-    <span class="n">merged_values_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">merged_values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">merged_values_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">merged_values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># construct output data</span>
-    <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">merged_values_mean</span><span class="p">,</span>
-                 <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">comments</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">merged_values_var</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">merged_values_var</span><span class="p">,</span>
+                 <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="merge_var_rawls_to_pil"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_var_rawls_to_pil">[docs]</a><span class="k">def</span> <span class="nf">merge_var_rawls_to_pil</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return var merged image into RGB PIL</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        PNG PIL var merged image</span>
+<span class="sd">        {PIL} -- RGB PIL var merged image</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">merged_image</span> <span class="o">=</span> <span class="n">merge_var_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rawls_to_pil</span><span class="p">(</span><span class="n">merged_image</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="merge_var_rawls_to_png"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_var_rawls_to_png">[docs]</a><span class="k">def</span> <span class="nf">merge_var_rawls_to_png</span><span class="p">(</span><span class="n">filepaths</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return var merged image into PNG</span>
+    <span class="sd">&quot;&quot;&quot;Save variance merged image into PNG</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        filepaths: {[str]} image filepaths list</span>
-<span class="sd">        outfile: {str} output path of the .png image to save</span>
-<span class="sd">    </span>
-<span class="sd">    Returns:</span>
-<span class="sd">        save var merged image as png</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
+<span class="sd">        outfile: {str} -- output path of the .png image to save</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">merged_image</span> <span class="o">=</span> <span class="n">merge_var_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rawls_to_png</span><span class="p">(</span><span class="n">merged_image</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="merge_skew_rawls"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_skew_rawls">[docs]</a><span class="k">def</span> <span class="nf">merge_skew_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Merge skew `.rawls` samples images from list of files</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        {Rawls} -- new rawls object with skew data of rawls files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># read rawls</span>
+    <span class="n">rawls_images</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">_check_file_paths</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+        <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+
+    <span class="c1"># getting and check shapes of images</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">:</span>
+        <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">shapes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">shapes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Input rawls images do not have same shapes&#39;</span><span class="p">)</span>
+
+    <span class="c1"># compute merge var values</span>
+    <span class="n">merged_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">img</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">])</span>
+    <span class="n">merged_values_skew</span> <span class="o">=</span> <span class="n">skew</span><span class="p">(</span><span class="n">merged_values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span><span class="p">)</span>
+
+    <span class="c1"># construct output data</span>
+    <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">merged_values_skew</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">merged_values_skew</span><span class="p">,</span>
+                 <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="merge_kurtosis_rawls"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_kurtosis_rawls">[docs]</a><span class="k">def</span> <span class="nf">merge_kurtosis_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Merge kurtosis `.rawls` samples images from list of files</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} -- image filepaths list</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        {Rawls} -- new rawls object with kurtosis data of rawls files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># read rawls</span>
+    <span class="n">rawls_images</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">_check_file_paths</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+        <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+
+    <span class="c1"># getting and check shapes of images</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">:</span>
+        <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">shapes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">shapes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Input rawls images do not have same shapes&#39;</span><span class="p">)</span>
+
+    <span class="c1"># compute merge var values</span>
+    <span class="n">merged_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">img</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">])</span>
+    <span class="n">merged_values_kurtosis</span> <span class="o">=</span> <span class="n">kurtosis</span><span class="p">(</span>
+        <span class="n">merged_values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span><span class="p">)</span>
+
+    <span class="c1"># construct output data</span>
+    <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">merged_values_kurtosis</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">merged_values_kurtosis</span><span class="p">,</span>
+                 <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="merge_skew_norm_rawls"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_skew_norm_rawls">[docs]</a><span class="k">def</span> <span class="nf">merge_skew_norm_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute skewness from .rawls files and normalize data</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        {Rawls} -- new rawls object with skewness normalized data of rawls files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">merged_rawls</span> <span class="o">=</span> <span class="n">merge_skew_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+    <span class="n">img_skew_0</span> <span class="o">=</span> <span class="n">merged_rawls</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">merged_rawls</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">img_skew_norm</span> <span class="o">=</span> <span class="n">img_skew_0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">img_skew_0</span><span class="p">)</span>
+
+    <span class="n">merged_rawls</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">img_skew_norm</span>
+
+    <span class="k">return</span> <span class="n">merged_rawls</span></div>
+
+
+<div class="viewcode-block" id="merge_kurtosis_norm_rawls"><a class="viewcode-back" href="../../rawls/rawls.merger.html#rawls.merger.merge_kurtosis_norm_rawls">[docs]</a><span class="k">def</span> <span class="nf">merge_kurtosis_norm_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute kurtosis from .rawls files and normalize data</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filepaths: {[str]} image filepaths list</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        {Rawls} -- new rawls object with kurtosis normalized data of rawls files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">merged_rawls</span> <span class="o">=</span> <span class="n">merge_kurtosis_rawls</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+    <span class="n">img_skew_0</span> <span class="o">=</span> <span class="n">merged_rawls</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">merged_rawls</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">img_skew_norm</span> <span class="o">=</span> <span class="n">img_skew_0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">img_skew_0</span><span class="p">)</span>
+
+    <span class="n">merged_rawls</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">img_skew_norm</span>
+
+    <span class="k">return</span> <span class="n">merged_rawls</span></div>
 </pre></div>
 
            </div>

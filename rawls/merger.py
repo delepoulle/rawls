@@ -23,13 +23,12 @@ def _check_file_paths(filepaths):
         Exception: Need at least two .rawls image filepaths
         Exception: Invalid input filepaths extension
     """
-    
+
     if len(filepaths) < 2:
         raise Exception('Need at least two rawls image filepaths as input')
 
     if not all(['.rawls' in p for p in filepaths]):
         raise Exception('Unvalid input filepath images, need .rawls image')
-
 
 
 def merge_mean_rawls(filepaths):
@@ -46,7 +45,7 @@ def merge_mean_rawls(filepaths):
     rawls_images = []
 
     for filepath in filepaths:
-        rawls_images.append(Rawls.fromfile(filepath))
+        rawls_images.append(Rawls.load(filepath))
 
     # getting and check shapes of images
     shapes = []
@@ -108,7 +107,7 @@ def merge_var_rawls(filepaths):
     _check_file_paths(filepaths)
 
     for filepath in filepaths:
-        rawls_images.append(Rawls.fromfile(filepath))
+        rawls_images.append(Rawls.load(filepath))
 
     # getting and check shapes of images
     shapes = []
@@ -168,7 +167,7 @@ def merge_skew_rawls(filepaths):
     _check_file_paths(filepaths)
 
     for filepath in filepaths:
-        rawls_images.append(Rawls.fromfile(filepath))
+        rawls_images.append(Rawls.load(filepath))
 
     # getting and check shapes of images
     shapes = []
@@ -188,7 +187,6 @@ def merge_skew_rawls(filepaths):
                  rawls_images[0].renderer)
 
 
-
 def merge_kurtosis_rawls(filepaths):
     """Merge kurtosis `.rawls` samples images from list of files
     
@@ -205,7 +203,7 @@ def merge_kurtosis_rawls(filepaths):
     _check_file_paths(filepaths)
 
     for filepath in filepaths:
-        rawls_images.append(Rawls.fromfile(filepath))
+        rawls_images.append(Rawls.load(filepath))
 
     # getting and check shapes of images
     shapes = []
@@ -218,7 +216,8 @@ def merge_kurtosis_rawls(filepaths):
 
     # compute merge var values
     merged_values = np.array([img.data for img in rawls_images])
-    merged_values_kurtosis = kurtosis(merged_values, axis=0, nan_policy='raise')
+    merged_values_kurtosis = kurtosis(
+        merged_values, axis=0, nan_policy='raise')
 
     # construct output data
     return Rawls(merged_values_kurtosis.shape, merged_values_kurtosis,
