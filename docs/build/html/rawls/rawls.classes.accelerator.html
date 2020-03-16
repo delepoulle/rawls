@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.classes.vector &mdash; rawls v0.0.6 documentation</title>
+  <title>rawls.classes.accelerator &mdash; rawls v0.0.6 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Examples" href="../examples.html" />
-    <link rel="prev" title="rawls.classes.lookAt" href="rawls.classes.lookAt.html" /> 
+    <link rel="next" title="rawls.classes.integrator" href="rawls.classes.integrator.html" />
+    <link rel="prev" title="rawls.classes.camera" href="rawls.classes.camera.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -93,11 +93,11 @@
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.filter.html">rawls.classes.filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.resolution.html">rawls.classes.resolution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.camera.html">rawls.classes.camera</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rawls.classes.accelerator.html">rawls.classes.accelerator</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.classes.accelerator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.integrator.html">rawls.classes.integrator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.sampler.html">rawls.classes.sampler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.lookAt.html">rawls.classes.lookAt</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.classes.vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.vector.html">rawls.classes.vector</a></li>
 </ul>
 </li>
 </ul>
@@ -151,14 +151,14 @@
         
           <li><a href="../rawls.html">Documentation</a> &raquo;</li>
         
-      <li>rawls.classes.vector</li>
+      <li>rawls.classes.accelerator</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
             
-              <a href="https://github.com/prise-3d/rawls/blob/master/docs/source/rawls/rawls.classes.vector.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/prise-3d/rawls/blob/master/docs/source/rawls/rawls.classes.accelerator.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -172,8 +172,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-rawls.classes.vector">
-<span id="rawls-classes-vector"></span><h1>rawls.classes.vector<a class="headerlink" href="#module-rawls.classes.vector" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-rawls.classes.accelerator">
+<span id="rawls-classes-accelerator"></span><h1>rawls.classes.accelerator<a class="headerlink" href="#module-rawls.classes.accelerator" title="Permalink to this headline">¶</a></h1>
 <p class="rubric">Classes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -181,31 +181,39 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.vector.Vector3f" title="rawls.classes.vector.Vector3f"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vector3f</span></code></a>(x,&nbsp;y,&nbsp;z)</td>
-<td>3D vector representation</td>
+<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.accelerator.Accelerator" title="rawls.classes.accelerator.Accelerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Accelerator</span></code></a>(name,&nbsp;params)</td>
+<td>Accelerator class which store Accelerator information</td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
-<dt id="rawls.classes.vector.Vector3f">
-<em class="property">class </em><code class="descclassname">rawls.classes.vector.</code><code class="descname">Vector3f</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/vector.html#Vector3f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.vector.Vector3f" title="Permalink to this definition">¶</a></dt>
-<dd><p>3D vector representation</p>
+<dt id="rawls.classes.accelerator.Accelerator">
+<em class="property">class </em><code class="descclassname">rawls.classes.accelerator.</code><code class="descname">Accelerator</code><span class="sig-paren">(</span><em>name</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/accelerator.html#Accelerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.accelerator.Accelerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accelerator class which store Accelerator information</p>
 <dl class="attribute">
-<dt id="rawls.classes.vector.Vector3f.x">
-<code class="descname">x</code><a class="headerlink" href="#rawls.classes.vector.Vector3f.x" title="Permalink to this definition">¶</a></dt>
-<dd><p>{float} – x axis value</p>
+<dt id="rawls.classes.accelerator.Accelerator.name">
+<code class="descname">name</code><a class="headerlink" href="#rawls.classes.accelerator.Accelerator.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>{str} – name of the accelerator</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rawls.classes.vector.Vector3f.y">
-<code class="descname">y</code><a class="headerlink" href="#rawls.classes.vector.Vector3f.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>{float} – y axis value</p>
+<dt id="rawls.classes.accelerator.Accelerator.params">
+<code class="descname">params</code><a class="headerlink" href="#rawls.classes.accelerator.Accelerator.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>{str} – parameters of accelerator used</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="rawls.classes.vector.Vector3f.z">
-<code class="descname">z</code><a class="headerlink" href="#rawls.classes.vector.Vector3f.z" title="Permalink to this definition">¶</a></dt>
-<dd><p>{float} – z axis value</p>
+<dl class="method">
+<dt id="rawls.classes.accelerator.Accelerator.to_rawls">
+<code class="descname">to_rawls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/accelerator.html#Accelerator.to_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.accelerator.Accelerator.to_rawls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Accelerator information for .rawls file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{str} – accelerator information for .rawls file</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -220,10 +228,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="rawls.classes.integrator.html" class="btn btn-neutral float-right" title="rawls.classes.integrator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rawls.classes.lookAt.html" class="btn btn-neutral" title="rawls.classes.lookAt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rawls.classes.camera.html" class="btn btn-neutral" title="rawls.classes.camera" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

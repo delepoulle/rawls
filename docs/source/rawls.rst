@@ -18,8 +18,10 @@ rawls.classes
 
    rawls.classes.rawls
    rawls.classes.details
+   rawls.classes.filter
    rawls.classes.resolution
    rawls.classes.camera
+   rawls.classes.accelerator
    rawls.classes.integrator
    rawls.classes.sampler
    rawls.classes.lookAt
