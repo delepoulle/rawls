@@ -27,3 +27,13 @@ class LookAt():
         """
         return 'LookAt: (eye: {0}, point: {1}, up: {2})'.format(
             self.eye, self.point, self.up)
+
+    def to_rawls(self):
+        """Display LookAt information for .rawls file
+        
+        Returns:
+            {str} -- LookAt information for .rawls file
+        """
+        return "#LookAt {0} {1} {2}  {3} {4} {5}  {6} {7} {8}".format(
+            self.eye.x, self.eye.y, self.eye.z, self.point.x, self.point.y,
+            self.point.z, self.up.x, self.up.y, self.up.z)

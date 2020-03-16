@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="rawls.classes.renderer" href="rawls.classes.renderer.html" />
+    <link rel="next" title="rawls.classes.details" href="rawls.classes.details.html" />
     <link rel="prev" title="rawls.merger" href="rawls.merger.html" /> 
 
   
@@ -89,7 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../rawls.html#rawls">rawls</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../rawls.html#rawls-classes">rawls.classes</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.classes.rawls</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rawls.classes.renderer.html">rawls.classes.renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.classes.details.html">rawls.classes.details</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.resolution.html">rawls.classes.resolution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.camera.html">rawls.classes.camera</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.integrator.html">rawls.classes.integrator</a></li>
@@ -179,14 +179,14 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.rawls.Rawls" title="rawls.classes.rawls.Rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rawls</span></code></a>(shape,&nbsp;data,&nbsp;renderer)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.rawls.Rawls" title="rawls.classes.rawls.Rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rawls</span></code></a>(shape,&nbsp;data,&nbsp;details)</td>
 <td>Rawls class used to open <cite>.rawls</cite> path image</td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="rawls.classes.rawls.Rawls">
-<em class="property">class </em><code class="descclassname">rawls.classes.rawls.</code><code class="descname">Rawls</code><span class="sig-paren">(</span><em>shape</em>, <em>data</em>, <em>renderer</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/rawls.html#Rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.rawls.Rawls" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rawls.classes.rawls.</code><code class="descname">Rawls</code><span class="sig-paren">(</span><em>shape</em>, <em>data</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/rawls.html#Rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.rawls.Rawls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rawls class used to open <cite>.rawls</cite> path image</p>
 <dl class="attribute">
 <dt id="rawls.classes.rawls.Rawls.shape">
@@ -201,9 +201,30 @@
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rawls.classes.rawls.Rawls.renderer">
-<code class="descname">renderer</code><a class="headerlink" href="#rawls.classes.rawls.Rawls.renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>{Renderer} – renderer instance information</p>
+<dt id="rawls.classes.rawls.Rawls.details">
+<code class="descname">details</code><a class="headerlink" href="#rawls.classes.rawls.Rawls.details" title="Permalink to this definition">¶</a></dt>
+<dd><p>{Details} – details instance information</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rawls.classes.rawls.Rawls.fusion">
+<em class="property">classmethod </em><code class="descname">fusion</code><span class="sig-paren">(</span><em>rawls_image_1</em>, <em>rawls_image_2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/rawls.html#Rawls.fusion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.rawls.Rawls.fusion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fusion two rawls images together based on their number of samples</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rawls</strong> – {Rawls} – first Rawls image to merge</li>
+<li><strong>rawls</strong> – {Rawls} – second Rawls image to merge</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">{Rawls} – Rawls instance</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -237,6 +258,22 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> – {str} – path of the .rawls file to open</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Rawls instance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">{Rawls}</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rawls.classes.rawls.Rawls.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/rawls.html#Rawls.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.rawls.Rawls.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save rawls image into new file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>outfile</strong> – {str} – output <cite>.rawls</cite> filename</td>
 </tr>
 </tbody>
 </table>
@@ -288,7 +325,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rawls.classes.renderer.html" class="btn btn-neutral float-right" title="rawls.classes.renderer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="rawls.classes.details.html" class="btn btn-neutral float-right" title="rawls.classes.details" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="rawls.merger.html" class="btn btn-neutral" title="rawls.merger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

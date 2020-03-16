@@ -38,3 +38,12 @@ class Camera():
         """
         return "Camera: `{0}`, (fov: {1}, focaldistance: {2}, lensradius: {3})".format(
             self.name, self.fov, self.focaldistance, self.lensradius)
+
+    def to_rawls(self):
+        """Display Accelerator information for .rawls file
+        
+        Returns:
+            {str} -- accelerator information for .rawls file
+        """
+        return "#Camera {0}\n\t#params \"float fov\" [{1}] \"float focaldistance\" [{2}] \"float lensradius\" [{3}]".format(
+            self.name, self.fov, self.focaldistance, self.lensradius)

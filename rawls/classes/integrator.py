@@ -24,3 +24,12 @@ class Integrator():
         """
         return "Integrator: `{0}` with max depth {1}".format(
             self.name, self.maxdepth)
+
+    def to_rawls(self):
+        """Display Integrator information for .rawls file
+        
+        Returns:
+            {str} -- Integrator information for .rawls file
+        """
+        return "#Integrator {0}\n\t#params \"integer maxdepth\" [{1}]".format(
+            self.name, self.maxdepth)

@@ -174,7 +174,16 @@
 <span class="sd">            {str} Sampler information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;Sampler: `</span><span class="si">{0}</span><span class="s2">` with </span><span class="si">{1}</span><span class="s2"> samples per pixel&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixelsamples</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixelsamples</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Sampler.to_rawls"><a class="viewcode-back" href="../../../rawls/rawls.classes.sampler.html#rawls.classes.sampler.Sampler.to_rawls">[docs]</a>    <span class="k">def</span> <span class="nf">to_rawls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Display Sampler information for .rawls file</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {str} -- Sampler information for .rawls file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;#Sampler </span><span class="si">{0}</span><span class="se">\n\t</span><span class="s2">#params </span><span class="se">\&quot;</span><span class="s2">integer pixelsamples</span><span class="se">\&quot;</span><span class="s2"> [</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixelsamples</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
