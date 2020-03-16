@@ -17,7 +17,7 @@ rawls.classes
    :toctree: rawls
 
    rawls.classes.rawls
-   rawls.classes.renderer
+   rawls.classes.details
    rawls.classes.resolution
    rawls.classes.camera
    rawls.classes.integrator

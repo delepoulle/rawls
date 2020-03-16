@@ -8,31 +8,42 @@ from .camera import Camera
 from .resolution import Resolution
 from .lookAt import LookAt
 from .vector import Vector3f
+from .filter import Filter
+from .accelerator import Accelerator
 
 
-class Renderer():
-    """Rawls renderer information
+class Details():
+    """Rawls details information
 
     Attributes:
             resolution: {Resolution} -- x and y resolution of image
+            samples: {int} -- number of samples used for generate image
+            pixelfilter: {Filter} -- pixelfilter instance with information
             sampler: {Sampler} -- sampler instance with information
+            accelerator: {Accelerator} -- accelerator instance with information
             integrator: {Integrator} -- integrator instance with information
             camera: {Camera} -- camera instance with information
             lookAt: {LookAt} -- look at instance with eye, point and up vector
     """
 
-    def __init__(self, resolution, samples, sampler, integrator, camera,
-                 lookAt):
-        """Renderer information used to rendering current image
+    def __init__(self, resolution, samples, pixelfilter, sampler, accelerator,
+                 integrator, camera, lookAt):
+        """Details information used to rendering current image
         
         Arguments:
             resolution: {Resolution} -- x and y resolution of image
+            samples: {int} -- number of samples used for generate image
+            pixelfilter: {Filter} -- pixelfilter instance with information
             sampler: {Sampler} -- sampler instance with information
+            accelerator: {Accelerator} -- accelerator instance with information
             integrator: {Integrator} -- integrator instance with information
             camera {Camera} -- camera instance with information
             lookAt {LookAt} -- look at instance with eye, point and up information
         """
+        self.samples = samples
+        self.pixelfilter = pixelfilter
         self.resolution = resolution
+        self.accelerator = accelerator
         self.integrator = integrator
         self.sampler = sampler
         self.camera = camera
@@ -40,13 +51,13 @@ class Renderer():
 
     @classmethod
     def fromcomments(self, comments):
-        """Instanciate Renderer object with all comments information
+        """Instanciate Details object with all comments information
         
         Arguments:
             comments: {str} -- extracted comments data
 
         Returns:
-            {Renderer} -- renderer information instance
+            {Details} -- details information instance
         """
         comments_line = comments.split('\n')
 
@@ -55,22 +66,41 @@ class Renderer():
 
             if 'Film' in line:
                 res = re.findall(r'\[\d*', comments_line[index + 1])
-                del res[-1]  # remove name of outfile
+
+                # only if output filename information is present
+                if len(res) > 2:
+                    del res[-1]  # remove name of outfile
+
                 resolution = [int(r.replace('[', '')) for r in res]
                 resolution = Resolution(resolution[0], resolution[1])
 
             if 'Samples' in line:
                 samples = int(line.split(' ')[-1])
 
+            if 'Filter' in line:
+                if len(line.split(' ')) < 2:
+                    filter_name = line.split(' ')[-1]
+                    filter_params = comments_line[index + 1].split(' ')[-1]
+                    pixelfilter = Filter(filter_name, filter_params)
+                else:
+                    pixelfilter = Filter('', '')
+
             if 'Sampler' in line:
                 sampler_name = line.split(' ')[-1]
 
-                if samples is None:
-                    res = re.findall(r'\[\d*', comments_line[index + 1])
-                    pixelsamples = int(res[0].replace('[', ''))
-                    sampler = Sampler(sampler_name, pixelsamples)
+                res = re.findall(r'\[\d*', comments_line[index + 1])
+                pixelsamples = int(res[0].replace('[', ''))
+                sampler = Sampler(sampler_name, pixelsamples)
+
+            if 'Accelerator' in line:
+                if len(line.split(' ')) < 2:
+                    accelerator_name = line.split(' ')[-1]
+                    accelerator_params = comments_line[index +
+                                                       1].split(' ')[-1]
+                    accelerator = Accelerator(accelerator_name,
+                                              accelerator_params)
                 else:
-                    sampler = Sampler(sampler_name, samples)
+                    accelerator = Accelerator('', '')
 
             if 'Integrator' in line:
                 integrator_name = line.split(' ')[-1]
@@ -101,15 +131,27 @@ class Renderer():
 
                 lookAt = LookAt(eye, point, up)
 
-        return Renderer(resolution, samples, sampler, integrator, camera,
-                        lookAt)
+        return Details(resolution, samples, pixelfilter, sampler, accelerator,
+                       integrator, camera, lookAt)
 
     def __str__(self):
-        """Display Renderer object representation
+        """Display Details object representation
         
         Returns:
-            {str} -- renderer information
+            {str} -- details information
         """
-        return '{0}\n{1}\n{2}\n{3}\n{4}'.format(self.resolution, self.sampler,
-                                                self.integrator, self.camera,
-                                                self.lookAt)
+        return 'Samples {0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}'.format(
+            self.samples, self.pixelfilter, self.resolution, self.sampler,
+            self.accelerator, self.integrator, self.camera, self.lookAt)
+
+    def to_rawls(self):
+        """Display Details information for .rawls file
+        
+        Returns:
+            {str} -- details information for .rawls file
+        """
+        return '#Samples {0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}'.format(
+            self.samples, self.pixelfilter.to_rawls(),
+            self.resolution.to_rawls(), self.sampler.to_rawls(),
+            self.accelerator.to_rawls(), self.integrator.to_rawls(),
+            self.camera.to_rawls(), self.lookAt.to_rawls())

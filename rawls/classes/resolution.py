@@ -23,3 +23,12 @@ class Resolution():
             {str} -- Resolution information
         """
         return "Resolution: {0} x {1}".format(self.x, self.y)
+
+    def to_rawls(self):
+        """Display Film information for .rawls file
+        
+        Returns:
+            {str} -- Film information for .rawls file
+        """
+        return "#Film image\n\t#params \"integer xresolution\" [{0}] \"integer yresolution\" [{1}]".format(
+            self.x, self.y)

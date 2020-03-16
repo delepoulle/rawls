@@ -2,9 +2,10 @@
 import math
 import numpy as np
 import struct
+import copy
 
 # package imports
-from .renderer import Renderer
+from .details import Details
 
 from ..converter import rawls_to_png, rawls_to_pil
 
@@ -15,13 +16,13 @@ class Rawls():
     Attributes:
         shape: {(int, int, int)} -- describe shape of the image
         data: {ndrray} -- buffer data numpy array
-        renderer: {Renderer} -- renderer instance information
+        details: {Details} -- details instance information
     """
 
-    def __init__(self, shape, data, renderer):
+    def __init__(self, shape, data, details):
         self.shape = shape
         self.data = data
-        self.renderer = renderer
+        self.details = details
 
     @classmethod
     def load(self, filepath):
@@ -31,7 +32,7 @@ class Rawls():
             filepath: {str} -- path of the .rawls file to open
 
         Returns:
-            Rawls instance
+            {Rawls} : Rawls instance
         """
 
         if '.rawls' not in filepath:
@@ -113,9 +114,9 @@ class Rawls():
 
         f.close()
 
-        renderer = Renderer.fromcomments(comments)
+        details = Details.fromcomments(comments)
 
-        return Rawls(data.shape, data, renderer)
+        return Rawls(data.shape, data, details)
 
     def __clamp(self, n, smallest, largest):
         """Clamp number using two numbers
@@ -173,6 +174,38 @@ class Rawls():
 
         return output
 
+    def save(self, outfile):
+        """Save rawls image into new file
+        
+        Arguments:
+            outfile: {str} -- output `.rawls` filename
+        """
+
+        h, w, c = self.shape
+        f = open(outfile, 'wb')
+
+        f.write(b'IHDR\n')
+        f.write(bytes(str(self.data.ndim) * 4, 'utf-8') + b'\n')
+        f.write(
+            struct.pack('i', w) + b' ' + struct.pack('i', h) + b' ' +
+            struct.pack('i', c) + b'\n')
+
+        f.write(b'COMMENTS\n')
+        f.write(bytes(self.details.to_rawls() + '\n', 'utf-8'))
+
+        f.write(b'DATA\n')
+        # integer is based on 4 bytes
+        f.write(struct.pack('i', h * w * c * 4) + b'\n')
+
+        for i in range(h):
+            for j in range(w):
+
+                for k in range(c):
+                    f.write(struct.pack('f', self.data[i][j][k]))
+                f.write(b'\n')
+
+        f.close()
+
     def to_pil(self):
         """Convert current rawls image into PIL RGB Image
         
@@ -198,3 +231,39 @@ class Rawls():
         """Flip vectically current Rawls instance 
         """
         self.data = np.flip(self.data, axis=0)
+
+    @classmethod
+    def fusion(self, rawls_image_1, rawls_image_2):
+        """Fusion two rawls images together based on their number of samples
+        
+        Arguments:
+            rawls: {Rawls} -- first Rawls image to merge
+            rawls: {Rawls} -- second Rawls image to merge
+
+        Returns:
+            {Rawls} -- Rawls instance
+        """
+
+        if not isinstance(rawls_image_1, Rawls):
+            raise Exception("`rawls_image_1` parameter is not of Rawls type")
+
+        if not isinstance(rawls_image_2, Rawls):
+            raise Exception("`rawls_image_2` parameter is not of Rawls type")
+
+        # compute merge between two `Rawls` instances
+        total_samples = float(rawls_image_1.details.samples +
+                              rawls_image_2.details.samples)
+
+        image_1_percent = rawls_image_1.details.samples / total_samples
+        image_2_percent = rawls_image_2.details.samples / total_samples
+
+        buffer_image_1 = rawls_image_1.data * image_1_percent
+        buffer_image_2 = rawls_image_2.data * image_2_percent
+
+        output_buffer = np.add(buffer_image_1, buffer_image_2)
+
+        # update details informations (here samples used)
+        details = copy.deepcopy(rawls_image_1.details)
+        details.samples = int(total_samples)
+
+        return Rawls(output_buffer.shape, output_buffer, details)

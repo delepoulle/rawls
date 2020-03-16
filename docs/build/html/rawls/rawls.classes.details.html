@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.classes.renderer &mdash; rawls v0.0.4 documentation</title>
+  <title>rawls.classes.details &mdash; rawls v0.0.4 documentation</title>
   
 
   
@@ -89,7 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../rawls.html#rawls">rawls</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../rawls.html#rawls-classes">rawls.classes</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.rawls.html">rawls.classes.rawls</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.classes.renderer</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.classes.details</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.resolution.html">rawls.classes.resolution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.camera.html">rawls.classes.camera</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.classes.integrator.html">rawls.classes.integrator</a></li>
@@ -149,14 +149,14 @@
         
           <li><a href="../rawls.html">Documentation</a> &raquo;</li>
         
-      <li>rawls.classes.renderer</li>
+      <li>rawls.classes.details</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
             
-              <a href="https://github.com/prise-3d/rawls/blob/master/docs/source/rawls/rawls.classes.renderer.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/prise-3d/rawls/blob/master/docs/source/rawls/rawls.classes.details.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -170,8 +170,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-rawls.classes.renderer">
-<span id="rawls-classes-renderer"></span><h1>rawls.classes.renderer<a class="headerlink" href="#module-rawls.classes.renderer" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-rawls.classes.details">
+<span id="rawls-classes-details"></span><h1>rawls.classes.details<a class="headerlink" href="#module-rawls.classes.details" title="Permalink to this headline">¶</a></h1>
 <p class="rubric">Classes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -179,56 +179,88 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.renderer.Renderer" title="rawls.classes.renderer.Renderer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Renderer</span></code></a>(resolution,&nbsp;samples,&nbsp;sampler,&nbsp;…)</td>
-<td>Rawls renderer information</td>
+<tr class="row-odd"><td><a class="reference internal" href="#rawls.classes.details.Details" title="rawls.classes.details.Details"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Details</span></code></a>(resolution,&nbsp;samples,&nbsp;pixelfilter,&nbsp;…)</td>
+<td>Rawls details information</td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
-<dt id="rawls.classes.renderer.Renderer">
-<em class="property">class </em><code class="descclassname">rawls.classes.renderer.</code><code class="descname">Renderer</code><span class="sig-paren">(</span><em>resolution</em>, <em>samples</em>, <em>sampler</em>, <em>integrator</em>, <em>camera</em>, <em>lookAt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/renderer.html#Renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.renderer.Renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rawls renderer information</p>
+<dt id="rawls.classes.details.Details">
+<em class="property">class </em><code class="descclassname">rawls.classes.details.</code><code class="descname">Details</code><span class="sig-paren">(</span><em>resolution</em>, <em>samples</em>, <em>pixelfilter</em>, <em>sampler</em>, <em>accelerator</em>, <em>integrator</em>, <em>camera</em>, <em>lookAt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/details.html#Details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.details.Details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rawls details information</p>
 <dl class="attribute">
-<dt id="rawls.classes.renderer.Renderer.resolution">
-<code class="descname">resolution</code><a class="headerlink" href="#rawls.classes.renderer.Renderer.resolution" title="Permalink to this definition">¶</a></dt>
+<dt id="rawls.classes.details.Details.resolution">
+<code class="descname">resolution</code><a class="headerlink" href="#rawls.classes.details.Details.resolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Resolution} – x and y resolution of image</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rawls.classes.renderer.Renderer.sampler">
-<code class="descname">sampler</code><a class="headerlink" href="#rawls.classes.renderer.Renderer.sampler" title="Permalink to this definition">¶</a></dt>
+<dt id="rawls.classes.details.Details.samples">
+<code class="descname">samples</code><a class="headerlink" href="#rawls.classes.details.Details.samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>{int} – number of samples used for generate image</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.classes.details.Details.pixelfilter">
+<code class="descname">pixelfilter</code><a class="headerlink" href="#rawls.classes.details.Details.pixelfilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>{Filter} – pixelfilter instance with information</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.classes.details.Details.sampler">
+<code class="descname">sampler</code><a class="headerlink" href="#rawls.classes.details.Details.sampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Sampler} – sampler instance with information</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rawls.classes.renderer.Renderer.integrator">
-<code class="descname">integrator</code><a class="headerlink" href="#rawls.classes.renderer.Renderer.integrator" title="Permalink to this definition">¶</a></dt>
+<dt id="rawls.classes.details.Details.accelerator">
+<code class="descname">accelerator</code><a class="headerlink" href="#rawls.classes.details.Details.accelerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>{Accelerator} – accelerator instance with information</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.classes.details.Details.integrator">
+<code class="descname">integrator</code><a class="headerlink" href="#rawls.classes.details.Details.integrator" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Integrator} – integrator instance with information</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rawls.classes.renderer.Renderer.camera">
-<code class="descname">camera</code><a class="headerlink" href="#rawls.classes.renderer.Renderer.camera" title="Permalink to this definition">¶</a></dt>
+<dt id="rawls.classes.details.Details.camera">
+<code class="descname">camera</code><a class="headerlink" href="#rawls.classes.details.Details.camera" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Camera} – camera instance with information</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rawls.classes.renderer.Renderer.lookAt">
-<code class="descname">lookAt</code><a class="headerlink" href="#rawls.classes.renderer.Renderer.lookAt" title="Permalink to this definition">¶</a></dt>
+<dt id="rawls.classes.details.Details.lookAt">
+<code class="descname">lookAt</code><a class="headerlink" href="#rawls.classes.details.Details.lookAt" title="Permalink to this definition">¶</a></dt>
 <dd><p>{LookAt} – look at instance with eye, point and up vector</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="rawls.classes.renderer.Renderer.fromcomments">
-<em class="property">classmethod </em><code class="descname">fromcomments</code><span class="sig-paren">(</span><em>comments</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/renderer.html#Renderer.fromcomments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.renderer.Renderer.fromcomments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Instanciate Renderer object with all comments information</p>
+<dt id="rawls.classes.details.Details.fromcomments">
+<em class="property">classmethod </em><code class="descname">fromcomments</code><span class="sig-paren">(</span><em>comments</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/details.html#Details.fromcomments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.details.Details.fromcomments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instanciate Details object with all comments information</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>comments</strong> – {str} – extracted comments data</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Renderer} – renderer information instance</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Details} – details information instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rawls.classes.details.Details.to_rawls">
+<code class="descname">to_rawls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/classes/details.html#Details.to_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.classes.details.Details.to_rawls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Details information for .rawls file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{str} – details information for .rawls file</td>
 </tr>
 </tbody>
 </table>

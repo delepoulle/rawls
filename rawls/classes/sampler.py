@@ -24,3 +24,12 @@ class Sampler():
         """
         return "Sampler: `{0}` with {1} samples per pixel".format(
             self.name, self.pixelsamples)
+
+    def to_rawls(self):
+        """Display Sampler information for .rawls file
+        
+        Returns:
+            {str} -- Sampler information for .rawls file
+        """
+        return "#Sampler {0}\n\t#params \"integer pixelsamples\" [{1}]".format(
+            self.name, self.pixelsamples)

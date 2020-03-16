@@ -64,7 +64,7 @@ def merge_mean_rawls(filepaths):
 
     # construct output data
     return Rawls(merged_values_mean.shape, merged_values_mean,
-                 rawls_images[0].renderer)
+                 rawls_images[0].details)
 
 
 def merge_mean_rawls_to_pil(filepaths):
@@ -124,7 +124,7 @@ def merge_var_rawls(filepaths):
 
     # construct output data
     return Rawls(merged_values_var.shape, merged_values_var,
-                 rawls_images[0].renderer)
+                 rawls_images[0].details)
 
 
 def merge_var_rawls_to_pil(filepaths):
@@ -184,7 +184,7 @@ def merge_skew_rawls(filepaths):
 
     # construct output data
     return Rawls(merged_values_skew.shape, merged_values_skew,
-                 rawls_images[0].renderer)
+                 rawls_images[0].details)
 
 
 def merge_kurtosis_rawls(filepaths):
@@ -221,7 +221,7 @@ def merge_kurtosis_rawls(filepaths):
 
     # construct output data
     return Rawls(merged_values_kurtosis.shape, merged_values_kurtosis,
-                 rawls_images[0].renderer)
+                 rawls_images[0].details)
 
 
 def merge_skew_norm_rawls(filepaths):
