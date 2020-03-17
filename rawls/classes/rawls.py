@@ -210,7 +210,7 @@ class Rawls():
             f = open(outfile, 'wb')
 
             f.write(b'IHDR\n')
-            f.write(bytes(str(self.data.ndim) * 4, 'utf-8') + b'\n')
+            f.write(bytes(str(self.data.ndim * 4), 'utf-8') + b'\n')
             f.write(
                 struct.pack('i', w) + b' ' + struct.pack('i', h) + b' ' +
                 struct.pack('i', c) + b'\n')
