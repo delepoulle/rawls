@@ -12,6 +12,7 @@ from ..converter import rawls_to_png, rawls_to_pil
 
 extensions = ['png', 'rawls']
 
+
 class Rawls():
     """Rawls class used to open `.rawls` path image
 
@@ -187,7 +188,8 @@ class Rawls():
         extension = outfile.split('.')[-1]
 
         if extension not in extensions:
-            raise Exception("Can't save image using `" + extension + "` extension..")
+            raise Exception("Can't save image using `" + extension +
+                            "` extension..")
 
         # check if necessary to construct output folder
         folder_path = outfile.split('/')
@@ -228,7 +230,7 @@ class Rawls():
                     f.write(b'\n')
 
             f.close()
-        
+
         elif extension == 'png':
             self.to_png(outfile)
 
@@ -257,6 +259,14 @@ class Rawls():
         """Flip vectically current Rawls instance 
         """
         self.data = np.flip(self.data, axis=0)
+
+    def copy(self):
+        """Copy current Rawls instance
+        
+        Returns:
+            {Rawls} -- Rawls copy of current instance
+        """
+        return copy.deepcopy(self)
 
     @classmethod
     def fusion(self, rawls_image_1, rawls_image_2):
