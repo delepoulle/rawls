@@ -3,12 +3,14 @@ import math
 import numpy as np
 import struct
 import copy
+import os
 
 # package imports
 from .details import Details
 
 from ..converter import rawls_to_png, rawls_to_pil
 
+extensions = ['png', 'rawls']
 
 class Rawls():
     """Rawls class used to open `.rawls` path image
@@ -178,33 +180,57 @@ class Rawls():
         """Save rawls image into new file
         
         Arguments:
-            outfile: {str} -- output `.rawls` filename
+            outfile: {str} -- output filename (rawls or png)
         """
 
-        h, w, c = self.shape
-        f = open(outfile, 'wb')
+        # check if expected extension can be managed
+        extension = outfile.split('.')[-1]
 
-        f.write(b'IHDR\n')
-        f.write(bytes(str(self.data.ndim) * 4, 'utf-8') + b'\n')
-        f.write(
-            struct.pack('i', w) + b' ' + struct.pack('i', h) + b' ' +
-            struct.pack('i', c) + b'\n')
+        if extension not in extensions:
+            raise Exception("Can't save image using `" + extension + "` extension..")
 
-        f.write(b'COMMENTS\n')
-        f.write(bytes(self.details.to_rawls() + '\n', 'utf-8'))
+        # check if necessary to construct output folder
+        folder_path = outfile.split('/')
 
-        f.write(b'DATA\n')
-        # integer is based on 4 bytes
-        f.write(struct.pack('i', h * w * c * 4) + b'\n')
+        if len(folder_path) > 1:
+            del folder_path[-1]
 
-        for i in range(h):
-            for j in range(w):
+            output_path = ''
+            for folder in folder_path:
+                output_path = os.path.join(output_path, folder)
 
-                for k in range(c):
-                    f.write(struct.pack('f', self.data[i][j][k]))
-                f.write(b'\n')
+            if not os.path.exists(output_path):
+                os.makedirs(output_path)
 
-        f.close()
+        # save image using specific extension
+        if extension == 'rawls':
+            h, w, c = self.shape
+            f = open(outfile, 'wb')
+
+            f.write(b'IHDR\n')
+            f.write(bytes(str(self.data.ndim) * 4, 'utf-8') + b'\n')
+            f.write(
+                struct.pack('i', w) + b' ' + struct.pack('i', h) + b' ' +
+                struct.pack('i', c) + b'\n')
+
+            f.write(b'COMMENTS\n')
+            f.write(bytes(self.details.to_rawls() + '\n', 'utf-8'))
+
+            f.write(b'DATA\n')
+            # integer is based on 4 bytes
+            f.write(struct.pack('i', h * w * c * 4) + b'\n')
+
+            for i in range(h):
+                for j in range(w):
+
+                    for k in range(c):
+                        f.write(struct.pack('f', self.data[i][j][k]))
+                    f.write(b'\n')
+
+            f.close()
+        
+        elif extension == 'png':
+            self.to_png(outfile)
 
     def to_pil(self):
         """Convert current rawls image into PIL RGB Image
