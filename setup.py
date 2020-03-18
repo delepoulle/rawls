@@ -27,7 +27,7 @@ class BuildTestCommand(setuptools.command.build_py.build_py):
 
 setup(
     name='rawls',
-    version='0.1.0',
+    version='0.1.1',
     description='RAW Light Simulation file reader/converter package',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',

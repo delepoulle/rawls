@@ -151,6 +151,66 @@ def merge_var_rawls_to_png(filepaths, outfile):
     return rawls_to_png(merged_image, outfile)
 
 
+def merge_std_rawls(filepaths):
+    """Merge std `.rawls` samples images from list of files
+    
+    Arguments:
+        filepaths: {[str]} -- image filepaths list
+    
+    Returns:
+        {Rawls} -- new rawls object with std data of rawls files
+    """
+
+    # read rawls
+    rawls_images = []
+
+    _check_file_paths(filepaths)
+
+    for filepath in filepaths:
+        rawls_images.append(Rawls.load(filepath))
+
+    # getting and check shapes of images
+    shapes = []
+
+    for img in rawls_images:
+        shapes.append(img.shape)
+
+    if not shapes[1:] == shapes[:-1]:
+        raise Exception('Input rawls images do not have same shapes')
+
+    # compute merge std values
+    merged_values = np.array([img.data for img in rawls_images])
+    merged_values_var = np.std(merged_values, axis=0)
+
+    # construct output data
+    return Rawls(merged_values_var.shape, merged_values_var,
+                 rawls_images[0].details)
+
+
+def merge_std_rawls_to_pil(filepaths):
+    """Return std merged image into RGB PIL
+    
+    Arguments:
+        filepaths: {[str]} -- image filepaths list
+    
+    Returns:
+        {PIL} -- RGB PIL std merged image
+    """
+    merged_image = merge_std_rawls(filepaths)
+    return rawls_to_pil(merged_image)
+
+
+def merge_std_rawls_to_png(filepaths, outfile):
+    """Save std merged image into PNG
+    
+    Arguments:
+        filepaths: {[str]} -- image filepaths list
+        outfile: {str} -- output path of the .png image to save
+    """
+    merged_image = merge_std_rawls(filepaths)
+    return rawls_to_png(merged_image, outfile)
+
+
 def merge_skew_rawls(filepaths):
     """Merge skew `.rawls` samples images from list of files
     
