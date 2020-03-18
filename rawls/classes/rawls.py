@@ -26,6 +26,7 @@ class Rawls():
         self.shape = shape
         self.data = data
         self.details = details
+        self.gamma_converted = False
 
     @classmethod
     def load(self, filepath):
@@ -166,16 +167,16 @@ class Rawls():
             {ndarray} -- image buffer with converted gamma values
         """
 
-        height, width, chanels = self.shape
+        if not self.gamma_converted:
+            height, width, chanels = self.shape
 
-        output = np.empty((height, width, chanels))
+            for y in range(height):
+                for x in range(width):
+                    for c in range(chanels):
+                        self.data[y][x][c] = self.__gamma_convert(
+                            self.data[y][x][c])
 
-        for y in range(height):
-            for x in range(width):
-                for c in range(chanels):
-                    output[y][x][c] = self.__gamma_convert(self.data[y][x][c])
-
-        return output
+            self.gamma_converted = True
 
     def save(self, outfile):
         """Save rawls image into new file

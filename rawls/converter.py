@@ -25,9 +25,9 @@ def rawls_to_pil(rawls_img):
     >>> np.array(rawls_pil_img).shape
     (100, 100, 3)
     """
-    gamma_converted = rawls_img.gammaConvert()
+    rawls_img.gammaConvert()  # convert image to gamma if necessary
 
-    return Image.fromarray(np.array(gamma_converted, 'uint8'))
+    return Image.fromarray(np.array(rawls_img.data, 'uint8'))
 
 
 def rawls_to_png(rawls_img, outfile):

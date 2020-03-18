@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.converter &mdash; rawls v0.0.9 documentation</title>
+  <title>rawls.converter &mdash; rawls v0.1.1 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.1.1
               </div>
             
           
@@ -176,9 +176,9 @@
 <span class="sd">    &gt;&gt;&gt; np.array(rawls_pil_img).shape</span>
 <span class="sd">    (100, 100, 3)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">gamma_converted</span> <span class="o">=</span> <span class="n">rawls_img</span><span class="o">.</span><span class="n">gammaConvert</span><span class="p">()</span>
+    <span class="n">rawls_img</span><span class="o">.</span><span class="n">gammaConvert</span><span class="p">()</span>  <span class="c1"># convert image to gamma if necessary</span>
 
-    <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gamma_converted</span><span class="p">,</span> <span class="s1">&#39;uint8&#39;</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rawls_img</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;uint8&#39;</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="rawls_to_png"><a class="viewcode-back" href="../../rawls/rawls.converter.html#rawls.converter.rawls_to_png">[docs]</a><span class="k">def</span> <span class="nf">rawls_to_png</span><span class="p">(</span><span class="n">rawls_img</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
