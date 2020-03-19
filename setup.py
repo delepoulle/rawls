@@ -10,24 +10,26 @@ class BuildTestCommand(setuptools.command.build_py.build_py):
         import doctest
         
         # filters folder
-        from rawls import classes
-        from rawls import converter
-        from rawls import merger
+        from rawls import scene
+        from rawls import rawls
+        from rawls import stats
+        from rawls import utils
 
         print("==============================")
         print("Runs test command...")
 
         # pass test using doctest
-        doctest.testmod(classes)
-        doctest.testmod(converter)
-        doctest.testmod(merger)
+        doctest.testmod(scene)
+        doctest.testmod(rawls)
+        doctest.testmod(stats)
+        doctest.testmod(utils)
 
         setuptools.command.build_py.build_py.run(self)
 
 
 setup(
     name='rawls',
-    version='0.1.1',
+    version='0.1.2',
     description='RAW Light Simulation file reader/converter package',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
@@ -42,7 +44,7 @@ setup(
     author='Jérôme BUISINE',
     author_email='jerome.buisine@univ-littoral.fr',
     license='MIT',
-    packages=['rawls', 'rawls.classes'],
+    packages=['rawls', 'rawls.scene'],
     install_requires=[
         'numpy',
         'Pillow',

@@ -7,22 +7,22 @@ rawls
 .. autosummary::
    :toctree: rawls
 
-   rawls.converter
-   rawls.merger
+   rawls.rawls
+   rawls.stats
+   rawls.utils
 
-rawls.classes
+rawls.scene
 -------------------
 
 .. autosummary::
    :toctree: rawls
 
-   rawls.classes.rawls
-   rawls.classes.details
-   rawls.classes.filter
-   rawls.classes.resolution
-   rawls.classes.camera
-   rawls.classes.accelerator
-   rawls.classes.integrator
-   rawls.classes.sampler
-   rawls.classes.lookAt
-   rawls.classes.vector
+   rawls.scene.details
+   rawls.scene.filter
+   rawls.scene.resolution
+   rawls.scene.camera
+   rawls.scene.accelerator
+   rawls.scene.integrator
+   rawls.scene.sampler
+   rawls.scene.lookAt
+   rawls.scene.vector

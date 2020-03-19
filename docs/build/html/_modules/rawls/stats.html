@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rawls.stats &mdash; rawls v0.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> rawls
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../description.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rawls.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">rawls</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>rawls.stats</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for rawls.stats</h1><div class="highlight"><pre>
+<span></span><span class="c1"># main imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># stats import</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">skew</span><span class="p">,</span> <span class="n">kurtosis</span>
+
+<span class="c1"># modules imports</span>
+<span class="kn">from</span> <span class="nn">.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">check_file_paths</span>
+
+
+<div class="viewcode-block" id="RawlsStats"><a class="viewcode-back" href="../../rawls/rawls.stats.html#rawls.stats.RawlsStats">[docs]</a><span class="k">class</span> <span class="nc">RawlsStats</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;RawlsStats class which enables statistics other multiples Rawls instance</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        data: {ndrray} -- merged buffer data numpy array with higher dimension of all Rawls instance</span>
+<span class="sd">        nelements: {int} -- number Rawls instance used</span>
+<span class="sd">        details: {Details} -- details instance information</span>
+<span class="sd">        mean_samples_per_elements: {float} -- statistic which gives mean number of samples used (if Rawls images do not have same number of samples)</span>
+<span class="sd">        expected_shape: {(int, int, int)} -- describe expected shape of an Rawls image element</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rawls_images</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Init RawlsStats instance using list of Rawls instances</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            rawls_images {[Rawls]} -- list of Rawls instances</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: Input format expection, unvalid input shape</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">shapes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">:</span>
+            <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">shapes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">shapes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Input rawls images do not have same shapes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># create array with higher dimension</span>
+        <span class="n">merged_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">img</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">])</span>
+
+        <span class="c1"># get total number of samples used</span>
+        <span class="n">total_samples</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">img</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">samples</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_images</span><span class="p">])</span>
+
+        <span class="c1"># details based on first element</span>
+        <span class="n">merged_details</span> <span class="o">=</span> <span class="n">rawls_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">details</span>
+        <span class="n">merged_details</span><span class="o">.</span><span class="n">samples</span> <span class="o">=</span> <span class="n">total_samples</span>
+
+        <span class="c1"># set instance attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">merged_values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nelements</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rawls_images</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">merged_details</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_samples_per_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">samples</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">nelements</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<div class="viewcode-block" id="RawlsStats.load"><a class="viewcode-back" href="../../rawls/rawls.stats.html#rawls.stats.RawlsStats.load">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepaths</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;load data from rawls files</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            filepath: {[str]} -- list of paths of .rawls files</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            {RawlsStats} : RawlsStats instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># check if given paths are corrects</span>
+        <span class="n">check_file_paths</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+
+        <span class="c1"># read rawls</span>
+        <span class="n">rawls_images</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+            <span class="n">rawls_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+
+        <span class="c1"># build</span>
+        <span class="k">return</span> <span class="n">RawlsStats</span><span class="p">(</span><span class="n">rawls_images</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rawls_img</span><span class="p">):</span>
+
+        <span class="c1"># check if list and recursively add elements if needed</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rawls_img</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">rawls_img</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># check elements</span>
+            <span class="k">if</span> <span class="n">rawls_img</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                    <span class="s1">&#39;Invalid rawls shape, impossible to add this shape with others elements&#39;</span>
+                <span class="p">)</span>
+
+            <span class="n">rawls_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">rawls_img</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># append data to current elements</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">rawls_data</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># update others data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">samples</span> <span class="o">+=</span> <span class="n">rawls_img</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">samples</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nelements</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mean_samples_per_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">samples</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">nelements</span>
+
+<div class="viewcode-block" id="RawlsStats.mean"><a class="viewcode-back" href="../../rawls/rawls.stats.html#rawls.stats.RawlsStats.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute mean on `.rawls` samples</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {Rawls} -- new rawls object with mean data of rawls files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">mean_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span><span class="p">,</span> <span class="n">mean_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RawlsStats.var"><a class="viewcode-back" href="../../rawls/rawls.stats.html#rawls.stats.RawlsStats.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute variance on `.rawls` samples</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {Rawls} -- new rawls object with variance data of rawls files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">var_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span><span class="p">,</span> <span class="n">var_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RawlsStats.std"><a class="viewcode-back" href="../../rawls/rawls.stats.html#rawls.stats.RawlsStats.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute std on `.rawls` samples</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {Rawls} -- new rawls object with std data of rawls files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">std_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span><span class="p">,</span> <span class="n">std_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RawlsStats.skew"><a class="viewcode-back" href="../../rawls/rawls.stats.html#rawls.stats.RawlsStats.skew">[docs]</a>    <span class="k">def</span> <span class="nf">skew</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute skewness on `.rawls` samples</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {Rawls} -- new rawls object with skewness data of rawls files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">skew_values</span> <span class="o">=</span> <span class="n">skew</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span><span class="p">,</span> <span class="n">skew_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RawlsStats.kurtosis"><a class="viewcode-back" href="../../rawls/rawls.stats.html#rawls.stats.RawlsStats.kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute kurtosis on `.rawls` samples</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {Rawls} -- new rawls object with kurtosis data of rawls files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">kurtosis_values</span> <span class="o">=</span> <span class="n">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span><span class="p">,</span> <span class="n">kurtosis_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Display RawlsStats information</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {str} RawlsStats information</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;--------------------------------------------------------</span><span class="se">\n</span><span class="s2">nelements: </span><span class="se">\n\t</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">Details: </span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">Mean samples per element: </span><span class="se">\n\t</span><span class="si">{2}</span><span class="se">\n</span><span class="s2">Expected shape: </span><span class="se">\n\t</span><span class="si">{3}</span><span class="se">\n</span><span class="s2">--------------------------------------------------------&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nelements</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_samples_per_element</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">expected_shape</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jérôme BUISINE
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

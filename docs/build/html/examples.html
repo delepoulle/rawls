@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples &mdash; rawls v0.1.1 documentation</title>
+  <title>Examples &mdash; rawls v0.1.2 documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributing" href="contributing.html" />
-    <link rel="prev" title="rawls.classes.vector" href="rawls/rawls.classes.vector.html" /> 
+    <link rel="prev" title="rawls.scene.vector" href="rawls/rawls.scene.vector.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -160,15 +160,34 @@
   <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <p>Some examples are already available into documentation. You can find here some others and results of use of <cite>rawls</cite> package.</p>
-<p>All examples below will use this picture.</p>
 <div class="section" id="processing-example">
 <h2>Processing example<a class="headerlink" href="#processing-example" title="Permalink to this headline">¶</a></h2>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.classes.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;images/example.rawls&#39;</span>
+<p>Read and save rawls file:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;images/example_1.rawls&#39;</span>
 <span class="n">rawls_img</span> <span class="o">=</span> <span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">rawls_img</span><span class="o">.</span><span class="n">to_png</span><span class="p">(</span><span class="s1">&#39;output.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<a class="reference internal image-reference" href="_images/output.png"><img alt="_images/output.png" class="align-center" src="_images/output.png" style="width: 120px;" /></a>
+<p>Display Rawls information:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;images/example_1.rawls&#39;</span>
+<span class="n">rawls_img</span> <span class="o">=</span> <span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rawls_img</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/display.png"><img alt="_images/display.png" class="align-center" src="_images/display.png" style="width: 300px;" /></a>
+<p>Extract statistics from rawls samples files:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<span class="kn">from</span> <span class="nn">rawls.stats</span> <span class="k">import</span> <span class="n">RawlsStats</span>
+<span class="n">path_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;images/example_1.rawls&#39;</span><span class="p">,</span> <span class="s1">&#39;images/example_2.rawls&#39;</span><span class="p">]</span>
+<span class="n">rawls_stats</span> <span class="o">=</span> <span class="n">RawlsStats</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path_list</span><span class="p">)</span>
+<span class="n">rawls_mean</span> <span class="o">=</span> <span class="n">rawls_stats</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">rawls_mean</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;output_mean.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/output_mean.png"><img alt="_images/output_mean.png" class="align-center" src="_images/output_mean.png" style="width: 120px;" /></a>
 </div>
 </div>
 
@@ -183,7 +202,7 @@
         <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rawls/rawls.classes.vector.html" class="btn btn-neutral" title="rawls.classes.vector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rawls/rawls.scene.vector.html" class="btn btn-neutral" title="rawls.scene.vector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
