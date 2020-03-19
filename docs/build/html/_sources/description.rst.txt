@@ -22,7 +22,7 @@ To use, simply do :
 
 .. code:: python
     
-    from rawls.classes.rawls import Rawls
+    from rawls.rawls import Rawls
     path = 'images/example.rawls'
     rawls_img = Rawls.load(path)
     rawls_img.to_png('output.png')

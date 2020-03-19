@@ -23,7 +23,7 @@ How to use ?
 To use, simply do :
 
 ```python
-from rawls.classes.rawls import Rawls
+from rawls.rawls import Rawls
 path = 'images/example.rawls'
 rawls_img = Rawls.load(path)
 rawls_img.to_png('output.png')
@@ -34,8 +34,8 @@ Modules
 
 This project contains modules.
 
-- **converter** : *Converter functions in order to convert image into another*
-- **merger** : *Merger functions which enables to merge `.rawls` image files*
+- **Rawls** : *Manage `.rawls` file date*
+- **RawlsStats** : *Enables to merge `.rawls` image files and extract statistics*
 
 All these modules will be enhanced during development of the package. Documentation is available [here](https://prise-3d.github.io/rawls/).
 

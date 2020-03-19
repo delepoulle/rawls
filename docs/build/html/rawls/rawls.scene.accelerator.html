@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rawls.scene.accelerator &mdash; rawls v0.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="rawls.scene.integrator" href="rawls.scene.integrator.html" />
+    <link rel="prev" title="rawls.scene.camera" href="rawls.scene.camera.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> rawls
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../description.html">Description</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../rawls.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rawls.html#rawls">rawls</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../rawls.html#rawls-scene">rawls.scene</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.details.html">rawls.scene.details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.filter.html">rawls.scene.filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.resolution.html">rawls.scene.resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.camera.html">rawls.scene.camera</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.scene.accelerator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.integrator.html">rawls.scene.integrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.sampler.html">rawls.scene.sampler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.lookAt.html">rawls.scene.lookAt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.vector.html">rawls.scene.vector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">rawls</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../rawls.html">Documentation</a> &raquo;</li>
+        
+      <li>rawls.scene.accelerator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/prise-3d/rawls/blob/master/docs/source/rawls/rawls.scene.accelerator.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rawls.scene.accelerator">
+<span id="rawls-scene-accelerator"></span><h1>rawls.scene.accelerator<a class="headerlink" href="#module-rawls.scene.accelerator" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#rawls.scene.accelerator.Accelerator" title="rawls.scene.accelerator.Accelerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Accelerator</span></code></a>(name,&nbsp;params)</td>
+<td>Accelerator class which store Accelerator information</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="rawls.scene.accelerator.Accelerator">
+<em class="property">class </em><code class="descclassname">rawls.scene.accelerator.</code><code class="descname">Accelerator</code><span class="sig-paren">(</span><em>name</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/scene/accelerator.html#Accelerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.scene.accelerator.Accelerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accelerator class which store Accelerator information</p>
+<dl class="attribute">
+<dt id="rawls.scene.accelerator.Accelerator.name">
+<code class="descname">name</code><a class="headerlink" href="#rawls.scene.accelerator.Accelerator.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>{str} – name of the accelerator</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.scene.accelerator.Accelerator.params">
+<code class="descname">params</code><a class="headerlink" href="#rawls.scene.accelerator.Accelerator.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>{str} – parameters of accelerator used</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rawls.scene.accelerator.Accelerator.to_rawls">
+<code class="descname">to_rawls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/scene/accelerator.html#Accelerator.to_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.scene.accelerator.Accelerator.to_rawls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display Accelerator information for .rawls file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{str} – accelerator information for .rawls file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rawls.scene.integrator.html" class="btn btn-neutral float-right" title="rawls.scene.integrator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rawls.scene.camera.html" class="btn btn-neutral" title="rawls.scene.camera" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jérôme BUISINE
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
