@@ -283,7 +283,7 @@ class Rawls():
 
         >>> import numpy as np
         >>> from rawls.rawls import Rawls
-        >>> path = 'images/example.rawls'
+        >>> path = 'images/example_1.rawls'
         >>> rawls_img = Rawls.load(path)
         >>> rawls_pil_img = rawls_img.to_pil()
         >>> np.array(rawls_pil_img).shape

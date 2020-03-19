@@ -20,24 +20,23 @@ pip install rawls
 How to use ?
 ------------
 
-To use, simply do :
-
+To use, simply do:
 ```python
 from rawls.rawls import Rawls
-path = 'images/example.rawls'
+path = 'images/example_1.rawls'
 rawls_img = Rawls.load(path)
-rawls_img.to_png('output.png')
+rawls_img.save('output.png')
 ```
 
-Modules
+Classes
 -------
 
-This project contains modules.
+This project contains usefull classes.
 
 - **Rawls** : *Manage `.rawls` file date*
 - **RawlsStats** : *Enables to merge `.rawls` image files and extract statistics*
 
-All these modules will be enhanced during development of the package. Documentation is available [here](https://prise-3d.github.io/rawls/).
+All these classes will be enhanced during development of the package. Documentation is available [here](https://prise-3d.github.io/rawls/).
 
 How to contribute
 -----------------

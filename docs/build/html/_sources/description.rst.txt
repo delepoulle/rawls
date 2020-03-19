@@ -18,11 +18,11 @@ Just install package using pip
 How to use ?
 ------------
 
-To use, simply do :
+To use, simply do:
 
 .. code:: python
     
     from rawls.rawls import Rawls
-    path = 'images/example.rawls'
+    path = 'images/example_1.rawls'
     rawls_img = Rawls.load(path)
     rawls_img.to_png('output.png')
