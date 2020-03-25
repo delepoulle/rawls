@@ -110,7 +110,7 @@ class Rawls():
 
                 # read the float bytes
                 line = f.read(4 * img_chanels)
-                values = struct.unpack('fff', line)
+                values = struct.unpack('f' * img_chanels, line)
 
                 for c in range(img_chanels):
                     data[y][x][c] = values[c]
@@ -160,11 +160,12 @@ class Rawls():
 
         return Rawls(output_buffer.shape, output_buffer, details)
 
-    def save(self, outfile):
+    def save(self, outfile, gamma_convert=True):
         """Save rawls image into new file
         
         Arguments:
             outfile: {str} -- output filename (rawls or png)
+            gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
         """
 
         # check if expected extension can be managed
@@ -215,7 +216,7 @@ class Rawls():
             f.close()
 
         elif extension == 'png':
-            self.to_png(outfile)
+            self.to_png(outfile, gamma_convert)
 
     def __clamp(self, n, smallest, largest):
         """Clamp number using two numbers
@@ -273,9 +274,12 @@ class Rawls():
 
             self.gamma_converted = True
 
-    def to_pil(self):
+    def to_pil(self, gamma_convert=True):
         """Convert current rawls image into PIL RGB Image
         
+        Arguments:
+            gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
+
         Returns:
             {PIL} -- RGB image converted
         
@@ -289,15 +293,27 @@ class Rawls():
         >>> np.array(rawls_pil_img).shape
         (100, 100, 3)
         """
-        self.gammaConvert()  # convert image to gamma if necessary
+        if gamma_convert:
+            self.gammaConvert()  # convert image to gamma if necessary
 
-        return Image.fromarray(np.array(self.data, 'uint8'))
+        # prepare input data
+        input_data = np.array(self.data, 'uint8')
 
-    def to_png(self, outfile):
+        # check if only one channel
+        if self.data.ndim == 3:
+            h, w, c = self.shape
+
+            if c == 1:
+                input_data = input_data.reshape(h, w)
+
+        return Image.fromarray(input_data)
+
+    def to_png(self, outfile, gamma_convert=True):
         """Save rawls image into PNG
         
         Arguments:
             outfile: {str} -- PNG output filename
+            gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
         """
 
         if '/' in outfile:
@@ -314,7 +330,7 @@ class Rawls():
         if '.png' not in outfile:
             raise Exception('output filename is not `.png` format')
 
-        self.to_pil().save(outfile)
+        self.to_pil(gamma_convert).save(outfile)
 
     def h_flip(self):
         """Flip horizontally current Rawls instance 
@@ -343,16 +359,16 @@ class Rawls():
         Returns:
             {Rawls} -- Rawls instance with normalized data
         """
-        # default max value
-        if max_value is None:
-            max_value = np.max(self.data)
-
         min_value = np.min(self.data)
 
         normalized_data = self.data
         # check negative values
         if min_value < 0:
             normalized_data = self.data + abs(min_value)
+
+        # default max value
+        if max_value is None:
+            max_value = np.max(normalized_data)
 
         normalized_data /= max_value
 
