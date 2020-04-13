@@ -36,8 +36,11 @@ class Camera():
         Returns:
             {str} -- camera information
         """
-        return "Camera: `{0}` \n\t\t- fov: {1} \n\t\t- focaldistance: {2}\n\t\t- lensradius: {3}".format(
-            self.name, self.fov, self.focaldistance, self.lensradius)
+        if self.focaldistance is None:
+            return "Camera: `{0}` \n\t\t- fov: {1}".format(self.name, self.fov)
+        else:
+            return "Camera: `{0}` \n\t\t- fov: {1} \n\t\t- focaldistance: {2}\n\t\t- lensradius: {3}".format(
+                self.name, self.fov, self.focaldistance, self.lensradius)
 
     def to_rawls(self):
         """Display Accelerator information for .rawls file
@@ -45,5 +48,10 @@ class Camera():
         Returns:
             {str} -- accelerator information for .rawls file
         """
-        return "#Camera {0}\n\t#params \"float fov\" [{1}] \"float focaldistance\" [{2}] \"float lensradius\" [{3}]".format(
-            self.name, self.fov, self.focaldistance, self.lensradius)
+
+        if self.focaldistance is None:
+            return "#Camera {0}\n\t#params \"float fov\" [{1}]".format(
+                self.name, self.fov)
+        else:
+            return "#Camera {0}\n\t#params \"float fov\" [{1}] \"float focaldistance\" [{2}] \"float lensradius\" [{3}]".format(
+                self.name, self.fov, self.focaldistance, self.lensradius)
