@@ -110,8 +110,11 @@ class Details():
 
             if 'Camera' in line:
                 camera_name = line.split(' ')[-1]
+
                 res = re.findall(r'\[\d*', comments_line[index + 1])
-                parsed_res = [float(r.replace('[', '')) for r in res]
+
+                valid_res = [r for r in res if r != '[']
+                parsed_res = [float(r.replace('[', '')) for r in valid_res]
 
                 # check default value
                 if len(parsed_res) > 2:
