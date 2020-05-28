@@ -34,6 +34,25 @@ In order to tackle this perceptual noise problem, some methods have been impleme
 
 As example, if we have a pool $10000$ images of $1$ sample per pixel, we can generate $\binom{10000}{k}$ of $k$ samples from pool of $10000$ samples. In this way, deep learning techniques such as Autoencoder can be used for noise reduction as it's possible to have a huge image database.
 
+# `.rawls` extension
+
+`.rawls` store all pixels values as float and keeps also information about generated image (renderer used).
+
+`.rawls` contains 3 blocks and specific lines information within each block:
+
+- IHDR:
+    - First line: next information line size into byte
+    - Second line: `{width}` `{height}` `{nbChannels}`
+- COMMENTS
+    - All lines: information from the renderer as comment
+- DATA
+    - First line: data block size
+    - Next lines: all pixels values as byte code at each line
+
+# Application
+
+
+
 # Acknowledgements
 
 ANR support : project ANR-17-CE38-0009
