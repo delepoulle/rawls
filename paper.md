@@ -36,7 +36,7 @@ As example, if we have a pool $10000$ images of $1$ sample per pixel, we can gen
 
 # `.rawls` extension
 
-`.rawls` store all pixels values as float and keeps also information about generated image (renderer used).
+A `.rawls` file stores all pixels values as float (32 bits) and keeps also information about generated image (renderer used).
 
 `.rawls` contains 3 blocks and specific lines information within each block:
 
