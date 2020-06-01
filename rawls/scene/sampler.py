@@ -1,35 +1,20 @@
-class Sampler():
-    """Sampler class representation
-        
-    Attributes:
-        name: {str} -- name of the sampler technique
-        pixelsamples: {int} -- number of samples used
+from .params import Params
+
+class Sampler(Params):
+    """Sampler class which store Sampler information    
     """
 
-    def __init__(self, name, pixelsamples):
-        """Construct Sampler instance
+    def __init__(self, name, params_names, params_values, params_types):
+        """Construct sampler with all information
         
         Arguments:
-            name: {str} -- name of the sampler technique
-            pixelsamples: {int} -- number of samples used
+            name: {str} -- name of the kind module used
+            params_name: [{str}] -- parameters names of sampler used
+            params_values: [{str}] -- parameters values of sampler used
+            params_types: [{str}] -- parameters values of sampler used
         """
+        self.module = "Sampler"
         self.name = name
-        self.pixelsamples = int(pixelsamples)
-
-    def __str__(self):
-        """Display Sampler information
-        
-        Returns:
-            {str} Sampler information
-        """
-        return "Sampler: `{0}` \n\t\t- samples: {1}".format(
-            self.name, self.pixelsamples)
-
-    def to_rawls(self):
-        """Display Sampler information for .rawls file
-        
-        Returns:
-            {str} -- Sampler information for .rawls file
-        """
-        return "#Sampler {0}\n\t#params \"integer pixelsamples\" [{1}]".format(
-            self.name, self.pixelsamples)
+        self.params_names = params_names
+        self.params_values = params_values
+        self.params_types = params_types

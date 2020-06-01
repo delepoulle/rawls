@@ -11,7 +11,6 @@ from .vector import Vector3f
 from .filter import Filter
 from .accelerator import Accelerator
 
-
 class Details():
     """Rawls details information
 
@@ -65,63 +64,54 @@ class Details():
         for index, line in enumerate(comments_line):
 
             if 'Film' in line:
-                res = re.findall(r'\[\d*', comments_line[index + 1])
+                film_name = line.split(' ')[-1]
 
-                # only if output filename information is present
-                if len(res) > 2:
-                    del res[-1]  # remove name of outfile
-
-                resolution = [int(r.replace('[', '')) for r in res]
-                resolution = Resolution(resolution[0], resolution[1])
+                params_names, params_values, params_types = self._extract_params(comments_line[index + 1])
+                resolution = Resolution(film_name, params_names, params_values, params_types)
 
             if 'Samples' in line:
                 samples = int(line.split(' ')[-1])
 
             if 'Filter' in line:
-                if len(line.split(' ')) < 2:
+
+                # check if filter is used
+                if len(line.split(' ')) >= 2:
                     filter_name = line.split(' ')[-1]
-                    filter_params = comments_line[index + 1].split(' ')[-1]
-                    pixelfilter = Filter(filter_name, filter_params)
+
+                    params_names, params_values, params_types = self._extract_params(comments_line[index + 1])
+                    pixelfilter = Filter(filter_name, params_names, params_values, params_types)
                 else:
-                    pixelfilter = Filter('', '')
+                    pixelfilter = Filter('', [], [], [])
 
             if 'Sampler' in line:
                 sampler_name = line.split(' ')[-1]
 
-                res = re.findall(r'\[\d*', comments_line[index + 1])
-                pixelsamples = int(res[0].replace('[', ''))
-                sampler = Sampler(sampler_name, pixelsamples)
+                params_names, params_values, params_types = self._extract_params(comments_line[index + 1])
+                sampler = Sampler(sampler_name, params_names, params_values, params_types)
 
             if 'Accelerator' in line:
-                if len(line.split(' ')) < 2:
+
+                if len(line.split(' ')) >= 2:
                     accelerator_name = line.split(' ')[-1]
-                    accelerator_params = comments_line[index +
-                                                       1].split(' ')[-1]
-                    accelerator = Accelerator(accelerator_name,
-                                              accelerator_params)
+
+                    params_names, params_values, params_types = self._extract_params(comments_line[index + 1])
+                    accelerator = Accelerator(accelerator_name, params_names, params_values, params_types)
+
                 else:
-                    accelerator = Accelerator('', '')
+                    accelerator = Accelerator('', [], [], [])
 
             if 'Integrator' in line:
                 integrator_name = line.split(' ')[-1]
-                res = re.findall(r'\[\d*', comments_line[index + 1])
-                maxdepth = int(res[0].replace('[', ''))
-                integrator = Integrator(integrator_name, maxdepth)
+
+                params_names, params_values, params_types = self._extract_params(comments_line[index + 1])
+                integrator = Integrator(integrator_name, params_names, params_values, params_types)
+
 
             if 'Camera' in line:
                 camera_name = line.split(' ')[-1]
 
-                res = re.findall(r'\[\d*', comments_line[index + 1])
-
-                valid_res = [r for r in res if r != '[']
-                parsed_res = [float(r.replace('[', '')) for r in valid_res]
-
-                # check default value
-                if len(parsed_res) > 2:
-                    camera = Camera(camera_name, parsed_res[0], parsed_res[1],
-                                    parsed_res[2])
-                else:
-                    camera = Camera(camera_name, parsed_res[0])
+                params_names, params_values, params_types = self._extract_params(comments_line[index + 1])
+                camera = Camera(camera_name, params_names, params_values, params_types)
 
             if 'LookAt' in line:
                 info = line.split()
@@ -136,6 +126,30 @@ class Details():
 
         return Details(resolution, samples, pixelfilter, sampler, accelerator,
                        integrator, camera, lookAt)
+
+    @classmethod
+    def _extract_params(self, line):
+        """Extract params information of module
+        Arguments:
+            line: {str} -- params line of rawls file of renderer element
+
+        Returns:
+            [([{str}], [{str}], [{str}])] -- tuple of names, values and types of params extracted
+        """
+        params = re.findall(r'"[a-z]*\ [a-z]*"', line)
+                    
+        params_names = [ p.split(' ')[-1].replace('"', '') for p in params ]
+        params_types = [ p.split(' ')[0].replace('"', '') for p in params ]
+
+        values = re.findall(r'\[([0-9.]*|"[a-z.]*"|"[A-Za-z0-9._-]*")\ ?\]', line)
+
+        params_values = [ p.replace('[', '')
+                            .replace(']', '')
+                            .strip()
+                            .replace('"', '')
+                            for p in values ]
+
+        return (params_names, params_values, params_types)
 
     def __str__(self):
         """Display Details object representation

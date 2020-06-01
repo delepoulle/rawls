@@ -1,35 +1,20 @@
-class Integrator():
-    """Inegrator class which stores integrator information
+from .params import Params
 
-    Attributes:
-        name: {str} -- name of the integrator technique
-        maxdepth: {int} -- maximum number of bounds
+class Integrator(Params):
+    """Integrator class which store Integrator information    
     """
 
-    def __init__(self, name, maxdepth):
-        """Construct Sampler instance
+    def __init__(self, name, params_names, params_values, params_types):
+        """Construct integrator with all information
         
         Arguments:
-            name: {str} -- name of the integrator technique
-            maxdepth: {int} -- maximum number of bounds
+            name: {str} -- name of the kind module used
+            params_name: [{str}] -- parameters names of integrator used
+            params_values: [{str}] -- parameters values of integrator used
+            params_types: [{str}] -- parameters values of integrator used
         """
+        self.module = "Integrator"
         self.name = name
-        self.maxdepth = int(maxdepth)
-
-    def __str__(self):
-        """Display Integrator information
-        
-        Returns:
-            {str} -- Integrator information
-        """
-        return "Integrator: `{0}` \n\t\t- maxdepth: {1}".format(
-            self.name, self.maxdepth)
-
-    def to_rawls(self):
-        """Display Integrator information for .rawls file
-        
-        Returns:
-            {str} -- Integrator information for .rawls file
-        """
-        return "#Integrator {0}\n\t#params \"integer maxdepth\" [{1}]".format(
-            self.name, self.maxdepth)
+        self.params_names = params_names
+        self.params_values = params_values
+        self.params_types = params_types

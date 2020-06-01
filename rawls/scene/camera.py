@@ -1,57 +1,20 @@
-class Camera():
-    """Camera class which store camera information
+from .params import Params
 
-    Attributes:
-        name: {str} -- name of the camera
-        fov: {float} -- field of view information
-        focaldistance: {float} -- focal distance of camera
-        lensradius: {float} -- lens radius of camera
+class Camera(Params):
+    """Camera class which store Camera information    
     """
 
-    def __init__(self, name, fov, focaldistance=None, lensradius=None):
+    def __init__(self, name, params_names, params_values, params_types):
         """Construct camera with all information
         
         Arguments:
-            name: {str} -- name of the camera
-            fov: {float} -- field of view information
-            focaldistance: {float} -- focal distance information
-            lensradius: {float} -- lens radius information
+            name: {str} -- name of the kind module used
+            params_name: [{str}] -- parameters names of camera used
+            params_values: [{str}] -- parameters values of camera used
+            params_types: [{str}] -- parameters values of camera used
         """
+        self.module = "Camera"
         self.name = name
-        self.fov = float(fov)
-
-        if focaldistance is not None:
-            self.focaldistance = float(focaldistance)
-        else:
-            self.focaldistance = None
-
-        if lensradius is not None:
-            self.lensradius = float(lensradius)
-        else:
-            self.lensradius = None
-
-    def __str__(self):
-        """Display Camera information
-        
-        Returns:
-            {str} -- camera information
-        """
-        if self.focaldistance is None:
-            return "Camera: `{0}` \n\t\t- fov: {1}".format(self.name, self.fov)
-        else:
-            return "Camera: `{0}` \n\t\t- fov: {1} \n\t\t- focaldistance: {2}\n\t\t- lensradius: {3}".format(
-                self.name, self.fov, self.focaldistance, self.lensradius)
-
-    def to_rawls(self):
-        """Display Accelerator information for .rawls file
-        
-        Returns:
-            {str} -- accelerator information for .rawls file
-        """
-
-        if self.focaldistance is None:
-            return "#Camera {0}\n\t#params \"float fov\" [{1}]".format(
-                self.name, self.fov)
-        else:
-            return "#Camera {0}\n\t#params \"float fov\" [{1}] \"float focaldistance\" [{2}] \"float lensradius\" [{3}]".format(
-                self.name, self.fov, self.focaldistance, self.lensradius)
+        self.params_names = params_names
+        self.params_values = params_values
+        self.params_types = params_types

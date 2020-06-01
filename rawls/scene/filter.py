@@ -1,36 +1,20 @@
-class Filter():
-    """Filter class which store Filter information
+from .params import Params
 
-    Attributes:
-        name: {str} -- name of the filter
-        params: {str} -- parameters of filter used
+class Filter(Params):
+    """Filter class which store Filter information    
     """
 
-    def __init__(self, name, params):
+    def __init__(self, name, params_names, params_values, params_types):
         """Construct filter with all information
         
         Arguments:
-            name: {str} -- name of the filter
-            params: {str} -- parameters of filter used
+            name: {str} -- name of the kind module used
+            params_name: [{str}] -- parameters names of filter used
+            params_values: [{str}] -- parameters values of filter used
+            params_types: [{str}] -- parameters values of filter used
         """
+        self.module = "Filter"
         self.name = name
-        self.params = params
-
-    def __str__(self):
-        """Display Filter information
-        
-        Returns:
-            {str} -- filter information
-        """
-        if len(self.name) > 0:
-            return "Filter: `{0}`, ({1})".format(self.name, self.params)
-        else:
-            return "Filter: default"
-
-    def to_rawls(self):
-        """Display Filter information for .rawls file
-        
-        Returns:
-            {str} -- filter information for .rawls file
-        """
-        return "#Filter {0}\n\t#params {1}".format(self.name, self.params)
+        self.params_names = params_names
+        self.params_values = params_values
+        self.params_types = params_types

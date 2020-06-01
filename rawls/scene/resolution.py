@@ -1,34 +1,20 @@
-class Resolution():
-    """Resolution screen information class
-    
-    Attributes:
-        x: {int} -- x resolution
-        y: {int} -- y resolution
+from .params import Params
+
+class Resolution(Params):
+    """Resolution class which store Resolution information    
     """
 
-    def __init__(self, x, y):
-        """Resolution construction with `x` and `y` information
+    def __init__(self, name, params_names, params_values, params_types):
+        """Construct resolution with all information
         
         Arguments:
-            x: {int} -- x resolution
-            y: {int} -- y resolution
+            name: {str} -- name of the kind module used
+            params_name: [{str}] -- parameters names of resolution used
+            params_values: [{str}] -- parameters values of resolution used
+            params_types: [{str}] -- parameters values of resolution used
         """
-        self.x = x
-        self.y = y
-
-    def __str__(self):
-        """Display Resolution object representation
-        
-        Returns:
-            {str} -- Resolution information
-        """
-        return "Resolution: {0} x {1}".format(self.x, self.y)
-
-    def to_rawls(self):
-        """Display Film information for .rawls file
-        
-        Returns:
-            {str} -- Film information for .rawls file
-        """
-        return "#Film image\n\t#params \"integer xresolution\" [{0}] \"integer yresolution\" [{1}]".format(
-            self.x, self.y)
+        self.module = "Resolution"
+        self.name = name
+        self.params_names = params_names
+        self.params_values = params_values
+        self.params_types = params_types
