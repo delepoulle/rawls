@@ -23,11 +23,11 @@ bibliography: paper.bib
 
 # Summary
 
-Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene. The Monte Carlo theory based on the rendering equation [@kajiya1986rendering] ensures that this process will converge to the correct image when the number of paths grows [@kollig2002efficient]. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths as proved by Monte Carlo theory.
+Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene. The Monte Carlo theory based on the rendering equation [@kajiya1986rendering] ensures that this process will converge to the correct image when the number of paths grows [@kollig2002efficient]. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths as proved by Monte Carlo theory but requires a lot of time to generate such image. 
 
 # `.rawls` extension
 
-In order to tackle this perceptual noise problem, some methods have been implemented in order to variance and improve the rendered image [@boughida2017bayesian, @delbracio2014boosting]. Unlike online rendering statisticals methods, `.rawls` (for RAW Light Simulation) extension files can be used offline into a post-processing task in order to prepare huge dataset.
+In order to tackle this perceptual noise problem, some methods have been implemented in order to variance and improve the rendered image [@delbracio2014boosting; @boughida2017bayesian]. Unlike online rendering statisticals methods, `.rawls` (for RAW Light Simulation) extension files can be used offline into a post-processing task in order to prepare huge dataset.
 
 A `.rawls` file is a custom image file obtained as output of renderer. These files keep fully information about generated images such as rendering parameters (number of samples, integrator, sampler, camera...) and store all RGB spectrum values before gamma correction as float (32 bits).
 
@@ -46,7 +46,7 @@ A `.rawls` file is a custom image file obtained as output of renderer. These fil
 
 `Rawls` Python package have been developed to manage `.rawls` files format. Files with `.rawls` extension can be generated using custom pbrt-v3 [@pharr2016physically] renderer which enables to generate `k` images of `n` samples per pixels [@pbrtp3d] of the same `.pbrt` file 3D scene. `Rawls` Python package can load `.rawls` file, save it into `.png`, can also merge few `.rawls` images in order to extracts statisticals information from samples for each pixels distribution (such as Mean, Variance, Skewness, Kurtosis). As the distributions of pixels when rendering an image do not seem to follow a Gaussian law, paying attention to their distribution seems interesting.
 
-As example, if we have a pool $10000$ images of $1$ sample per pixel, we can generate $\binom{10000}{k}$ of $k$ samples from pool of $10000$ samples. In this way, deep learning techniques such as Autoencoder [@chaitanya2017interactive; @xie2012image] can be used for noise reduction as it's possible to have a huge image database.
+As example, if we have a pool $10000$ images of $1$ sample per pixel, we can generate $\binom{10000}{k}$ of $k$ samples from pool of $10000$ samples. In this way, deep learning techniques such as Autoencoder [@xie2012image; @chaitanya2017interactive] can be used for noise reduction as it's possible to have a huge image database.
 
 # Application
 
