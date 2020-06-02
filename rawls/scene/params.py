@@ -1,15 +1,17 @@
+"""Generic class which store module params information
+
+Attributes:
+    module: {str} -- name of the module
+    name: {str} -- name of the kind module used
+    params_name: [{str}] -- parameters names of module used
+    params_values: [{str}] -- parameters values of module used
+    params_types: [{str}] -- parameters values of module used
+"""
+
+
 class Params():
-    """Generic class which store module params information
-
-    Attributes:
-        module: {str} -- name of the module
-        name: {str} -- name of the kind module used
-        params_name: [{str}] -- parameters names of module used
-        params_values: [{str}] -- parameters values of module used
-        params_types: [{str}] -- parameters values of module used
-    """
-
-    def __init__(self, module, name, params_names, params_values, params_types):
+    def __init__(self, module, name, params_names, params_values,
+                 params_types):
         """Construct module with all information
         
         Arguments:
@@ -66,7 +68,6 @@ class Params():
         Returns:
             {str} -- module information
         """
-        print(self.module, self.params_types, self.params_names, self.params_values)
         if len(self.name) > 0:
 
             output = "{0}: `{1}`".format(self.module, self.name)
@@ -88,9 +89,9 @@ class Params():
         output = '#{0} {1}\n\t#params '.format(self.module, self.name)
 
         for index, p in enumerate(self.params_names):
-            
+
             # check if value is digit or not
-            if self.params_values[index].replace('.','',1).isdigit():
+            if self.params_values[index].replace('.', '', 1).isdigit():
                 output += '"{0} {1}" [{2} ]' \
                     .format(self.params_types[index], p, self.params_values[index])
             else:

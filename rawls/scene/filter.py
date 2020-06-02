@@ -1,9 +1,10 @@
+"""Filter class which store Filter information    
+"""
+
 from .params import Params
 
-class Filter(Params):
-    """Filter class which store Filter information    
-    """
 
+class Filter(Params):
     def __init__(self, name, params_names, params_values, params_types):
         """Construct filter with all information
         

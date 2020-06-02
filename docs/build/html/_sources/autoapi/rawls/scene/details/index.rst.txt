@@ -1,0 +1,87 @@
+:mod:`rawls.scene.details`
+==========================
+
+.. py:module:: rawls.scene.details
+
+.. autoapi-nested-parse::
+
+   Rawls rendering details information
+
+   .. attribute:: resolution
+
+      {Resolution} -- x and y resolution of image
+
+   .. attribute:: samples
+
+      {int} -- number of samples used for generate image
+
+   .. attribute:: pixelfilter
+
+      {Filter} -- pixelfilter instance with information
+
+   .. attribute:: sampler
+
+      {Sampler} -- sampler instance with information
+
+   .. attribute:: accelerator
+
+      {Accelerator} -- accelerator instance with information
+
+   .. attribute:: integrator
+
+      {Integrator} -- integrator instance with information
+
+   .. attribute:: camera
+
+      {Camera} -- camera instance with information
+
+   .. attribute:: lookAt
+
+      {LookAt} -- look at instance with eye, point and up vector
+
+
+
+
+---------------
+
+
+.. py:class:: Details(resolution, samples, pixelfilter, sampler, accelerator, integrator, camera, lookAt)
+
+   .. method:: fromcomments(self, comments)
+      :classmethod:
+
+
+      Instanciate Details object with all comments information
+
+      :param comments: {str} -- extracted comments data
+
+      :returns: {Details} -- details information instance
+
+
+   .. method:: _extract_params(self, line)
+      :classmethod:
+
+
+      Extract params information of module
+      :param line: {str} -- params line of rawls file of renderer element
+
+      :returns: [([{str}], [{str}], [{str}])] -- tuple of names, values and types of params extracted
+
+
+   .. method:: __str__(self)
+
+
+      Display Details object representation
+
+      :returns: {str} -- details information
+
+
+   .. method:: to_rawls(self)
+
+
+      Display Details information for .rawls file
+
+      :returns: {str} -- details information for .rawls file
+
+
+

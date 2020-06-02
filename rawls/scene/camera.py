@@ -1,9 +1,10 @@
+"""Camera class which store Camera information    
+"""
+
 from .params import Params
 
-class Camera(Params):
-    """Camera class which store Camera information    
-    """
 
+class Camera(Params):
     def __init__(self, name, params_names, params_values, params_types):
         """Construct camera with all information
         

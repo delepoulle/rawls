@@ -1,9 +1,10 @@
+"""Accelerator class which store Accelerator information    
+"""
+
 from .params import Params
 
-class Accelerator(Params):
-    """Accelerator class which store Accelerator information    
-    """
 
+class Accelerator(Params):
     def __init__(self, name, params_names, params_values, params_types):
         """Construct accelerator with all information
         

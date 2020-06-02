@@ -1,3 +1,13 @@
+"""RawlsStats class which enables statistics other multiples Rawls instance
+
+Attributes:
+    data: {ndrray} -- merged buffer data numpy array with higher dimension of all Rawls instance
+    nelements: {int} -- number Rawls instance used
+    details: {Details} -- details instance information
+    mean_samples_per_elements: {float} -- statistic which gives mean number of samples used (if Rawls images do not have same number of samples)
+    expected_shape: {(int, int, int)} -- describe expected shape of an Rawls image element
+"""
+
 # main imports
 import numpy as np
 
@@ -10,16 +20,6 @@ from .utils import check_file_paths
 
 
 class RawlsStats():
-    """RawlsStats class which enables statistics other multiples Rawls instance
-    
-    Attributes:
-        data: {ndrray} -- merged buffer data numpy array with higher dimension of all Rawls instance
-        nelements: {int} -- number Rawls instance used
-        details: {Details} -- details instance information
-        mean_samples_per_elements: {float} -- statistic which gives mean number of samples used (if Rawls images do not have same number of samples)
-        expected_shape: {(int, int, int)} -- describe expected shape of an Rawls image element
-    """
-
     def __init__(self, rawls_images):
         """Init RawlsStats instance using list of Rawls instances
         

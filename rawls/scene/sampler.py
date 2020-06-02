@@ -1,9 +1,10 @@
+"""Sampler class which store Sampler information    
+"""
+
 from .params import Params
 
-class Sampler(Params):
-    """Sampler class which store Sampler information    
-    """
 
+class Sampler(Params):
     def __init__(self, name, params_names, params_values, params_types):
         """Construct sampler with all information
         

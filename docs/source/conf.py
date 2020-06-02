@@ -44,8 +44,13 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.autosummary',
     'sphinx.ext.viewcode',
-    'sphinx.ext.coverage'
+    'sphinx.ext.coverage',
+    'autoapi.extension' 
 ]
+
+autoapi_add_toctree_entry = True
+autoapi_template_dir = '_autoapi_templates'
+autoapi_dirs = ['../../rawls']
 
 autosummary_generate = True
 autodoc_default_flags = ['members']

@@ -1,9 +1,10 @@
+"""Resolution class which store Resolution information    
+"""
+
 from .params import Params
 
-class Resolution(Params):
-    """Resolution class which store Resolution information    
-    """
 
+class Resolution(Params):
     def __init__(self, name, params_names, params_values, params_types):
         """Construct resolution with all information
         

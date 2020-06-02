@@ -1,0 +1,72 @@
+:mod:`rawls.scene.params`
+=========================
+
+.. py:module:: rawls.scene.params
+
+.. autoapi-nested-parse::
+
+   Generic class which store module params information
+
+   .. attribute:: module
+
+      {str} -- name of the module
+
+   .. attribute:: name
+
+      {str} -- name of the kind module used
+
+   .. attribute:: params_name
+
+      [{str}] -- parameters names of module used
+
+   .. attribute:: params_values
+
+      [{str}] -- parameters values of module used
+
+   .. attribute:: params_types
+
+      [{str}] -- parameters values of module used
+
+
+
+
+---------------
+
+
+.. py:class:: Params(module, name, params_names, params_values, params_types)
+
+   .. method:: get_params(self)
+
+
+      Get information about available params
+
+      :returns: [{str}] -- list of available params for this module
+
+
+   .. method:: get_param(self, name)
+
+
+      Get specific param value using its name
+
+      :param name: {str} -- expected param name
+
+      :returns: {(str|float|int)} -- returns param value with its specific type
+
+
+   .. method:: __str__(self)
+
+
+      Display module information
+
+      :returns: {str} -- module information
+
+
+   .. method:: to_rawls(self)
+
+
+      Display module information for .rawls file
+
+      :returns: {str} -- module information for .rawls file
+
+
+

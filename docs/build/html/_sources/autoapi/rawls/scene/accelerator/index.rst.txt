@@ -1,0 +1,20 @@
+:mod:`rawls.scene.accelerator`
+==============================
+
+.. py:module:: rawls.scene.accelerator
+
+.. autoapi-nested-parse::
+
+   Accelerator class which store Accelerator information
+
+
+
+
+---------------
+
+
+.. py:class:: Accelerator(name, params_names, params_values, params_types)
+
+   Bases: :class:`rawls.scene.params.Params`
+
+

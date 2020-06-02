@@ -1,3 +1,7 @@
+"""Utils function for .rawls file
+"""
+
+
 # utils functions
 def check_file_paths(filepaths):
     """check filepaths input extension

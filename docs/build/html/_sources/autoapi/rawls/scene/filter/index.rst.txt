@@ -1,0 +1,20 @@
+:mod:`rawls.scene.filter`
+=========================
+
+.. py:module:: rawls.scene.filter
+
+.. autoapi-nested-parse::
+
+   Filter class which store Filter information
+
+
+
+
+---------------
+
+
+.. py:class:: Filter(name, params_names, params_values, params_types)
+
+   Bases: :class:`rawls.scene.params.Params`
+
+

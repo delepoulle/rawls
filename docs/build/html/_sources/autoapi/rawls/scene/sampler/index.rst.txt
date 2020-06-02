@@ -1,0 +1,20 @@
+:mod:`rawls.scene.sampler`
+==========================
+
+.. py:module:: rawls.scene.sampler
+
+.. autoapi-nested-parse::
+
+   Sampler class which store Sampler information
+
+
+
+
+---------------
+
+
+.. py:class:: Sampler(name, params_names, params_values, params_types)
+
+   Bases: :class:`rawls.scene.params.Params`
+
+

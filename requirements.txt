@@ -3,3 +3,4 @@ Pillow
 yapf
 doctest
 sphinx
+sphinx-autoapi

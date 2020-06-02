@@ -1,9 +1,10 @@
+"""Integrator class which store Integrator information    
+"""
+
 from .params import Params
 
-class Integrator(Params):
-    """Integrator class which store Integrator information    
-    """
 
+class Integrator(Params):
     def __init__(self, name, params_names, params_values, params_types):
         """Construct integrator with all information
         

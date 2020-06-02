@@ -17,32 +17,35 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -83,7 +86,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../description.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../rawls.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
 </ul>
@@ -149,63 +152,27 @@
            <div itemprop="articleBody">
             
   <h1>Source code for rawls.scene.camera</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="Camera"><a class="viewcode-back" href="../../../rawls/rawls.scene.camera.html#rawls.scene.camera.Camera">[docs]</a><span></span><span class="k">class</span> <span class="nc">Camera</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Camera class which store camera information</span>
+<span></span><span class="sd">&quot;&quot;&quot;Camera class which store Camera information    </span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Attributes:</span>
-<span class="sd">        name: {str} -- name of the camera</span>
-<span class="sd">        fov: {float} -- field of view information</span>
-<span class="sd">        focaldistance: {float} -- focal distance of camera</span>
-<span class="sd">        lensradius: {float} -- lens radius of camera</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">.params</span> <span class="kn">import</span> <span class="n">Params</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">focaldistance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lensradius</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Camera"><a class="viewcode-back" href="../../../autoapi/rawls/scene/camera/index.html#rawls.scene.camera.Camera">[docs]</a><span class="k">class</span> <span class="nc">Camera</span><span class="p">(</span><span class="n">Params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params_names</span><span class="p">,</span> <span class="n">params_values</span><span class="p">,</span> <span class="n">params_types</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Construct camera with all information</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">            name: {str} -- name of the camera</span>
-<span class="sd">            fov: {float} -- field of view information</span>
-<span class="sd">            focaldistance: {float} -- focal distance information</span>
-<span class="sd">            lensradius: {float} -- lens radius information</span>
+<span class="sd">            name: {str} -- name of the kind module used</span>
+<span class="sd">            params_name: [{str}] -- parameters names of camera used</span>
+<span class="sd">            params_values: [{str}] -- parameters values of camera used</span>
+<span class="sd">            params_types: [{str}] -- parameters values of camera used</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="s2">&quot;Camera&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fov</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">fov</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">focaldistance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">focaldistance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">focaldistance</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">focaldistance</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="k">if</span> <span class="n">lensradius</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lensradius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lensradius</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lensradius</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Display Camera information</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            {str} -- camera information</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">focaldistance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;Camera: `</span><span class="si">{0}</span><span class="s2">` </span><span class="se">\n\t\t</span><span class="s2">- fov: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fov</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;Camera: `</span><span class="si">{0}</span><span class="s2">` </span><span class="se">\n\t\t</span><span class="s2">- fov: </span><span class="si">{1}</span><span class="s2"> </span><span class="se">\n\t\t</span><span class="s2">- focaldistance: </span><span class="si">{2}</span><span class="se">\n\t\t</span><span class="s2">- lensradius: </span><span class="si">{3}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fov</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">focaldistance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lensradius</span><span class="p">)</span>
-
-<div class="viewcode-block" id="Camera.to_rawls"><a class="viewcode-back" href="../../../rawls/rawls.scene.camera.html#rawls.scene.camera.Camera.to_rawls">[docs]</a>    <span class="k">def</span> <span class="nf">to_rawls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Display Accelerator information for .rawls file</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            {str} -- accelerator information for .rawls file</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">focaldistance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;#Camera </span><span class="si">{0}</span><span class="se">\n\t</span><span class="s2">#params </span><span class="se">\&quot;</span><span class="s2">float fov</span><span class="se">\&quot;</span><span class="s2"> [</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fov</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;#Camera </span><span class="si">{0}</span><span class="se">\n\t</span><span class="s2">#params </span><span class="se">\&quot;</span><span class="s2">float fov</span><span class="se">\&quot;</span><span class="s2"> [</span><span class="si">{1}</span><span class="s2">] </span><span class="se">\&quot;</span><span class="s2">float focaldistance</span><span class="se">\&quot;</span><span class="s2"> [</span><span class="si">{2}</span><span class="s2">] </span><span class="se">\&quot;</span><span class="s2">float lensradius</span><span class="se">\&quot;</span><span class="s2"> [</span><span class="si">{3}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fov</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">focaldistance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lensradius</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_names</span> <span class="o">=</span> <span class="n">params_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_values</span> <span class="o">=</span> <span class="n">params_values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_types</span> <span class="o">=</span> <span class="n">params_types</span></div>
 </pre></div>
 
            </div>
@@ -235,26 +202,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

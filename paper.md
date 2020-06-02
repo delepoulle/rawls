@@ -8,11 +8,11 @@ tags:
 authors:
   - name: Jérôme BUISINE
     orcid: 0000-0001-6071-744X
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
+    affiliation: 1 # (Multiple affiliations must be quoted)
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University
+ - name: Univ. Littoral Côte d’Opale, LISIC Calais, France, F-62100
    index: 1
-date: 30 May 2020
+date: 2 June 2020
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
@@ -23,24 +23,24 @@ bibliography: paper.bib
 
 # Summary
 
-Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene. The Monte Carlo theory based on the rendering equation (TODO: citation) ensures that this process will converge to the correct image when the number of paths grows (TODO: citation). However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths as proved by Monte Carlo theory.
+Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene. The Monte Carlo theory based on the rendering equation [@kajiya1986rendering] ensures that this process will converge to the correct image when the number of paths grows [@kollig2002efficient]. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths as proved by Monte Carlo theory.
 
 # `.rawls` extension
 
-In order to tackle this perceptual noise problem, some methods have been implemented in order to variance and improve the rendered image. Unlike online rendering statisticals methods, `.rawls` (for RAW Light Simulation) extension files can be used offline into a post-processing task in order to prepare huge dataset.
+In order to tackle this perceptual noise problem, some methods have been implemented in order to variance and improve the rendered image [@delbracio2014boosting; @boughida2017bayesian]. Unlike online rendering statisticals methods, `.rawls` (for RAW Light Simulation) extension files can be used offline into a post-processing task in order to prepare huge dataset.
 
 A `.rawls` file stores all RGB spectrum values before gamma correction as float (32 bits) and keeps also information about generated image (renderer used).
 
 `.rawls` contains 3 blocks and specific lines information within each block:
 
-- IHDR:
-    - __First line:__ next information line size into byte
+- **IHDR:**
+    - __First line:__ next line size into bytes information
     - __Second line:__ `{width}` `{height}` `{nbChannels}`
-- COMMENTS
+- **COMMENTS:**
     - __All lines:__ information from the renderer as comment
-- DATA
+- **DATA:**
     - __First line:__ data block size
-    - __Next lines:__ all pixels values as byte code at each line
+    - __Next lines:__ all pixels values as bytes code at each line
 
 # Why this package ?
 
@@ -49,25 +49,39 @@ A `.rawls` file stores all RGB spectrum values before gamma correction as float 
 As example, if we have a pool $10000$ images of $1$ sample per pixel, we can generate $\binom{10000}{k}$ of $k$ samples from pool of $10000$ samples. In this way, deep learning techniques such as Autoencoder can be used for noise reduction as it's possible to have a huge image database.
 
 Example of comments data kept for a `.rawls` file using Python package:
+
+```python
+from rawls.rawls import Rawls
+path = 'images/example_1.rawls'
+rawls_img = Rawls.load(path)
+print(rawls_img)
+```
+
+Display of all rendering information of `images/example_1.rawls` image:
 ```sh
 --------------------------------------------------------
 Shape: 
-        (1080, 1920, 3)
+        (100, 100, 3)
 Details: 
-        Samples 20
+        Samples: 1000
         Filter: default
-        Resolution: 1920 x 1080
-        Sampler: `halton` 
-                - samples: 100
+        Resolution: `image`
+                - [integer] xresolution: 100
+                - [integer] yresolution: 100
+                - [string] filename: p3d_bathroom.rawls
+        Sampler: `random`
+                - [integer] pixelsamples: 64
         Accelerator: default
-        Integrator: `path` 
-                - maxdepth: 10
-        Camera: `perspective` 
-                - fov: 28.0
+        Integrator: `path`
+                - [integer] maxdepth: 65
+        Camera: `perspective`
+                - [float] fov: 55
+                - [float] focaldistance: 31
+                - [float] lensradius: 0.15000001
         LookAt: 
-                - eye: (32.5772, -11.5177, 5.28233) 
-                - point: (32.1838, -10.6715, 4.92289) 
-                - up: (0.0, 0.0, 1.0)
+                - eye: (0.0, 18.0, 30.0) 
+                - point: (10.2, 5.0, 0.0) 
+                - up: (0.0, 1.0, 0.0)
 Gamma converted: 
         False
 --------------------------------------------------------

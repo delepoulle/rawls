@@ -6,7 +6,7 @@ Some examples are already available into documentation. You can find here some o
 Processing example
 --------------------
 
-Read and save rawls file:
+Read and save `.rawls` file:
 
 .. code:: python
     
@@ -21,7 +21,7 @@ Read and save rawls file:
 
 
 
-Display Rawls information:
+Display rendering information:
 
 .. code:: python
     
@@ -31,11 +31,11 @@ Display Rawls information:
     print(rawls_img)
 
 .. image:: _static/display.png
-   :width: 300 px
+   :width: 350 px
    :align: center
 
 
-Extract statistics from rawls samples files:
+Extract statistics from multiples `.rawls` samples files:
 
 .. code:: python
 
@@ -43,6 +43,14 @@ Extract statistics from rawls samples files:
     from rawls.stats import RawlsStats
     path_list = ['images/example_1.rawls', 'images/example_2.rawls']
     rawls_stats = RawlsStats.load(path_list)
+    print(rawls_stats)
+
+.. image:: _static/display_stats.png
+   :width: 350 px
+   :align: center
+
+.. code:: python
+
     rawls_mean = rawls_stats.mean()
     rawls_mean.save('output_mean.png')
 

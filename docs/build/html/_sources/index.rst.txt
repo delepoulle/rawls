@@ -23,7 +23,7 @@ This output extension is available in a custom version of pbrt-v3_ details.
    :caption: Contents:
 
    description
-   rawls
+   autoapi/index
    examples
    contributing
 

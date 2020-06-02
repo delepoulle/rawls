@@ -1,0 +1,46 @@
+:mod:`rawls.scene.lookAt`
+=========================
+
+.. py:module:: rawls.scene.lookAt
+
+.. autoapi-nested-parse::
+
+   LookAt class information
+
+   .. attribute:: eye
+
+      {Vector3f} -- eye coordinate
+
+   .. attribute:: point
+
+      {Vector3f} -- point to look at coordinate
+
+   .. attribute:: up
+
+      {Vector3f} -- up vector
+
+
+
+
+---------------
+
+
+.. py:class:: LookAt(eye, point, up)
+
+   .. method:: __str__(self)
+
+
+      Display LookAt object representation
+
+      :returns: {str} -- LookAt information
+
+
+   .. method:: to_rawls(self)
+
+
+      Display LookAt information for .rawls file
+
+      :returns: {str} -- LookAt information for .rawls file
+
+
+

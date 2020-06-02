@@ -1,0 +1,20 @@
+:mod:`rawls.scene.resolution`
+=============================
+
+.. py:module:: rawls.scene.resolution
+
+.. autoapi-nested-parse::
+
+   Resolution class which store Resolution information
+
+
+
+
+---------------
+
+
+.. py:class:: Resolution(name, params_names, params_values, params_types)
+
+   Bases: :class:`rawls.scene.params.Params`
+
+
