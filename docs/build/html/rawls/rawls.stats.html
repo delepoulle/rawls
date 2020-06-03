@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.stats &mdash; rawls v0.1.4 documentation</title>
+  <title>rawls.stats &mdash; rawls v0.1.5 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="rawls.utils" href="rawls.utils.html" />
     <link rel="prev" title="rawls.rawls" href="rawls.rawls.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -167,138 +169,123 @@
             
   <div class="section" id="module-rawls.stats">
 <span id="rawls-stats"></span><h1>rawls.stats<a class="headerlink" href="#module-rawls.stats" title="Permalink to this headline">¶</a></h1>
+<p>RawlsStats class which enables statistics other multiples Rawls instance</p>
 <p class="rubric">Classes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#rawls.stats.RawlsStats" title="rawls.stats.RawlsStats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RawlsStats</span></code></a>(rawls_images)</td>
-<td>RawlsStats class which enables statistics other multiples Rawls instance</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rawls.stats.RawlsStats" title="rawls.stats.RawlsStats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RawlsStats</span></code></a>(rawls_images)</p></td>
+<td><p>RawlsStats class which enables statistics other multiples Rawls instance</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="rawls.stats.RawlsStats">
-<em class="property">class </em><code class="descclassname">rawls.stats.</code><code class="descname">RawlsStats</code><span class="sig-paren">(</span><em>rawls_images</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rawls.stats.</code><code class="sig-name descname">RawlsStats</code><span class="sig-paren">(</span><em class="sig-param">rawls_images</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats" title="Permalink to this definition">¶</a></dt>
 <dd><p>RawlsStats class which enables statistics other multiples Rawls instance</p>
 <dl class="attribute">
 <dt id="rawls.stats.RawlsStats.data">
-<code class="descname">data</code><a class="headerlink" href="#rawls.stats.RawlsStats.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data</code><a class="headerlink" href="#rawls.stats.RawlsStats.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>{ndrray} – merged buffer data numpy array with higher dimension of all Rawls instance</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.stats.RawlsStats.nelements">
-<code class="descname">nelements</code><a class="headerlink" href="#rawls.stats.RawlsStats.nelements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nelements</code><a class="headerlink" href="#rawls.stats.RawlsStats.nelements" title="Permalink to this definition">¶</a></dt>
 <dd><p>{int} – number Rawls instance used</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.stats.RawlsStats.details">
-<code class="descname">details</code><a class="headerlink" href="#rawls.stats.RawlsStats.details" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">details</code><a class="headerlink" href="#rawls.stats.RawlsStats.details" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Details} – details instance information</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.stats.RawlsStats.mean_samples_per_elements">
-<code class="descname">mean_samples_per_elements</code><a class="headerlink" href="#rawls.stats.RawlsStats.mean_samples_per_elements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">mean_samples_per_elements</code><a class="headerlink" href="#rawls.stats.RawlsStats.mean_samples_per_elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>{float} – statistic which gives mean number of samples used (if Rawls images do not have same number of samples)</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.stats.RawlsStats.expected_shape">
-<code class="descname">expected_shape</code><a class="headerlink" href="#rawls.stats.RawlsStats.expected_shape" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">expected_shape</code><a class="headerlink" href="#rawls.stats.RawlsStats.expected_shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>{(int, int, int)} – describe expected shape of an Rawls image element</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.stats.RawlsStats.kurtosis">
-<code class="descname">kurtosis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.kurtosis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.kurtosis" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">kurtosis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.kurtosis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.kurtosis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute kurtosis on <cite>.rawls</cite> samples</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with kurtosis data of rawls files</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{Rawls} – new rawls object with kurtosis data of rawls files</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="rawls.stats.RawlsStats.load">
-<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>filepaths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.load" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filepaths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load data from rawls files</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> – {[str]} – list of paths of .rawls files</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">RawlsStats instance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">{RawlsStats}</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> – {[str]} – list of paths of .rawls files</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>RawlsStats instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>{RawlsStats}</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.stats.RawlsStats.mean">
-<code class="descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.mean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute mean on <cite>.rawls</cite> samples</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with mean data of rawls files</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{Rawls} – new rawls object with mean data of rawls files</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.stats.RawlsStats.skew">
-<code class="descname">skew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.skew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.skew" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">skew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.skew"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.skew" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute skewness on <cite>.rawls</cite> samples</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with skewness data of rawls files</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{Rawls} – new rawls object with skewness data of rawls files</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.stats.RawlsStats.std">
-<code class="descname">std</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.std" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">std</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.std" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute std on <cite>.rawls</cite> samples</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with std data of rawls files</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{Rawls} – new rawls object with std data of rawls files</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.stats.RawlsStats.var">
-<code class="descname">var</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.var"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.var" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">var</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.var"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.var" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute variance on <cite>.rawls</cite> samples</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – new rawls object with variance data of rawls files</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{Rawls} – new rawls object with variance data of rawls files</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -316,7 +303,7 @@
         <a href="rawls.utils.html" class="btn btn-neutral float-right" title="rawls.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rawls.rawls.html" class="btn btn-neutral" title="rawls.rawls" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rawls.rawls.html" class="btn btn-neutral float-left" title="rawls.rawls" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -342,26 +329,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -1,3 +1,6 @@
+"""Rawls class used to open `.rawls` path image
+"""
+
 # main imports
 import math
 import numpy as np
@@ -23,7 +26,6 @@ class Rawls():
         details: {Details} -- details instance information
         gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not
     """
-
     def __init__(self, shape, data, details, gamma_converted=False):
         self.shape = shape
         self.data = data

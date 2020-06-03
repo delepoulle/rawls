@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.scene.lookAt &mdash; rawls v0.1.4 documentation</title>
+  <title>rawls.scene.lookAt &mdash; rawls v0.1.5 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="rawls.scene.vector" href="rawls.scene.vector.html" />
     <link rel="prev" title="rawls.scene.sampler" href="rawls.scene.sampler.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -89,14 +91,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../rawls.html#rawls">rawls</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../rawls.html#rawls-scene">rawls.scene</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="rawls.scene.details.html">rawls.scene.details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.film.html">rawls.scene.film</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.scene.filter.html">rawls.scene.filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rawls.scene.resolution.html">rawls.scene.resolution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.scene.camera.html">rawls.scene.camera</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.scene.accelerator.html">rawls.scene.accelerator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.scene.integrator.html">rawls.scene.integrator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.scene.sampler.html">rawls.scene.sampler</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">rawls.scene.lookAt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls.scene.vector.html">rawls.scene.vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls.scene.params.html">rawls.scene.params</a></li>
 </ul>
 </li>
 </ul>
@@ -173,52 +176,50 @@
             
   <div class="section" id="module-rawls.scene.lookAt">
 <span id="rawls-scene-lookat"></span><h1>rawls.scene.lookAt<a class="headerlink" href="#module-rawls.scene.lookAt" title="Permalink to this headline">¶</a></h1>
+<p>LookAt class information</p>
 <p class="rubric">Classes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#rawls.scene.lookAt.LookAt" title="rawls.scene.lookAt.LookAt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LookAt</span></code></a>(eye,&nbsp;point,&nbsp;up)</td>
-<td>LookAt class information</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rawls.scene.lookAt.LookAt" title="rawls.scene.lookAt.LookAt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LookAt</span></code></a>(eye, point, up)</p></td>
+<td><p>LookAt class information</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="rawls.scene.lookAt.LookAt">
-<em class="property">class </em><code class="descclassname">rawls.scene.lookAt.</code><code class="descname">LookAt</code><span class="sig-paren">(</span><em>eye</em>, <em>point</em>, <em>up</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/scene/lookAt.html#LookAt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.scene.lookAt.LookAt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rawls.scene.lookAt.</code><code class="sig-name descname">LookAt</code><span class="sig-paren">(</span><em class="sig-param">eye</em>, <em class="sig-param">point</em>, <em class="sig-param">up</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/scene/lookAt.html#LookAt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.scene.lookAt.LookAt" title="Permalink to this definition">¶</a></dt>
 <dd><p>LookAt class information</p>
 <dl class="attribute">
 <dt id="rawls.scene.lookAt.LookAt.eye">
-<code class="descname">eye</code><a class="headerlink" href="#rawls.scene.lookAt.LookAt.eye" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">eye</code><a class="headerlink" href="#rawls.scene.lookAt.LookAt.eye" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Vector3f} – eye coordinate</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.scene.lookAt.LookAt.point">
-<code class="descname">point</code><a class="headerlink" href="#rawls.scene.lookAt.LookAt.point" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">point</code><a class="headerlink" href="#rawls.scene.lookAt.LookAt.point" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Vector3f} – point to look at coordinate</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.scene.lookAt.LookAt.up">
-<code class="descname">up</code><a class="headerlink" href="#rawls.scene.lookAt.LookAt.up" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">up</code><a class="headerlink" href="#rawls.scene.lookAt.LookAt.up" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Vector3f} – up vector</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.scene.lookAt.LookAt.to_rawls">
-<code class="descname">to_rawls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/scene/lookAt.html#LookAt.to_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.scene.lookAt.LookAt.to_rawls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_rawls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/scene/lookAt.html#LookAt.to_rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.scene.lookAt.LookAt.to_rawls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display LookAt information for .rawls file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{str} – LookAt information for .rawls file</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{str} – LookAt information for .rawls file</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -236,7 +237,7 @@
         <a href="rawls.scene.vector.html" class="btn btn-neutral float-right" title="rawls.scene.vector" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rawls.scene.sampler.html" class="btn btn-neutral" title="rawls.scene.sampler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rawls.scene.sampler.html" class="btn btn-neutral float-left" title="rawls.scene.sampler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -262,26 +263,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

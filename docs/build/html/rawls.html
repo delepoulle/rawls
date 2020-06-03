@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation &mdash; rawls v0.1.4 documentation</title>
+  <title>Documentation &mdash; rawls v0.1.5 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="rawls.rawls" href="rawls/rawls.rawls.html" />
     <link rel="prev" title="Description" href="description.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -94,14 +96,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#rawls-scene">rawls.scene</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.details.html">rawls.scene.details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.film.html">rawls.scene.film</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.filter.html">rawls.scene.filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.resolution.html">rawls.scene.resolution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.camera.html">rawls.scene.camera</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.accelerator.html">rawls.scene.accelerator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.integrator.html">rawls.scene.integrator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.sampler.html">rawls.scene.sampler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.lookAt.html">rawls.scene.lookAt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.vector.html">rawls.scene.vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rawls/rawls.scene.params.html">rawls.scene.params</a></li>
 </ul>
 </li>
 </ul>
@@ -178,58 +181,61 @@
 <h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="rawls">
 <h2>rawls<a class="headerlink" href="#rawls" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="rawls/rawls.rawls.html#module-rawls.rawls" title="rawls.rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.rawls</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="rawls/rawls.rawls.html#module-rawls.rawls" title="rawls.rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.rawls</span></code></a></p></td>
+<td><p>Rawls class used to open <cite>.rawls</cite> path image</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="rawls/rawls.stats.html#module-rawls.stats" title="rawls.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.stats</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="rawls/rawls.stats.html#module-rawls.stats" title="rawls.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.stats</span></code></a></p></td>
+<td><p>RawlsStats class which enables statistics other multiples Rawls instance</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="rawls/rawls.utils.html#module-rawls.utils" title="rawls.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.utils</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="rawls/rawls.utils.html#module-rawls.utils" title="rawls.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.utils</span></code></a></p></td>
+<td><p>Utils function for .rawls file</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="rawls-scene">
 <h2>rawls.scene<a class="headerlink" href="#rawls-scene" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="rawls/rawls.scene.details.html#module-rawls.scene.details" title="rawls.scene.details"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.details</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="rawls/rawls.scene.details.html#module-rawls.scene.details" title="rawls.scene.details"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.details</span></code></a></p></td>
+<td><p>Rawls rendering details information</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="rawls/rawls.scene.filter.html#module-rawls.scene.filter" title="rawls.scene.filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.filter</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="rawls/rawls.scene.film.html#module-rawls.scene.film" title="rawls.scene.film"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.film</span></code></a></p></td>
+<td><p>Film class which store Film information</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="rawls/rawls.scene.resolution.html#module-rawls.scene.resolution" title="rawls.scene.resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.resolution</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="rawls/rawls.scene.filter.html#module-rawls.scene.filter" title="rawls.scene.filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.filter</span></code></a></p></td>
+<td><p>Filter class which store Filter information</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="rawls/rawls.scene.camera.html#module-rawls.scene.camera" title="rawls.scene.camera"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.camera</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="rawls/rawls.scene.camera.html#module-rawls.scene.camera" title="rawls.scene.camera"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.camera</span></code></a></p></td>
+<td><p>Camera class which store Camera information</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="rawls/rawls.scene.accelerator.html#module-rawls.scene.accelerator" title="rawls.scene.accelerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.accelerator</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="rawls/rawls.scene.accelerator.html#module-rawls.scene.accelerator" title="rawls.scene.accelerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.accelerator</span></code></a></p></td>
+<td><p>Accelerator class which store Accelerator information</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="rawls/rawls.scene.integrator.html#module-rawls.scene.integrator" title="rawls.scene.integrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.integrator</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="rawls/rawls.scene.integrator.html#module-rawls.scene.integrator" title="rawls.scene.integrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.integrator</span></code></a></p></td>
+<td><p>Integrator class which store Integrator information</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="rawls/rawls.scene.sampler.html#module-rawls.scene.sampler" title="rawls.scene.sampler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.sampler</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="rawls/rawls.scene.sampler.html#module-rawls.scene.sampler" title="rawls.scene.sampler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.sampler</span></code></a></p></td>
+<td><p>Sampler class which store Sampler information</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="rawls/rawls.scene.lookAt.html#module-rawls.scene.lookAt" title="rawls.scene.lookAt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.lookAt</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="rawls/rawls.scene.lookAt.html#module-rawls.scene.lookAt" title="rawls.scene.lookAt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.lookAt</span></code></a></p></td>
+<td><p>LookAt class information</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="rawls/rawls.scene.vector.html#module-rawls.scene.vector" title="rawls.scene.vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.vector</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="rawls/rawls.scene.vector.html#module-rawls.scene.vector" title="rawls.scene.vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.vector</span></code></a></p></td>
+<td><p>3D vector representation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rawls/rawls.scene.params.html#module-rawls.scene.params" title="rawls.scene.params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rawls.scene.params</span></code></a></p></td>
+<td><p>Generic class which store module params information</p></td>
 </tr>
 </tbody>
 </table>
@@ -247,7 +253,7 @@
         <a href="rawls/rawls.rawls.html" class="btn btn-neutral float-right" title="rawls.rawls" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="description.html" class="btn btn-neutral" title="Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="description.html" class="btn btn-neutral float-left" title="Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -273,26 +279,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

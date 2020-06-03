@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.rawls &mdash; rawls v0.1.4 documentation</title>
+  <title>rawls.rawls &mdash; rawls v0.1.5 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="rawls.stats" href="rawls.stats.html" />
     <link rel="prev" title="Documentation" href="../rawls.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -167,170 +169,152 @@
             
   <div class="section" id="module-rawls.rawls">
 <span id="rawls-rawls"></span><h1>rawls.rawls<a class="headerlink" href="#module-rawls.rawls" title="Permalink to this headline">¶</a></h1>
+<p>Rawls class used to open <cite>.rawls</cite> path image</p>
 <p class="rubric">Classes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#rawls.rawls.Rawls" title="rawls.rawls.Rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rawls</span></code></a>(shape,&nbsp;data,&nbsp;details[,&nbsp;gamma_converted])</td>
-<td>Rawls class used to open <cite>.rawls</cite> path image</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rawls.rawls.Rawls" title="rawls.rawls.Rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rawls</span></code></a>(shape, data, details[, gamma_converted])</p></td>
+<td><p>Rawls class used to open <cite>.rawls</cite> path image</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="rawls.rawls.Rawls">
-<em class="property">class </em><code class="descclassname">rawls.rawls.</code><code class="descname">Rawls</code><span class="sig-paren">(</span><em>shape</em>, <em>data</em>, <em>details</em>, <em>gamma_converted=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rawls.rawls.</code><code class="sig-name descname">Rawls</code><span class="sig-paren">(</span><em class="sig-param">shape</em>, <em class="sig-param">data</em>, <em class="sig-param">details</em>, <em class="sig-param">gamma_converted=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rawls class used to open <cite>.rawls</cite> path image</p>
 <dl class="attribute">
 <dt id="rawls.rawls.Rawls.shape">
-<code class="descname">shape</code><a class="headerlink" href="#rawls.rawls.Rawls.shape" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">shape</code><a class="headerlink" href="#rawls.rawls.Rawls.shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>{(int, int, int)} – describe shape of the image</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.rawls.Rawls.data">
-<code class="descname">data</code><a class="headerlink" href="#rawls.rawls.Rawls.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data</code><a class="headerlink" href="#rawls.rawls.Rawls.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>{ndrray} – buffer data numpy array</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.rawls.Rawls.details">
-<code class="descname">details</code><a class="headerlink" href="#rawls.rawls.Rawls.details" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">details</code><a class="headerlink" href="#rawls.rawls.Rawls.details" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Details} – details instance information</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rawls.rawls.Rawls.gamma_converted">
-<code class="descname">gamma_converted</code><a class="headerlink" href="#rawls.rawls.Rawls.gamma_converted" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gamma_converted</code><a class="headerlink" href="#rawls.rawls.Rawls.gamma_converted" title="Permalink to this definition">¶</a></dt>
 <dd><p>{Details} – specify if Rawls instance is gamma converted or not</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.copy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy current Rawls instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – Rawls copy of current instance</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{Rawls} – Rawls copy of current instance</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="rawls.rawls.Rawls.fusion">
-<em class="property">classmethod </em><code class="descname">fusion</code><span class="sig-paren">(</span><em>rawls_image_1</em>, <em>rawls_image_2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.fusion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.fusion" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">fusion</code><span class="sig-paren">(</span><em class="sig-param">rawls_image_1</em>, <em class="sig-param">rawls_image_2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.fusion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.fusion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fusion two rawls images together based on their number of samples</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>rawls</strong> – {Rawls} – first Rawls image to merge</li>
-<li><strong>rawls</strong> – {Rawls} – second Rawls image to merge</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rawls</strong> – {Rawls} – first Rawls image to merge</p></li>
+<li><p><strong>rawls</strong> – {Rawls} – second Rawls image to merge</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">{Rawls} – Rawls instance</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>{Rawls} – Rawls instance</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.gammaConvert">
-<code class="descname">gammaConvert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.gammaConvert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.gammaConvert" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gammaConvert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.gammaConvert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.gammaConvert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert gamma of luminance chanel values of rawls image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{ndarray} – image buffer with converted gamma values</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{ndarray} – image buffer with converted gamma values</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.h_flip">
-<code class="descname">h_flip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.h_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.h_flip" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">h_flip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.h_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.h_flip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flip horizontally current Rawls instance</p>
 </dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="rawls.rawls.Rawls.load">
-<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.load" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open data of rawls file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> – {str} – path of the .rawls file to open</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Rawls instance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">{Rawls}</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> – {str} – path of the .rawls file to open</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rawls instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>{Rawls}</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.normalize">
-<code class="descname">normalize</code><span class="sig-paren">(</span><em>max_value=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.normalize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">max_value=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Give new Rawls instance with normalized data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{float} -- max expected value for normalization</strong><strong> (</strong><strong>default</strong> (<em>max_value</em>) – {max data value})</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{Rawls} – Rawls instance with normalized data</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{float} -- max expected value for normalization</strong><strong> (</strong><strong>default</strong> (<em>max_value</em>) – {max data value})</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>{Rawls} – Rawls instance with normalized data</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>outfile</em>, <em>gamma_convert=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">outfile</em>, <em class="sig-param">gamma_convert=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save rawls image into new file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>outfile</strong> – {str} – output filename (rawls or png)</li>
-<li><strong>gamma_convert</strong> – {bool} – necessary or not to convert using gamma (default: True)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outfile</strong> – {str} – output filename (rawls or png)</p></li>
+<li><p><strong>gamma_convert</strong> – {bool} – necessary or not to convert using gamma (default: True)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.to_pil">
-<code class="descname">to_pil</code><span class="sig-paren">(</span><em>gamma_convert=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.to_pil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.to_pil" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_pil</code><span class="sig-paren">(</span><em class="sig-param">gamma_convert=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.to_pil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.to_pil" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert current rawls image into PIL RGB Image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gamma_convert</strong> – {bool} – necessary or not to convert using gamma (default: True)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{PIL} – RGB image converted</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gamma_convert</strong> – {bool} – necessary or not to convert using gamma (default: True)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>{PIL} – RGB image converted</p>
+</dd>
+</dl>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="kn">import</span> <span class="n">Rawls</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;images/example_1.rawls&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_img</span> <span class="o">=</span> <span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_pil_img</span> <span class="o">=</span> <span class="n">rawls_img</span><span class="o">.</span><span class="n">to_pil</span><span class="p">()</span>
@@ -342,25 +326,21 @@
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.to_png">
-<code class="descname">to_png</code><span class="sig-paren">(</span><em>outfile</em>, <em>gamma_convert=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.to_png"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.to_png" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_png</code><span class="sig-paren">(</span><em class="sig-param">outfile</em>, <em class="sig-param">gamma_convert=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.to_png"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.to_png" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save rawls image into PNG</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>outfile</strong> – {str} – PNG output filename</li>
-<li><strong>gamma_convert</strong> – {bool} – necessary or not to convert using gamma (default: True)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outfile</strong> – {str} – PNG output filename</p></li>
+<li><p><strong>gamma_convert</strong> – {bool} – necessary or not to convert using gamma (default: True)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rawls.rawls.Rawls.v_flip">
-<code class="descname">v_flip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.v_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.v_flip" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">v_flip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.v_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.v_flip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flip vectically current Rawls instance</p>
 </dd></dl>
 
@@ -379,7 +359,7 @@
         <a href="rawls.stats.html" class="btn btn-neutral float-right" title="rawls.stats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../rawls.html" class="btn btn-neutral" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../rawls.html" class="btn btn-neutral float-left" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -405,26 +385,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

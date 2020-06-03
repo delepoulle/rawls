@@ -1,6 +1,8 @@
 RAW Light Simulation reader/converter package
 =============================================
 
+![](https://github.com/prise-3d/rawls/workflows/build/badge.svg) ![](https://github.com/prise-3d/rawls/workflows/pypi/badge.svg)
+
 <p align="center">
     <img src="https://github.com/prise-3d/rawls/blob/master/rawls_logo.png" width="50%">
 </p>

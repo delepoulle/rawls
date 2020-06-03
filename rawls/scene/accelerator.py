@@ -1,36 +1,29 @@
-class Accelerator():
-    """Accelerator class which store Accelerator information
+"""Accelerator class which store Accelerator information    
+"""
+
+from .params import Params
+
+
+class Accelerator(Params):
+    """Accelerator class which store accelerator params information
 
     Attributes:
-        name: {str} -- name of the accelerator
-        params: {str} -- parameters of accelerator used
+        name: {str} -- name of the kind of accelerator used
+        params_name: [{str}] -- parameters names of accelerator used
+        params_values: [{str}] -- parameters values of accelerator used
+        params_types: [{str}] -- parameters values of accelerator used
     """
-
-    def __init__(self, name, params):
+    def __init__(self, name, params_names, params_values, params_types):
         """Construct accelerator with all information
         
         Arguments:
-            name: {str} -- name of the accelerator
-            params: {str} -- parameters of accelerator used
+            name: {str} -- name of the kind of accelerator used
+            params_name: [{str}] -- parameters names of accelerator used
+            params_values: [{str}] -- parameters values of accelerator used
+            params_types: [{str}] -- parameters values of accelerator used
         """
+        self.module = "Accelerator"
         self.name = name
-        self.params = params
-
-    def __str__(self):
-        """Display Accelerator information
-        
-        Returns:
-            {str} -- accelerator information
-        """
-        if len(self.name) > 0:
-            return "Accelerator: `{0}`, ({1})".format(self.name, self.params)
-        else:
-            return "Accelerator: default"
-
-    def to_rawls(self):
-        """Display Accelerator information for .rawls file
-        
-        Returns:
-            {str} -- accelerator information for .rawls file
-        """
-        return "#Accelerator {0}\n\t#params {1}".format(self.name, self.params)
+        self.params_names = params_names
+        self.params_values = params_values
+        self.params_types = params_types

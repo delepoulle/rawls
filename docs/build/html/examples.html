@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples &mdash; rawls v0.1.4 documentation</title>
+  <title>Examples &mdash; rawls v0.1.5 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributing" href="contributing.html" />
-    <link rel="prev" title="rawls.scene.vector" href="rawls/rawls.scene.vector.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    <link rel="prev" title="rawls.scene.params" href="rawls/rawls.scene.params.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -162,28 +164,88 @@
 <p>Some examples are already available into documentation. You can find here some others and results of use of <cite>rawls</cite> package.</p>
 <div class="section" id="processing-example">
 <h2>Processing example<a class="headerlink" href="#processing-example" title="Permalink to this headline">¶</a></h2>
-<p>Read and save rawls file:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<p>Read and save <cite>.rawls</cite> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="kn">import</span> <span class="n">Rawls</span>
 <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;images/example_1.rawls&#39;</span>
 <span class="n">rawls_img</span> <span class="o">=</span> <span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">rawls_img</span><span class="o">.</span><span class="n">to_png</span><span class="p">(</span><span class="s1">&#39;output.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/output.png"><img alt="_images/output.png" class="align-center" src="_images/output.png" style="width: 120px;" /></a>
-<p>Display Rawls information:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
+<p>Display rendering information:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="kn">import</span> <span class="n">Rawls</span>
 <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;images/example_1.rawls&#39;</span>
 <span class="n">rawls_img</span> <span class="o">=</span> <span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">rawls_img</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/display.png"><img alt="_images/display.png" class="align-center" src="_images/display.png" style="width: 300px;" /></a>
-<p>Extract statistics from rawls samples files:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="k">import</span> <span class="n">Rawls</span>
-<span class="kn">from</span> <span class="nn">rawls.stats</span> <span class="k">import</span> <span class="n">RawlsStats</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------------
+Shape:
+        <span class="o">(</span><span class="m">100</span>, <span class="m">100</span>, <span class="m">3</span><span class="o">)</span>
+Details:
+        Samples: <span class="m">1000</span>
+        Filter: default
+        Resolution: <span class="sb">`</span>image<span class="sb">`</span>
+                - <span class="o">[</span>integer<span class="o">]</span> xresolution: <span class="m">100</span>
+                - <span class="o">[</span>integer<span class="o">]</span> yresolution: <span class="m">100</span>
+                - <span class="o">[</span>string<span class="o">]</span> filename: p3d_bathroom.rawls
+        Sampler: <span class="sb">`</span>random<span class="sb">`</span>
+                - <span class="o">[</span>integer<span class="o">]</span> pixelsamples: <span class="m">64</span>
+        Accelerator: default
+        Integrator: <span class="sb">`</span>path<span class="sb">`</span>
+                - <span class="o">[</span>integer<span class="o">]</span> maxdepth: <span class="m">65</span>
+        Camera: <span class="sb">`</span>perspective<span class="sb">`</span>
+                - <span class="o">[</span>float<span class="o">]</span> fov: <span class="m">55</span>
+                - <span class="o">[</span>float<span class="o">]</span> focaldistance: <span class="m">31</span>
+                - <span class="o">[</span>float<span class="o">]</span> lensradius: <span class="m">0</span>.15000001
+        LookAt:
+                - eye: <span class="o">(</span><span class="m">0</span>.0, <span class="m">18</span>.0, <span class="m">30</span>.0<span class="o">)</span>
+                - point: <span class="o">(</span><span class="m">10</span>.2, <span class="m">5</span>.0, <span class="m">0</span>.0<span class="o">)</span>
+                - up: <span class="o">(</span><span class="m">0</span>.0, <span class="m">1</span>.0, <span class="m">0</span>.0<span class="o">)</span>
+Gamma converted:
+        False
+--------------------------------------------------------
+</pre></div>
+</div>
+<p>Extract statistics from multiples <cite>.rawls</cite> samples files:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="kn">import</span> <span class="n">Rawls</span>
+<span class="kn">from</span> <span class="nn">rawls.stats</span> <span class="kn">import</span> <span class="n">RawlsStats</span>
 <span class="n">path_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;images/example_1.rawls&#39;</span><span class="p">,</span> <span class="s1">&#39;images/example_2.rawls&#39;</span><span class="p">]</span>
 <span class="n">rawls_stats</span> <span class="o">=</span> <span class="n">RawlsStats</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path_list</span><span class="p">)</span>
-<span class="n">rawls_mean</span> <span class="o">=</span> <span class="n">rawls_stats</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rawls_stats</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------------
+nelements:
+    <span class="m">2</span>
+Details:
+    Samples: <span class="m">2000</span>
+    Filter: default
+    Resolution: <span class="sb">`</span>image<span class="sb">`</span>
+        - <span class="o">[</span>integer<span class="o">]</span> xresolution: <span class="m">100</span>
+        - <span class="o">[</span>integer<span class="o">]</span> yresolution: <span class="m">100</span>
+        - <span class="o">[</span>string<span class="o">]</span> filename: p3d_bathroom.rawls
+    Sampler: <span class="sb">`</span>random<span class="sb">`</span>
+        - <span class="o">[</span>integer<span class="o">]</span> pixelsamples: <span class="m">64</span>
+    Accelerator: default
+    Integrator: <span class="sb">`</span>path<span class="sb">`</span>
+        - <span class="o">[</span>integer<span class="o">]</span> maxdepth: <span class="m">65</span>
+    Camera: <span class="sb">`</span>perspective<span class="sb">`</span>
+        - <span class="o">[</span>float<span class="o">]</span> fov: <span class="m">55</span>
+        - <span class="o">[</span>float<span class="o">]</span> focaldistance: <span class="m">31</span>
+        - <span class="o">[</span>float<span class="o">]</span> lensradius: <span class="m">0</span>.15000001
+    LookAt:
+        - eye: <span class="o">(</span><span class="m">0</span>.0, <span class="m">18</span>.0, <span class="m">30</span>.0<span class="o">)</span>
+        - point: <span class="o">(</span><span class="m">10</span>.2, <span class="m">5</span>.0, <span class="m">0</span>.0<span class="o">)</span>
+        - up: <span class="o">(</span><span class="m">0</span>.0, <span class="m">1</span>.0, <span class="m">0</span>.0<span class="o">)</span>
+Mean samples per element:
+    <span class="m">1000</span>.0
+Expected shape:
+    <span class="o">(</span><span class="m">100</span>, <span class="m">100</span>, <span class="m">3</span><span class="o">)</span>
+--------------------------------------------------------
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rawls_mean</span> <span class="o">=</span> <span class="n">rawls_stats</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">rawls_mean</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;output_mean.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -202,7 +264,7 @@
         <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rawls/rawls.scene.vector.html" class="btn btn-neutral" title="rawls.scene.vector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rawls/rawls.scene.params.html" class="btn btn-neutral float-left" title="rawls.scene.params" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -228,26 +290,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
