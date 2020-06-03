@@ -1,8 +1,8 @@
 from setuptools import setup
-import setuptools.command.build_py
+import distutils.command.check
 
-class BuildTestCommand(setuptools.command.build_py.build_py):
-    """Custom build command."""
+class TestCommand(distutils.command.check.check):
+    """Custom test command."""
 
     def run(self):
 
@@ -24,12 +24,12 @@ class BuildTestCommand(setuptools.command.build_py.build_py):
         doctest.testmod(stats)
         doctest.testmod(utils)
 
-        setuptools.command.build_py.build_py.run(self)
+        distutils.command.check.check.run(self)
 
 
 setup(
     name='rawls',
-    version='0.1.6',
+    version='0.1.7',
     description='RAW Light Simulation file reader/converter package',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
@@ -51,6 +51,6 @@ setup(
         'scipy',
     ],
     cmdclass={
-        'build_py': BuildTestCommand,
+        'test': TestCommand,
     },
     zip_safe=False)
