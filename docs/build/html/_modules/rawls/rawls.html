@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.rawls &mdash; rawls v0.1.5 documentation</title>
+  <title>rawls.rawls &mdash; rawls v0.1.6 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.5
+                0.1.6
               </div>
             
           
@@ -383,6 +383,16 @@
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            {float} -- the clamped value</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; from rawls.rawls import Rawls</span>
+<span class="sd">        &gt;&gt;&gt; path = &#39;images/example_1.rawls&#39;</span>
+<span class="sd">        &gt;&gt;&gt; rawls_img = Rawls.load(path)</span>
+<span class="sd">        &gt;&gt;&gt; rawls_img._Rawls__clamp(300, 0, 255)</span>
+<span class="sd">        255</span>
+<span class="sd">        &gt;&gt;&gt; rawls_img._Rawls__clamp(200, 0, 255)</span>
+<span class="sd">        200</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">smallest</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">largest</span><span class="p">))</span>
 
@@ -394,6 +404,16 @@
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            {float} -- correct value with specific gamma</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; from rawls.rawls import Rawls</span>
+<span class="sd">        &gt;&gt;&gt; path = &#39;images/example_1.rawls&#39;</span>
+<span class="sd">        &gt;&gt;&gt; rawls_img = Rawls.load(path)</span>
+<span class="sd">        &gt;&gt;&gt; rawls_img._Rawls__gamma_correct(0.80)</span>
+<span class="sd">        0.9063317533440594</span>
+<span class="sd">        &gt;&gt;&gt; rawls_img._Rawls__gamma_correct(0.55)</span>
+<span class="sd">        0.7673756580558262</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mf">0.0031308</span><span class="p">:</span>
             <span class="k">return</span> <span class="mf">12.92</span> <span class="o">*</span> <span class="n">value</span>

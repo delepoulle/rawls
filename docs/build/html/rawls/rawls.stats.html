@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.stats &mdash; rawls v0.1.5 documentation</title>
+  <title>rawls.stats &mdash; rawls v0.1.6 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.5
+                0.1.6
               </div>
             
           
@@ -205,8 +205,8 @@
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rawls.stats.RawlsStats.mean_samples_per_elements">
-<code class="sig-name descname">mean_samples_per_elements</code><a class="headerlink" href="#rawls.stats.RawlsStats.mean_samples_per_elements" title="Permalink to this definition">¶</a></dt>
+<dt id="rawls.stats.RawlsStats.mean_samples_per_element">
+<code class="sig-name descname">mean_samples_per_element</code><a class="headerlink" href="#rawls.stats.RawlsStats.mean_samples_per_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>{float} – statistic which gives mean number of samples used (if Rawls images do not have same number of samples)</p>
 </dd></dl>
 
@@ -214,6 +214,31 @@
 <dt id="rawls.stats.RawlsStats.expected_shape">
 <code class="sig-name descname">expected_shape</code><a class="headerlink" href="#rawls.stats.RawlsStats.expected_shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>{(int, int, int)} – describe expected shape of an Rawls image element</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rawls.stats.RawlsStats.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param">rawls_img</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append list or rawls image element to current Rawls stats instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>{</strong><strong>[</strong><strong>Rawls</strong><strong>]</strong><strong>} -- Rawls</strong><strong> or </strong><strong>list of Rawls instance</strong> (<em>rawls_img</em>) – </p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – Invalid rawls shape, impossible to add this shape with others elements</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="kn">import</span> <span class="n">Rawls</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rawls.stats</span> <span class="kn">import</span> <span class="n">RawlsStats</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;images/example_1.rawls&#39;</span><span class="p">,</span> <span class="s1">&#39;images/example_2.rawls&#39;</span> <span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_stats</span> <span class="o">=</span> <span class="n">RawlsStats</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_stats</span><span class="o">.</span><span class="n">nelements</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_stats</span><span class="o">.</span><span class="n">nelements</span>
+<span class="go">4</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -242,6 +267,16 @@
 <dd class="field-odd"><p>{RawlsStats}</p>
 </dd>
 </dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="kn">import</span> <span class="n">Rawls</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rawls.stats</span> <span class="kn">import</span> <span class="n">RawlsStats</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;images/example_1.rawls&#39;</span><span class="p">,</span> <span class="s1">&#39;images/example_2.rawls&#39;</span> <span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_stats</span> <span class="o">=</span> <span class="n">RawlsStats</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_stats</span><span class="o">.</span><span class="n">nelements</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawls_stats</span><span class="o">.</span><span class="n">mean_samples_per_element</span>
+<span class="go">1000.0</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">

@@ -230,6 +230,16 @@ class Rawls():
         
         Returns:
             {float} -- the clamped value
+
+        Example:
+
+        >>> from rawls.rawls import Rawls
+        >>> path = 'images/example_1.rawls'
+        >>> rawls_img = Rawls.load(path)
+        >>> rawls_img._Rawls__clamp(300, 0, 255)
+        255
+        >>> rawls_img._Rawls__clamp(200, 0, 255)
+        200
         """
         return max(smallest, min(n, largest))
 
@@ -241,6 +251,16 @@ class Rawls():
         
         Returns:
             {float} -- correct value with specific gamma
+
+        Example:
+
+        >>> from rawls.rawls import Rawls
+        >>> path = 'images/example_1.rawls'
+        >>> rawls_img = Rawls.load(path)
+        >>> rawls_img._Rawls__gamma_correct(0.80)
+        0.9063317533440594
+        >>> rawls_img._Rawls__gamma_correct(0.55)
+        0.7673756580558262
         """
         if value <= 0.0031308:
             return 12.92 * value
