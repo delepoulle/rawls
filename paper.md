@@ -27,7 +27,7 @@ Global illumination methods based on stochastic techniques provide photo-realist
 
 # `.rawls` extension
 
-In order to tackle this perceptual noise problem, some methods have been implemented in order to variance and improve the rendered image [@delbracio2014boosting; @boughida2017bayesian]. Unlike online rendering statisticals methods, `.rawls` (for RAW Light Simulation) extension files can be used offline into a post-processing task in order to prepare huge dataset.
+In order to tackle this perceptual noise problem, some methods have been implemented in order to reduce variance and improve the rendered image [@delbracio2014boosting; @boughida2017bayesian]. Unlike online rendering statisticals methods, `.rawls` (for RAW Light Simulation) extension files can be used offline into a post-processing task in order to prepare huge dataset.
 
 A `.rawls` file is a custom image file obtained as output of renderer. These files keep fully information about generated images such as rendering parameters (number of samples, integrator, sampler, camera...) and store all RGB spectrum values before gamma correction as float (32 bits).
 

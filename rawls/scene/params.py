@@ -1,22 +1,24 @@
 """Generic class which store module params information
-
-Attributes:
-    module: {str} -- name of the module
-    name: {str} -- name of the kind module used
-    params_name: [{str}] -- parameters names of module used
-    params_values: [{str}] -- parameters values of module used
-    params_types: [{str}] -- parameters values of module used
 """
 
 
 class Params():
+    """Generic class which store module params information
+
+    Attributes:
+        module: {str} -- name of the module
+        name: {str} -- name of the kind of module used
+        params_name: [{str}] -- parameters names of module used
+        params_values: [{str}] -- parameters values of module used
+        params_types: [{str}] -- parameters values of module used
+    """
     def __init__(self, module, name, params_names, params_values,
                  params_types):
         """Construct module with all information
         
         Arguments:
             module: {str} -- name of the module
-            name: {str} -- name of the kind module used
+            name: {str} -- name of the kind of module used
             params_name: [{str}] -- parameters names of module used
             params_values: [{str}] -- parameters values of module used
             params_types: [{str}] -- parameters values of module used

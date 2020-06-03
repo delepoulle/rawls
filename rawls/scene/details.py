@@ -1,14 +1,4 @@
 """Rawls rendering details information
-
-Attributes:
-        resolution: {Resolution} -- x and y resolution of image
-        samples: {int} -- number of samples used for generate image
-        pixelfilter: {Filter} -- pixelfilter instance with information
-        sampler: {Sampler} -- sampler instance with information
-        accelerator: {Accelerator} -- accelerator instance with information
-        integrator: {Integrator} -- integrator instance with information
-        camera: {Camera} -- camera instance with information
-        lookAt: {LookAt} -- look at instance with eye, point and up vector
 """
 
 # main imports
@@ -18,7 +8,7 @@ import re
 from .sampler import Sampler
 from .integrator import Integrator
 from .camera import Camera
-from .resolution import Resolution
+from .film import Film
 from .lookAt import LookAt
 from .vector import Vector3f
 from .filter import Filter
@@ -26,12 +16,24 @@ from .accelerator import Accelerator
 
 
 class Details():
-    def __init__(self, resolution, samples, pixelfilter, sampler, accelerator,
+    """Details information used to rendering current image
+    
+    Arguments:
+        film: {Film} -- x and y resolution of image
+        samples: {int} -- number of samples used for generate image
+        pixelfilter: {Filter} -- pixelfilter instance with information
+        sampler: {Sampler} -- sampler instance with information
+        accelerator: {Accelerator} -- accelerator instance with information
+        integrator: {Integrator} -- integrator instance with information
+        camera {Camera} -- camera instance with information
+        lookAt {LookAt} -- look at instance with eye, point and up information
+    """
+    def __init__(self, film, samples, pixelfilter, sampler, accelerator,
                  integrator, camera, lookAt):
         """Details information used to rendering current image
         
         Arguments:
-            resolution: {Resolution} -- x and y resolution of image
+            film: {Film} -- x and y resolution of image
             samples: {int} -- number of samples used for generate image
             pixelfilter: {Filter} -- pixelfilter instance with information
             sampler: {Sampler} -- sampler instance with information
@@ -42,7 +44,7 @@ class Details():
         """
         self.samples = samples
         self.pixelfilter = pixelfilter
-        self.resolution = resolution
+        self.film = film
         self.accelerator = accelerator
         self.integrator = integrator
         self.sampler = sampler
@@ -69,8 +71,8 @@ class Details():
 
                 params_names, params_values, params_types = self._extract_params(
                     comments_line[index + 1])
-                resolution = Resolution(film_name, params_names, params_values,
-                                        params_types)
+                film = Film(film_name, params_names, params_values,
+                            params_types)
 
             if 'Samples' in line:
                 samples = int(line.split(' ')[-1])
@@ -136,7 +138,7 @@ class Details():
 
                 lookAt = LookAt(eye, point, up)
 
-        return Details(resolution, samples, pixelfilter, sampler, accelerator,
+        return Details(film, samples, pixelfilter, sampler, accelerator,
                        integrator, camera, lookAt)
 
     @classmethod
@@ -170,7 +172,7 @@ class Details():
             {str} -- details information
         """
         return '\tSamples: {0}\n\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{6}\n\t{7}'.format(
-            self.samples, self.pixelfilter, self.resolution, self.sampler,
+            self.samples, self.pixelfilter, self.film, self.sampler,
             self.accelerator, self.integrator, self.camera, self.lookAt)
 
     def to_rawls(self):
@@ -180,7 +182,7 @@ class Details():
             {str} -- details information for .rawls file
         """
         return '#Samples: {0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}'.format(
-            self.samples, self.pixelfilter.to_rawls(),
-            self.resolution.to_rawls(), self.sampler.to_rawls(),
-            self.accelerator.to_rawls(), self.integrator.to_rawls(),
-            self.camera.to_rawls(), self.lookAt.to_rawls())
+            self.samples, self.pixelfilter.to_rawls(), self.film.to_rawls(),
+            self.sampler.to_rawls(), self.accelerator.to_rawls(),
+            self.integrator.to_rawls(), self.camera.to_rawls(),
+            self.lookAt.to_rawls())

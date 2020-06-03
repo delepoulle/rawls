@@ -1,10 +1,4 @@
 """Rawls class used to open `.rawls` path image
-
-Attributes:
-    shape: {(int, int, int)} -- describe shape of the image
-    data: {ndrray} -- buffer data numpy array
-    details: {Details} -- details instance information
-    gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not
 """
 
 # main imports
@@ -24,6 +18,14 @@ extensions = ['png', 'rawls']
 
 
 class Rawls():
+    """Rawls class used to open `.rawls` path image
+
+    Attributes:
+        shape: {(int, int, int)} -- describe shape of the image
+        data: {ndrray} -- buffer data numpy array
+        details: {Details} -- details instance information
+        gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not
+    """
     def __init__(self, shape, data, details, gamma_converted=False):
         self.shape = shape
         self.data = data

@@ -20,7 +20,6 @@ Read and save `.rawls` file:
    :align: center
 
 
-
 Display rendering information:
 
 .. code:: python
@@ -30,9 +29,34 @@ Display rendering information:
     rawls_img = Rawls.load(path)
     print(rawls_img)
 
-.. image:: _static/display.png
-   :width: 350 px
-   :align: center
+.. code:: bash
+
+    --------------------------------------------------------
+    Shape: 
+            (100, 100, 3)
+    Details: 
+            Samples: 1000
+            Filter: default
+            Resolution: `image`
+                    - [integer] xresolution: 100
+                    - [integer] yresolution: 100
+                    - [string] filename: p3d_bathroom.rawls
+            Sampler: `random`
+                    - [integer] pixelsamples: 64
+            Accelerator: default
+            Integrator: `path`
+                    - [integer] maxdepth: 65
+            Camera: `perspective`
+                    - [float] fov: 55
+                    - [float] focaldistance: 31
+                    - [float] lensradius: 0.15000001
+            LookAt: 
+                    - eye: (0.0, 18.0, 30.0) 
+                    - point: (10.2, 5.0, 0.0) 
+                    - up: (0.0, 1.0, 0.0)
+    Gamma converted: 
+            False
+    --------------------------------------------------------
 
 
 Extract statistics from multiples `.rawls` samples files:
@@ -45,9 +69,36 @@ Extract statistics from multiples `.rawls` samples files:
     rawls_stats = RawlsStats.load(path_list)
     print(rawls_stats)
 
-.. image:: _static/display_stats.png
-   :width: 350 px
-   :align: center
+.. code:: bash
+
+    --------------------------------------------------------
+    nelements: 
+        2
+    Details: 
+        Samples: 2000
+        Filter: default
+        Resolution: `image`
+            - [integer] xresolution: 100
+            - [integer] yresolution: 100
+            - [string] filename: p3d_bathroom.rawls
+        Sampler: `random`
+            - [integer] pixelsamples: 64
+        Accelerator: default
+        Integrator: `path`
+            - [integer] maxdepth: 65
+        Camera: `perspective`
+            - [float] fov: 55
+            - [float] focaldistance: 31
+            - [float] lensradius: 0.15000001
+        LookAt: 
+            - eye: (0.0, 18.0, 30.0) 
+            - point: (10.2, 5.0, 0.0) 
+            - up: (0.0, 1.0, 0.0)
+    Mean samples per element: 
+        1000.0
+    Expected shape: 
+        (100, 100, 3)
+    --------------------------------------------------------
 
 .. code:: python
 

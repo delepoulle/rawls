@@ -1,13 +1,15 @@
 """3D vector representation
-
-Attributes:
-    x: {float} -- x axis value
-    y: {float} -- y axis value
-    z: {float} -- z axis value
 """
 
 
 class Vector3f():
+    """3D vector represention constructor
+    
+    Arguments:
+        x: {float} -- x axis value
+        y: {float} -- y axis value
+        z: {float} -- z axis value
+    """
     def __init__(self, x, y, z):
         """3D vector represention constructor
         

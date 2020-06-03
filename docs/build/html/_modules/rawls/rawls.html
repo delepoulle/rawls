@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.rawls &mdash; rawls v0.1.4 documentation</title>
+  <title>rawls.rawls &mdash; rawls v0.1.5 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -33,7 +33,6 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -59,7 +58,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -86,7 +85,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../description.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rawls.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
 </ul>
@@ -153,12 +152,6 @@
             
   <h1>Source code for rawls.rawls</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Rawls class used to open `.rawls` path image</span>
-
-<span class="sd">Attributes:</span>
-<span class="sd">    shape: {(int, int, int)} -- describe shape of the image</span>
-<span class="sd">    data: {ndrray} -- buffer data numpy array</span>
-<span class="sd">    details: {Details} -- details instance information</span>
-<span class="sd">    gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># main imports</span>
@@ -174,18 +167,26 @@
 <span class="c1"># package imports</span>
 <span class="kn">from</span> <span class="nn">.scene.details</span> <span class="kn">import</span> <span class="n">Details</span>
 
-<div class="viewcode-block" id="extensions"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.extensions">[docs]</a><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="s1">&#39;rawls&#39;</span><span class="p">]</span></div>
+<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="s1">&#39;rawls&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="Rawls"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls">[docs]</a><span class="k">class</span> <span class="nc">Rawls</span><span class="p">():</span>
+<div class="viewcode-block" id="Rawls"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls">[docs]</a><span class="k">class</span> <span class="nc">Rawls</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Rawls class used to open `.rawls` path image</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        shape: {(int, int, int)} -- describe shape of the image</span>
+<span class="sd">        data: {ndrray} -- buffer data numpy array</span>
+<span class="sd">        details: {Details} -- details instance information</span>
+<span class="sd">        gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="n">gamma_converted</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">details</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span> <span class="o">=</span> <span class="n">gamma_converted</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Rawls.load"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.load"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.load">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Open data of rawls file</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -278,8 +279,8 @@
 
         <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Rawls.fusion"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.fusion">[docs]</a>    <span class="k">def</span> <span class="nf">fusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rawls_image_1</span><span class="p">,</span> <span class="n">rawls_image_2</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.fusion"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.fusion">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">fusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rawls_image_1</span><span class="p">,</span> <span class="n">rawls_image_2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fusion two rawls images together based on their number of samples</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -314,7 +315,7 @@
 
         <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">output_buffer</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">output_buffer</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.save"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.save"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save rawls image into new file</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -372,7 +373,7 @@
         <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;png&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">to_png</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.__clamp"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.__clamp">[docs]</a>    <span class="k">def</span> <span class="nf">__clamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">smallest</span><span class="p">,</span> <span class="n">largest</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__clamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">smallest</span><span class="p">,</span> <span class="n">largest</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Clamp number using two numbers</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -383,9 +384,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            {float} -- the clamped value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">smallest</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">largest</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">smallest</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">largest</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Rawls.__gamma_correct"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.__gamma_correct">[docs]</a>    <span class="k">def</span> <span class="nf">__gamma_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__gamma_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Correct gamma of luminance value</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -397,9 +398,9 @@
         <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mf">0.0031308</span><span class="p">:</span>
             <span class="k">return</span> <span class="mf">12.92</span> <span class="o">*</span> <span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mf">1.055</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="mf">2.4</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.055</span></div>
+            <span class="k">return</span> <span class="mf">1.055</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="mf">2.4</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.055</span>
 
-<div class="viewcode-block" id="Rawls.__gamma_convert"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.__gamma_convert">[docs]</a>    <span class="k">def</span> <span class="nf">__gamma_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__gamma_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Correct gamma value and clamp it</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -408,9 +409,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            {float} -- final chanel value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__clamp</span><span class="p">(</span><span class="mf">255.</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gamma_correct</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">255.</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__clamp</span><span class="p">(</span><span class="mf">255.</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gamma_correct</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">255.</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Rawls.gammaConvert"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.gammaConvert">[docs]</a>    <span class="k">def</span> <span class="nf">gammaConvert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.gammaConvert"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.gammaConvert">[docs]</a>    <span class="k">def</span> <span class="nf">gammaConvert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert gamma of luminance chanel values of rawls image</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
@@ -428,7 +429,7 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Rawls.to_pil"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.to_pil">[docs]</a>    <span class="k">def</span> <span class="nf">to_pil</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.to_pil"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.to_pil">[docs]</a>    <span class="k">def</span> <span class="nf">to_pil</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert current rawls image into PIL RGB Image</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -462,7 +463,7 @@
 
         <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.to_png"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.to_png">[docs]</a>    <span class="k">def</span> <span class="nf">to_png</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.to_png"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.to_png">[docs]</a>    <span class="k">def</span> <span class="nf">to_png</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save rawls image into PNG</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -486,17 +487,17 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">to_pil</span><span class="p">(</span><span class="n">gamma_convert</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.h_flip"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.h_flip">[docs]</a>    <span class="k">def</span> <span class="nf">h_flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.h_flip"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.h_flip">[docs]</a>    <span class="k">def</span> <span class="nf">h_flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Flip horizontally current Rawls instance </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.v_flip"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.v_flip">[docs]</a>    <span class="k">def</span> <span class="nf">v_flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.v_flip"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.v_flip">[docs]</a>    <span class="k">def</span> <span class="nf">v_flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Flip vectically current Rawls instance </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.copy"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.copy"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Copy current Rawls instance</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
@@ -504,7 +505,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.normalize"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Rawls.normalize"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Give new Rawls instance with normalized data</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -529,14 +530,14 @@
         <span class="k">return</span> <span class="n">Rawls</span><span class="p">(</span><span class="n">normalized_data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">normalized_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span>
                      <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rawls.__str__"><a class="viewcode-back" href="../../autoapi/rawls/rawls/index.html#rawls.rawls.Rawls.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Display Rawls information</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            {str} Rawls information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;--------------------------------------------------------</span><span class="se">\n</span><span class="s2">Shape: </span><span class="se">\n\t</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">Details: </span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">Gamma converted: </span><span class="se">\n\t</span><span class="si">{2}</span><span class="se">\n</span><span class="s2">--------------------------------------------------------&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

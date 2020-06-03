@@ -1,13 +1,15 @@
 """LookAt class information
-
-Attributes:
-    eye: {Vector3f} -- eye coordinate
-    point: {Vector3f} -- point to look at coordinate
-    up: {Vector3f} -- up vector
 """
 
 
 class LookAt():
+    """LookAt class information
+
+    Attributes:
+        eye: {Vector3f} -- eye coordinate
+        point: {Vector3f} -- point to look at coordinate
+        up: {Vector3f} -- up vector
+    """
     def __init__(self, eye, point, up):
         """LookAt information storage
         

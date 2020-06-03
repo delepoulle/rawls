@@ -1,6 +1,6 @@
 numpy
 Pillow
 yapf
-doctest
-sphinx
-sphinx-autoapi
+autodoc
+sphinx==v2.2.0 
+sphinx_rtd_theme

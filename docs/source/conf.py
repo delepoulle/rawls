@@ -23,9 +23,9 @@ copyright = '2020, Jérôme BUISINE'
 author = 'Jérôme BUISINE'
 
 # The short X.Y version
-version = '0.1.4'
+version = '0.1.5'
 # The full version, including alpha/beta/rc tags
-release = 'v0.1.4'
+release = 'v0.1.5'
 
 
 # -- General configuration ---------------------------------------------------
@@ -45,12 +45,12 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.viewcode',
     'sphinx.ext.coverage',
-    'autoapi.extension' 
+    #'autoapi.extension' 
 ]
 
-autoapi_add_toctree_entry = True
-autoapi_template_dir = '_autoapi_templates'
-autoapi_dirs = ['../../rawls']
+# autoapi_add_toctree_entry = True
+# autoapi_template_dir = '_autoapi_templates'
+# autoapi_dirs = ['../../rawls']
 
 autosummary_generate = True
 autodoc_default_flags = ['members']
