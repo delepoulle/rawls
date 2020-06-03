@@ -19,7 +19,7 @@ class RawlsStats():
         data: {ndrray} -- merged buffer data numpy array with higher dimension of all Rawls instance
         nelements: {int} -- number Rawls instance used
         details: {Details} -- details instance information
-        mean_samples_per_elements: {float} -- statistic which gives mean number of samples used (if Rawls images do not have same number of samples)
+        mean_samples_per_element: {float} -- statistic which gives mean number of samples used (if Rawls images do not have same number of samples)
         expected_shape: {(int, int, int)} -- describe expected shape of an Rawls image element
     """
     def __init__(self, rawls_images):
@@ -30,6 +30,18 @@ class RawlsStats():
         
         Raises:
             Exception: Input format expection, unvalid input shape
+
+        Example:
+
+        >>> from rawls.rawls import Rawls
+        >>> from rawls.stats import RawlsStats
+        >>> paths = [ 'images/example_1.rawls', 'images/example_2.rawls' ]
+        >>> rawls_img = [ Rawls.load(p) for p in paths ]
+        >>> rawls_stats = RawlsStats(rawls_img)
+        >>> rawls_stats.nelements
+        2
+        >>> rawls_stats.mean_samples_per_element
+        1000.0
         """
 
         shapes = []
@@ -66,6 +78,15 @@ class RawlsStats():
 
         Returns:
             {RawlsStats} : RawlsStats instance
+
+        >>> from rawls.rawls import Rawls
+        >>> from rawls.stats import RawlsStats
+        >>> paths = [ 'images/example_1.rawls', 'images/example_2.rawls' ]
+        >>> rawls_stats = RawlsStats.load(paths)
+        >>> rawls_stats.nelements
+        2
+        >>> rawls_stats.mean_samples_per_element
+        1000.0
         """
 
         # check if given paths are corrects
@@ -80,14 +101,38 @@ class RawlsStats():
         # build
         return RawlsStats(rawls_images)
 
-    def add(self, rawls_img):
+    def append(self, rawls_img):
+        """Append list or rawls image element to current Rawls stats instance
 
+        Arguments:
+            rawls_img {[Rawls]} -- Rawls or list of Rawls instance
+
+        Raises:
+            Exception: Invalid rawls shape, impossible to add this shape with others elements
+
+        >>> from rawls.rawls import Rawls
+        >>> from rawls.stats import RawlsStats
+        >>> paths = [ 'images/example_1.rawls', 'images/example_2.rawls' ]
+        >>> rawls_stats = RawlsStats.load(paths)
+        >>> rawls_stats.nelements
+        2
+        >>> rawls_stats.append(paths)
+        >>> rawls_stats.nelements
+        4
+        """
         # check if list and recursively add elements if needed
         if isinstance(rawls_img, list):
             for img in rawls_img:
-                self.add(img)
+
+                # check current instance
+                self.append(img)
 
         else:
+            # load if necessary
+            if isinstance(rawls_img, str):
+                check_file_paths(rawls_img)
+                rawls_img = Rawls.load(rawls_img)
+
             # check elements
             if rawls_img.shape != self.expected_shape:
                 raise Exception(
