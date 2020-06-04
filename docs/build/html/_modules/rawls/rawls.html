@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.rawls &mdash; rawls v0.1.6 documentation</title>
+  <title>rawls.rawls &mdash; rawls v0.1.8 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.6
+                0.1.8
               </div>
             
           
@@ -168,6 +168,7 @@
 <span class="kn">from</span> <span class="nn">.scene.details</span> <span class="kn">import</span> <span class="n">Details</span>
 
 <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="s1">&#39;rawls&#39;</span><span class="p">]</span>
+<span class="n">expected_comments</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Rawls"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls">[docs]</a><span class="k">class</span> <span class="nc">Rawls</span><span class="p">():</span>
@@ -180,6 +181,15 @@
 <span class="sd">        gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="n">gamma_converted</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Rawls constructor</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            shape: {(int, int, int)} -- describe shape of the image</span>
+<span class="sd">            data: {ndrray} -- buffer data numpy array</span>
+<span class="sd">            details: {Details} -- details instance information</span>
+<span class="sd">            gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">details</span>
@@ -357,6 +367,11 @@
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;COMMENTS</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">to_rawls</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
 
+            <span class="c1"># save additionnals data</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">additionals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">add_str</span> <span class="o">=</span> <span class="s1">&#39;#</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">add_str</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;DATA</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="c1"># integer is based on 4 bytes</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">h</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">c</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -448,6 +463,40 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="n">c</span><span class="p">])</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Rawls.add_comments"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.add_comments">[docs]</a>    <span class="k">def</span> <span class="nf">add_comments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add additionals comments into `.rawls` file</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key: {str} -- expected key</span>
+<span class="sd">            value: {str} -- expected key value for this key</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: key already exists into additionnals details</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check if key does not already exist</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">additionals</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">additionals</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s1">&#39;`</span><span class="si">{}</span><span class="s1">` key already exists into additionnals details&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">key</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Rawls.del_comments"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.del_comments">[docs]</a>    <span class="k">def</span> <span class="nf">del_comments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete additionals comments into `.rawls` file</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key: {str} -- expected key</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: key not exists into additionnals details</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check if key does not already exist</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">additionals</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">additionals</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s1">&#39;`</span><span class="si">{}</span><span class="s1">` key not exists into additionnals details&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Rawls.to_pil"><a class="viewcode-back" href="../../rawls/rawls.rawls.html#rawls.rawls.Rawls.to_pil">[docs]</a>    <span class="k">def</span> <span class="nf">to_pil</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma_convert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert current rawls image into PIL RGB Image</span>
@@ -556,8 +605,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            {str} Rawls information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;--------------------------------------------------------</span><span class="se">\n</span><span class="s2">Shape: </span><span class="se">\n\t</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">Details: </span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">Gamma converted: </span><span class="se">\n\t</span><span class="si">{2}</span><span class="se">\n</span><span class="s2">--------------------------------------------------------&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span><span class="p">)</span></div>
+
+        <span class="n">additionals_comments</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="c1"># add additionnals comments</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">additionals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">additionals_comments</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\t</span><span class="si">{0}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;--------------------------------------------------------</span><span class="se">\n</span><span class="s2">Shape: </span><span class="se">\n\t</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">Details: </span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">Additionnals:</span><span class="si">{2}</span><span class="se">\n</span><span class="s2">Gamma converted: </span><span class="se">\n\t</span><span class="si">{3}</span><span class="se">\n</span><span class="s2">--------------------------------------------------------&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span> <span class="n">additionals_comments</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gamma_converted</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

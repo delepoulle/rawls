@@ -15,6 +15,7 @@ from PIL import Image
 from .scene.details import Details
 
 extensions = ['png', 'rawls']
+expected_comments = ['']
 
 
 class Rawls():
@@ -27,6 +28,15 @@ class Rawls():
         gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not
     """
     def __init__(self, shape, data, details, gamma_converted=False):
+        """Rawls constructor
+
+        Attributes:
+            shape: {(int, int, int)} -- describe shape of the image
+            data: {ndrray} -- buffer data numpy array
+            details: {Details} -- details instance information
+            gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not
+        """
+
         self.shape = shape
         self.data = data
         self.details = details
@@ -204,6 +214,11 @@ class Rawls():
             f.write(b'COMMENTS\n')
             f.write(bytes(self.details.to_rawls() + '\n', 'utf-8'))
 
+            # save additionnals data
+            for key, value in self.details.additionals.items():
+                add_str = '#{0} {1}'.format(key, value)
+                f.write(bytes(add_str + '\n', 'utf-8'))
+
             f.write(b'DATA\n')
             # integer is based on 4 bytes
             f.write(struct.pack('i', h * w * c * 4) + b'\n')
@@ -295,6 +310,40 @@ class Rawls():
                             self.data[y][x][c])
 
             self.gamma_converted = True
+
+    def add_comments(self, key, value):
+        """Add additionals comments into `.rawls` file
+
+        Args:
+            key: {str} -- expected key
+            value: {str} -- expected key value for this key
+
+        Raises:
+            Exception: key already exists into additionnals details
+        """
+        # check if key does not already exist
+        if key not in self.details.additionals:
+            self.details.additionals[key] = value
+        else:
+            raise Exception(
+                '`{}` key already exists into additionnals details'.format(
+                    key))
+
+    def del_comments(self, key):
+        """Delete additionals comments into `.rawls` file
+
+        Args:
+            key: {str} -- expected key
+
+        Raises:
+            Exception: key not exists into additionnals details
+        """
+        # check if key does not already exist
+        if key in self.details.additionals:
+            del self.details.additionals[key]
+        else:
+            raise Exception(
+                '`{}` key not exists into additionnals details'.format(key))
 
     def to_pil(self, gamma_convert=True):
         """Convert current rawls image into PIL RGB Image
@@ -403,5 +452,13 @@ class Rawls():
         Returns:
             {str} Rawls information
         """
-        return "--------------------------------------------------------\nShape: \n\t{0}\nDetails: \n{1}\nGamma converted: \n\t{2}\n--------------------------------------------------------".format(
-            self.shape, self.details, self.gamma_converted)
+
+        additionals_comments = ''
+
+        # add additionnals comments
+        for key, value in self.details.additionals.items():
+            additionals_comments += '\n\t{0}: {1}'.format(key, value)
+
+        return "--------------------------------------------------------\nShape: \n\t{0}\nDetails: \n{1}\nAdditionnals:{2}\nGamma converted: \n\t{3}\n--------------------------------------------------------".format(
+            self.shape, self.details, additionals_comments,
+            self.gamma_converted)

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.scene.details &mdash; rawls v0.1.6 documentation</title>
+  <title>rawls.scene.details &mdash; rawls v0.1.8 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.6
+                0.1.8
               </div>
             
           
@@ -167,6 +167,11 @@
 <span class="kn">from</span> <span class="nn">.filter</span> <span class="kn">import</span> <span class="n">Filter</span>
 <span class="kn">from</span> <span class="nn">.accelerator</span> <span class="kn">import</span> <span class="n">Accelerator</span>
 
+<span class="n">expected_comments</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Film&#39;</span><span class="p">,</span> <span class="s1">&#39;Samples&#39;</span><span class="p">,</span> <span class="s1">&#39;Filter&#39;</span><span class="p">,</span> <span class="s1">&#39;Sampler&#39;</span><span class="p">,</span> <span class="s1">&#39;Accelerator&#39;</span><span class="p">,</span> <span class="s1">&#39;Integrator&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="s1">&#39;LookAt&#39;</span>
+<span class="p">]</span>
+
 
 <div class="viewcode-block" id="Details"><a class="viewcode-back" href="../../../rawls/rawls.scene.details.html#rawls.scene.details.Details">[docs]</a><span class="k">class</span> <span class="nc">Details</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Details information used to rendering current image</span>
@@ -182,7 +187,7 @@
 <span class="sd">        lookAt {LookAt} -- look at instance with eye, point and up information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">film</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">pixelfilter</span><span class="p">,</span> <span class="n">sampler</span><span class="p">,</span> <span class="n">accelerator</span><span class="p">,</span>
-                 <span class="n">integrator</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">lookAt</span><span class="p">):</span>
+                 <span class="n">integrator</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">lookAt</span><span class="p">,</span> <span class="n">additionals</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Details information used to rendering current image</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
@@ -204,6 +209,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lookAt</span> <span class="o">=</span> <span class="n">lookAt</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">additionals</span> <span class="o">=</span> <span class="n">additionals</span>
+
 <div class="viewcode-block" id="Details.fromcomments"><a class="viewcode-back" href="../../../rawls/rawls.scene.details.html#rawls.scene.details.Details.fromcomments">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">fromcomments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Instanciate Details object with all comments information</span>
@@ -217,6 +224,8 @@
         <span class="n">comments_line</span> <span class="o">=</span> <span class="n">comments</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="n">samples</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">additionals</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># init additionals</span>
+
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">comments_line</span><span class="p">):</span>
 
             <span class="k">if</span> <span class="s1">&#39;Film&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
@@ -291,8 +300,17 @@
 
                 <span class="n">lookAt</span> <span class="o">=</span> <span class="n">LookAt</span><span class="p">(</span><span class="n">eye</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">up</span><span class="p">)</span>
 
+            <span class="c1"># check if additionals comments already use</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">f</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">expected_comments</span><span class="p">]):</span>
+
+                <span class="n">additional_key</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="n">additional_value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">additionals</span><span class="p">[</span><span class="n">additional_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">additional_value</span>
+
         <span class="k">return</span> <span class="n">Details</span><span class="p">(</span><span class="n">film</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">pixelfilter</span><span class="p">,</span> <span class="n">sampler</span><span class="p">,</span> <span class="n">accelerator</span><span class="p">,</span>
-                       <span class="n">integrator</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">lookAt</span><span class="p">)</span></div>
+                       <span class="n">integrator</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">lookAt</span><span class="p">,</span> <span class="n">additionals</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_extract_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>

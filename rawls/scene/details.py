@@ -14,6 +14,11 @@ from .vector import Vector3f
 from .filter import Filter
 from .accelerator import Accelerator
 
+expected_comments = [
+    'Film', 'Samples', 'Filter', 'Sampler', 'Accelerator', 'Integrator',
+    'Camera', 'LookAt'
+]
+
 
 class Details():
     """Details information used to rendering current image
@@ -29,7 +34,7 @@ class Details():
         lookAt {LookAt} -- look at instance with eye, point and up information
     """
     def __init__(self, film, samples, pixelfilter, sampler, accelerator,
-                 integrator, camera, lookAt):
+                 integrator, camera, lookAt, additionals):
         """Details information used to rendering current image
         
         Arguments:
@@ -51,6 +56,8 @@ class Details():
         self.camera = camera
         self.lookAt = lookAt
 
+        self.additionals = additionals
+
     @classmethod
     def fromcomments(self, comments):
         """Instanciate Details object with all comments information
@@ -64,6 +71,8 @@ class Details():
         comments_line = comments.split('\n')
 
         samples = None
+        additionals = {}  # init additionals
+
         for index, line in enumerate(comments_line):
 
             if 'Film' in line:
@@ -138,8 +147,17 @@ class Details():
 
                 lookAt = LookAt(eye, point, up)
 
+            # check if additionals comments already use
+            if line.startswith('#') and not any(
+                [f in line for f in expected_comments]):
+
+                additional_key = line.split(' ')[0][1:]
+                additional_value = line.split(' ')[-1]
+
+                additionals[additional_key] = additional_value
+
         return Details(film, samples, pixelfilter, sampler, accelerator,
-                       integrator, camera, lookAt)
+                       integrator, camera, lookAt, additionals)
 
     @classmethod
     def _extract_params(self, line):
