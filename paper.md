@@ -60,10 +60,10 @@ If we have a pool $10000$ images of $1$ sample per pixel, we can generate $\bino
 
 This package contains 2 main classes:
 
-- **rawls.rawls.Rawls**: enables to manage `.rawls` file.
-- **rawls.stats.RawlsStats**: enables to manage multiple `.rawls` files, for statistics extration.
+- **rawls.rawls.Rawls**: manage `.rawls` file (loading, add comments, saving).
+- **rawls.stats.RawlsStats**: manage multiple `.rawls` files (fusion, statistics extration).
 
-Documentation with examples is available at [here](https://prise-3d.github.io/rawls/).
+Documentation with examples is available at [https://prise-3d.github.io/rawls/](https://prise-3d.github.io/rawls/).
 
 # Acknowledgements
 

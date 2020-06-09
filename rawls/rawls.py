@@ -188,17 +188,12 @@ class Rawls():
                             "` extension..")
 
         # check if necessary to construct output folder
-        folder_path = outfile.split('/')
+        folder_path = os.path.split(outfile)
 
         if len(folder_path) > 1:
-            del folder_path[-1]
-
-            output_path = ''
-            for folder in folder_path:
-                output_path = os.path.join(output_path, folder)
-
-            if not os.path.exists(output_path):
-                os.makedirs(output_path)
+        
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
 
         # save image using specific extension
         if extension == 'rawls':
@@ -214,7 +209,7 @@ class Rawls():
             f.write(b'COMMENTS\n')
             f.write(bytes(self.details.to_rawls() + '\n', 'utf-8'))
 
-            # save additionnals data
+            # save additionnals comments data
             for key, value in self.details.additionals.items():
                 add_str = '#{0} {1}'.format(key, value)
                 f.write(bytes(add_str + '\n', 'utf-8'))
