@@ -23,9 +23,11 @@ bibliography: paper.bib
 
 # Summary
 
+Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene (see \autoref{fig:path-tracing}). 
+
 ![Scheme of global illumination rendering of 3D scene.\label{fig:path-tracing}](docs/source/_static/path_tracing.png){ width=60% }
 
-Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene (see \autoref{fig:path-tracing}). The Monte Carlo theory based on the rendering equation [@kajiya1986rendering] ensures that this process will converge to the correct image when the number of paths grows [@kollig2002efficient]. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths (see \autoref{fig:noise-overview}) as proved by Monte Carlo theory but requires a lot of time to generate such image. 
+The Monte Carlo theory based on the rendering equation [@kajiya1986rendering] ensures that this process will converge to the correct image when the number of paths grows [@kollig2002efficient]. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths (see \autoref{fig:noise-overview}) as proved by Monte Carlo theory but requires a lot of time to generate such image. 
 
 ![Overview of noise evolution during rendering.\label{fig:noise-overview}](docs/source/_static/noise_overview.png)
 
@@ -54,7 +56,7 @@ A `.rawls` file is a custom image file obtained as output of renderer. These fil
 
 If we have a pool $10000$ images of $1$ sample per pixel, we can generate $\binom{10000}{k}$ of $k$ samples from pool of $10000$ samples (\autoref{fig:stats-overview} gives an example of extracted images obtained). In this way, deep learning techniques such as Autoencoder [@xie2012image; @chaitanya2017interactive] can be used for noise reduction as it's possible to have a huge image database.
 
-![Extracted statistics from 20 samples ditribution.\label{fig:stats-overview}](docs/source/_static/display_stats.png)
+![Extracted statistics from 20 samples ditribution.\label{fig:stats-overview}](docs/source/_static/rawls_stats.png)
 
 # Acknowledgements
 
