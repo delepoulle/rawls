@@ -67,6 +67,6 @@ Documentation with examples is available at [https://prise-3d.github.io/rawls/](
 
 # Acknowledgements
 
-This work is supported by `Agence Nationale de la Recherche` : project ANR-17-CE38-0009
+This work is supported by *Agence Nationale de la Recherche* : project ANR-17-CE38-0009
 
 # References
