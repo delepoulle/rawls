@@ -250,6 +250,41 @@ Expected shape:
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/output_mean.png"><img alt="_images/output_mean.png" class="align-center" src="_images/output_mean.png" style="width: 120px;" /></a>
+<p>Add additionals comments into <cite>.rawls</cite> file before saving:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rawls_img</span> <span class="o">=</span> <span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;images/example_1.rawls&#39;</span><span class="p">)</span>
+<span class="n">rawls_img</span><span class="o">.</span><span class="n">add_comments</span><span class="p">(</span><span class="s1">&#39;SceneVersion&#39;</span><span class="p">,</span> <span class="s1">&#39;v1.0.1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------------
+Shape:
+        <span class="o">(</span><span class="m">100</span>, <span class="m">100</span>, <span class="m">3</span><span class="o">)</span>
+Details:
+        Samples: <span class="m">1000</span>
+        Filter: default
+        Film: <span class="sb">`</span>image<span class="sb">`</span>
+                - <span class="o">[</span>integer<span class="o">]</span> xresolution: <span class="m">100</span>
+                - <span class="o">[</span>integer<span class="o">]</span> yresolution: <span class="m">100</span>
+                - <span class="o">[</span>string<span class="o">]</span> filename: p3d_bathroom.rawls
+        Sampler: <span class="sb">`</span>random<span class="sb">`</span>
+                - <span class="o">[</span>integer<span class="o">]</span> pixelsamples: <span class="m">64</span>
+        Accelerator: default
+        Integrator: <span class="sb">`</span>path<span class="sb">`</span>
+                - <span class="o">[</span>integer<span class="o">]</span> maxdepth: <span class="m">65</span>
+        Camera: <span class="sb">`</span>perspective<span class="sb">`</span>
+                - <span class="o">[</span>float<span class="o">]</span> fov: <span class="m">55</span>
+                - <span class="o">[</span>float<span class="o">]</span> focaldistance: <span class="m">31</span>
+                - <span class="o">[</span>float<span class="o">]</span> lensradius: <span class="m">0</span>.15000001
+        LookAt:
+                - eye: <span class="o">(</span><span class="m">0</span>.0, <span class="m">18</span>.0, <span class="m">30</span>.0<span class="o">)</span>
+                - point: <span class="o">(</span><span class="m">10</span>.2, <span class="m">5</span>.0, <span class="m">0</span>.0<span class="o">)</span>
+                - up: <span class="o">(</span><span class="m">0</span>.0, <span class="m">1</span>.0, <span class="m">0</span>.0<span class="o">)</span>
+Additionnals:
+        SceneVersion: v1.0.1
+Gamma converted:
+        False
+--------------------------------------------------------
+</pre></div>
+</div>
 </div>
 </div>
 

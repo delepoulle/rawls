@@ -311,7 +311,7 @@ class Rawls():
 
             self.gamma_converted = True
 
-    def add_comments(self, key, value):
+    def add_comment(self, key, value):
         """Add additionals comments into `.rawls` file
 
         Args:
@@ -329,7 +329,7 @@ class Rawls():
                 '`{}` key already exists into additionnals details'.format(
                     key))
 
-    def del_comments(self, key):
+    def del_comment(self, key):
         """Delete additionals comments into `.rawls` file
 
         Args:
@@ -387,6 +387,7 @@ class Rawls():
             gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
         """
 
+        # TODO : improve this part
         if '/' in outfile:
             folders = outfile.split('/')
             del folders[-1]

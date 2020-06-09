@@ -108,3 +108,42 @@ Extract statistics from multiples `.rawls` samples files:
 .. image:: _static/output_mean.png
    :width: 120 px
    :align: center
+
+
+Add additionals comments into `.rawls` file before saving:
+
+.. code:: python
+
+    rawls_img = Rawls.load('images/example_1.rawls')
+    rawls_img.add_comment('SceneVersion', 'v1.0.1')
+
+.. code:: bash
+
+    --------------------------------------------------------
+    Shape: 
+            (100, 100, 3)
+    Details: 
+            Samples: 1000
+            Filter: default
+            Film: `image`
+                    - [integer] xresolution: 100
+                    - [integer] yresolution: 100
+                    - [string] filename: p3d_bathroom.rawls
+            Sampler: `random`
+                    - [integer] pixelsamples: 64
+            Accelerator: default
+            Integrator: `path`
+                    - [integer] maxdepth: 65
+            Camera: `perspective`
+                    - [float] fov: 55
+                    - [float] focaldistance: 31
+                    - [float] lensradius: 0.15000001
+            LookAt: 
+                    - eye: (0.0, 18.0, 30.0) 
+                    - point: (10.2, 5.0, 0.0) 
+                    - up: (0.0, 1.0, 0.0)
+    Additionnals:
+            SceneVersion: v1.0.1
+    Gamma converted: 
+            False
+    --------------------------------------------------------
