@@ -12,7 +12,7 @@ authors:
 affiliations:
  - name: Univ. Littoral Côte d’Opale, LISIC Calais, France, F-62100
    index: 1
-date: 2 June 2020
+date: 9 June 2020
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
