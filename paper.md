@@ -23,9 +23,11 @@ bibliography: paper.bib
 
 # Summary
 
-Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene (see Fig. \autoref{fig:path-tracing}). The Monte Carlo theory based on the rendering equation [@kajiya1986rendering] ensures that this process will converge to the correct image when the number of paths grows [@kollig2002efficient]. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths as proved by Monte Carlo theory but requires a lot of time to generate such image. 
-
 ![Scheme of global illumination rendering of 3D scene.\label{fig:path-tracing}](docs/source/_static/path-tracing.png)
+
+Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene (see \autoref{fig:path-tracing}). The Monte Carlo theory based on the rendering equation [@kajiya1986rendering] ensures that this process will converge to the correct image when the number of paths grows [@kollig2002efficient]. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths (see \autoref{fig:path-tracing}) as proved by Monte Carlo theory but requires a lot of time to generate such image. 
+
+![Overview of noise evolution during rendering.\label{fig:noise-overview}](docs/source/_static/noise-overview.png)
 
 # `.rawls` extension
 
