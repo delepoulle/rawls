@@ -1,7 +1,7 @@
 RAW Light Simulation reader/converter package
 =============================================
 
-![](https://github.com/prise-3d/rawls/workflows/build/badge.svg) ![](https://github.com/prise-3d/rawls/workflows/pypi/badge.svg)
+![](https://github.com/prise-3d/rawls/workflows/build/badge.svg)
 
 <p align="center">
     <img src="https://github.com/prise-3d/rawls/blob/master/rawls_logo.png" alt="" width="50%">
@@ -10,7 +10,14 @@ RAW Light Simulation reader/converter package
 Description
 -----------
 
-`rawls` is a python package developed during a thesis project. It enables to manage `.rawls` image file extension. The image extension `.rawls` is used to store all samples values of images obtained during rendering of synthesis images. This output extension is available in a custom version of [pbrt-v3](https://github.com/prise-3d/pbrt-v3) details.
+Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene. 
+
+<p align="center">
+    <img src="https://github.com/prise-3d/rawls/docs/source/_static/path_tracing.png" alt="" width="60%">
+</p>
+
+
+`rawls` is a Python package developed during a thesis project. It enables to manage `.rawls` image file extension. The image extension `.rawls` is used to store all samples values of images obtained during rendering of synthesis images. This output extension is available in a custom version of [pbrt-v3](https://github.com/prise-3d/pbrt-v3) details.
 
 Installation
 ------------
