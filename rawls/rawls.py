@@ -190,10 +190,10 @@ class Rawls():
         # check if necessary to construct output folder
         folder_path = os.path.split(outfile)
 
-        if len(folder_path) > 1:
-        
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
+        if len(folder_path[0]) > 1:
+
+            if not os.path.exists(folder_path[0]):
+                os.makedirs(folder_path[0])
 
         # save image using specific extension
         if extension == 'rawls':

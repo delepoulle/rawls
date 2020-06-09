@@ -58,6 +58,8 @@ Display rendering information:
             False
     --------------------------------------------------------
 
+Statistics extraction
+---------------------
 
 Extract statistics from multiples `.rawls` samples files:
 
@@ -110,12 +112,16 @@ Extract statistics from multiples `.rawls` samples files:
    :align: center
 
 
+Store additionals data
+----------------------
+
 Add additionals comments into `.rawls` file before saving:
 
 .. code:: python
 
     rawls_img = Rawls.load('images/example_1.rawls')
-    rawls_img.add_comments('SceneVersion', 'v1.0.1')
+    rawls_img.add_comment('SceneVersion', 'v1.0.1')
+    print(rawls_img)
 
 .. code:: bash
 
@@ -147,3 +153,7 @@ Add additionals comments into `.rawls` file before saving:
     Gamma converted: 
             False
     --------------------------------------------------------
+
+.. code:: python
+
+    rawls_img.save('images/example_additionals.rawls')

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Description &mdash; rawls v0.1.9 documentation</title>
+  <title>Description &mdash; rawls v0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.9
+                0.2.0
               </div>
             
           
@@ -87,6 +87,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#context">Context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use">How to use ?</a></li>
 </ul>
@@ -163,9 +164,16 @@
   <div class="section" id="description">
 <h1>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h1>
 <a class="reference internal image-reference" href="_images/rawls_logo.png"><img alt="_images/rawls_logo.png" class="align-center" src="_images/rawls_logo.png" style="width: 350px;" /></a>
+<div class="section" id="context">
+<h2>Context<a class="headerlink" href="#context" title="Permalink to this headline">¶</a></h2>
+<p>Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene.</p>
+<a class="reference internal image-reference" href="_images/path_tracing.png"><img alt="_images/path_tracing.png" class="align-center" src="_images/path_tracing.png" style="width: 450px;" /></a>
+<p>The Monte Carlo theory based on the Kajiya rendering equation ensures that this process will converge to the correct image when the number of paths grows. However, they are prone to stochastic perceptual noise that can be reduced by increasing the number of paths as proved by Monte Carlo theory but requires a lot of time to generate such image.</p>
+<a class="reference internal image-reference" href="_images/noise_overview.png"><img alt="_images/noise_overview.png" class="align-center" src="_images/noise_overview.png" style="width: 550px;" /></a>
+</div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>Just install package using pip</p>
+<p>Just install package using <cite>pip</cite> Python package manager:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install rawls
 </pre></div>
 </div>
@@ -176,7 +184,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rawls.rawls</span> <span class="kn">import</span> <span class="n">Rawls</span>
 <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;images/example_1.rawls&#39;</span>
 <span class="n">rawls_img</span> <span class="o">=</span> <span class="n">Rawls</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="n">rawls_img</span><span class="o">.</span><span class="n">to_png</span><span class="p">(</span><span class="s1">&#39;output.png&#39;</span><span class="p">)</span>
+<span class="n">rawls_img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;output.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
