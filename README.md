@@ -13,7 +13,7 @@ Description
 Global illumination methods based on stochastic techniques provide photo-realistic images. These methods are generally based on path tracing theory in which stochastic paths are generated from the camera point of view through each pixel toward the 3D scene. 
 
 <p align="center">
-    <img src="https://github.com/prise-3d/rawls/docs/source/_static/path_tracing.png" alt="" width="60%">
+    <img src="https://github.com/prise-3d/rawls/blob/master/docs/source/_static/path_tracing.png" alt="" width="60%">
 </p>
 
 
