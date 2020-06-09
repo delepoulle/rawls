@@ -52,7 +52,9 @@ A `.rawls` file is a custom image file obtained as output of renderer. These fil
 
 # Application
 
-If we have a pool $10000$ images of $1$ sample per pixel, we can generate $\binom{10000}{k}$ of $k$ samples from pool of $10000$ samples. In this way, deep learning techniques such as Autoencoder [@xie2012image; @chaitanya2017interactive] can be used for noise reduction as it's possible to have a huge image database.
+If we have a pool $10000$ images of $1$ sample per pixel, we can generate $\binom{10000}{k}$ of $k$ samples from pool of $10000$ samples (\autoref{fig:stats-overview} gives an example of extracted images obtained). In this way, deep learning techniques such as Autoencoder [@xie2012image; @chaitanya2017interactive] can be used for noise reduction as it's possible to have a huge image database.
+
+![Extracted statistics from 20 samples ditribution.\label{fig:stats-overview}](docs/source/_static/display_stats.png)
 
 # Acknowledgements
 
