@@ -122,13 +122,16 @@ class Rawls():
         buffer = b''
         # read buffer image data (here samples)
         for y in range(img_height):
-            
+
             line = f.read(4 * img_chanels * img_width)
             buffer += line
 
             f.read(1)
-            
-        data = np.array(np.ndarray(shape=(img_height, img_width, img_chanels), dtype='float32', buffer=buffer))
+
+        data = np.array(
+            np.ndarray(shape=(img_height, img_width, img_chanels),
+                       dtype='float32',
+                       buffer=buffer))
 
         f.close()
 
@@ -189,7 +192,8 @@ class Rawls():
                     img_width, img_height, img_chanels = struct.unpack(
                         'III', values)
 
-                    data = np.empty((img_height, img_width, img_chanels), 'float32')
+                    data = np.empty((img_height, img_width, img_chanels),
+                                    'float32')
 
             line = f.readline()
             line = line.decode('utf-8')
@@ -232,7 +236,7 @@ class Rawls():
             details = Details.fromcomments(comments)
 
             return Rawls(data.shape, data, details)
-        
+
         if '.fits' in filepath:
 
             hdu = fits.open(filepath)
@@ -256,10 +260,9 @@ class Rawls():
                 comments += "\n#" + key + ' ' + value
 
             details = Details.fromcomments(comments)
-    
+
             return Rawls(hdu[0].data.shape, hdu[0].data, details)
 
-            
     @classmethod
     def fusion(self, rawls_image_1, rawls_image_2):
         """Fusion two rawls images together based on their number of samples
@@ -363,13 +366,20 @@ class Rawls():
             # add all rawls based comments (details of the scene)
             hdu.header['Samples'] = "#Samples " + str(self.details.samples)
 
-            hdu.header['Filter'] = self.details.pixelfilter.to_rawls().replace('\n','').replace('\t', '')
-            hdu.header['Film'] = self.details.film.to_rawls().replace('\n','').replace('\t', '')
-            hdu.header['Sampler'] = self.details.sampler.to_rawls().replace('\n','').replace('\t', '')
-            hdu.header['Accel'] = self.details.accelerator.to_rawls().replace('\n','').replace('\t', '')
-            hdu.header['Inte'] = self.details.integrator.to_rawls().replace('\n','').replace('\t', '')
-            hdu.header['Camera'] = self.details.camera.to_rawls().replace('\n','').replace('\t', '')
-            hdu.header['LookAt'] = self.details.lookAt.to_rawls().replace('\n','').replace('\t', '')
+            hdu.header['Filter'] = self.details.pixelfilter.to_rawls().replace(
+                '\n', '').replace('\t', '')
+            hdu.header['Film'] = self.details.film.to_rawls().replace(
+                '\n', '').replace('\t', '')
+            hdu.header['Sampler'] = self.details.sampler.to_rawls().replace(
+                '\n', '').replace('\t', '')
+            hdu.header['Accel'] = self.details.accelerator.to_rawls().replace(
+                '\n', '').replace('\t', '')
+            hdu.header['Inte'] = self.details.integrator.to_rawls().replace(
+                '\n', '').replace('\t', '')
+            hdu.header['Camera'] = self.details.camera.to_rawls().replace(
+                '\n', '').replace('\t', '')
+            hdu.header['LookAt'] = self.details.lookAt.to_rawls().replace(
+                '\n', '').replace('\t', '')
 
             # save additionnals comments data
             additionals = ""
