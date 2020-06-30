@@ -49,6 +49,7 @@ setup(
         'numpy',
         'Pillow',
         'scipy',
+        'astropy'
     ],
     cmdclass={
         'test': TestCommand,

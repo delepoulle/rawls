@@ -14,7 +14,10 @@ from PIL import Image
 # package imports
 from .scene.details import Details
 
-extensions = ['png', 'rawls']
+# astropy
+from astropy.io import fits
+
+extensions = ['png', 'rawls', 'fits']
 expected_comments = ['']
 
 
@@ -43,17 +46,17 @@ class Rawls():
         self.gamma_converted = gamma_converted
 
     @classmethod
-    def load(self, filepath):
-        """Open data of rawls file
+    def load_v2(self, filepath):
+        """Open data of rawls or fits file
         
         Arguments:
-            filepath: {str} -- path of the .rawls file to open
+            filepath: {str} -- path of the .rawls or .fits file to open
 
         Returns:
             {Rawls} : Rawls instance
         """
 
-        if '.rawls' not in filepath:
+        if 'rawls' not in filepath:
             raise Exception('filepath used is not valid')
 
         f = open(filepath, "rb")
@@ -92,7 +95,7 @@ class Rawls():
                 img_width, img_height, img_chanels = struct.unpack(
                     'III', values)
 
-                data = np.empty((img_height, img_width, img_chanels))
+                #data = np.empty((img_height, img_width, img_chanels), 'float32')
 
         line = f.readline()
         line = line.decode('utf-8')
@@ -116,19 +119,16 @@ class Rawls():
         # default read data size
         line = f.readline()
 
+        buffer = b''
         # read buffer image data (here samples)
         for y in range(img_height):
-            for x in range(img_width):
+            
+            line = f.read(4 * img_chanels * img_width)
+            buffer += line
 
-                # read the float bytes
-                line = f.read(4 * img_chanels)
-                values = struct.unpack('f' * img_chanels, line)
-
-                for c in range(img_chanels):
-                    data[y][x][c] = values[c]
-
-                # skip new line
-                f.read(1)
+            f.read(1)
+            
+        data = np.array(np.ndarray(shape=(img_height, img_width, img_chanels), dtype='float32', buffer=buffer))
 
         f.close()
 
@@ -136,6 +136,130 @@ class Rawls():
 
         return Rawls(data.shape, data, details)
 
+    @classmethod
+    def load(self, filepath):
+        """Open data of rawls or fits file
+        
+        Arguments:
+            filepath: {str} -- path of the .rawls or .fits file to open
+
+        Returns:
+            {Rawls} : Rawls instance
+        """
+
+        extension = filepath.split('.')[-1]
+
+        if extension not in ['rawls', 'fits']:
+            raise Exception('filepath used is not valid')
+
+        if '.rawls' in filepath:
+            f = open(filepath, "rb")
+
+            # finding data into files
+            ihdr_line = 'IHDR'
+            ihdr_found = False
+
+            comments_line = 'COMMENTS'
+            comments_found = False
+
+            data_line = 'DATA'
+            data_found = False
+
+            # prepare rawls object data
+            img_chanels = None
+            img_width = None
+            img_height = None
+
+            comments = ""
+            data = None
+
+            # read first line
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not ihdr_found:
+
+                if ihdr_line in line:
+                    ihdr_found = True
+
+                    # read info line
+                    f.readline()
+
+                    values = f.readline().strip().replace(b' ', b'')
+                    img_width, img_height, img_chanels = struct.unpack(
+                        'III', values)
+
+                    data = np.empty((img_height, img_width, img_chanels), 'float32')
+
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not comments_found:
+
+                if comments_line in line:
+                    comments_found = True
+
+            # get comments information
+            while not data_found:
+
+                line = f.readline()
+                line = line.decode('utf-8')
+
+                if data_line in line:
+                    data_found = True
+                else:
+                    comments += line
+
+            # default read data size
+            line = f.readline()
+
+            # read buffer image data (here samples)
+            for y in range(img_height):
+                for x in range(img_width):
+
+                    # read the float bytes
+                    line = f.read(4 * img_chanels)
+                    values = struct.unpack('f' * img_chanels, line)
+
+                    for c in range(img_chanels):
+                        data[y][x][c] = values[c]
+
+                    # skip new line
+                    f.read(1)
+
+            f.close()
+
+            details = Details.fromcomments(comments)
+
+            return Rawls(data.shape, data, details)
+        
+        if '.fits' in filepath:
+
+            hdu = fits.open(filepath)
+
+            # get comments
+            hdr = hdu[0].header
+
+            comments = hdr['Samples'] + '\n'
+            comments += "#" + hdr['Filter'][1:].replace('#', '\n\t#') + '\n'
+            comments += "#" + hdr['Film'][1:].replace('#', '\n\t#') + '\n'
+            comments += "#" + hdr['Sampler'][1:].replace('#', '\n\t#') + '\n'
+            comments += "#" + hdr['Accel'][1:].replace('#', '\n\t#') + '\n'
+            comments += "#" + hdr['Inte'][1:].replace('#', '\n\t#') + '\n'
+            comments += "#" + hdr['Camera'][1:].replace('#', '\n\t#') + '\n'
+            comments += "#" + hdr['LookAt'][1:].replace('#', '\n\t#')
+
+            # extract additionals
+            additionals = hdr['Extra']
+            for item in additionals.split('#'):
+                key, value = item.split(' ')
+                comments += "\n#" + key + ' ' + value
+
+            details = Details.fromcomments(comments)
+    
+            return Rawls(hdu[0].data.shape, hdu[0].data, details)
+
+            
     @classmethod
     def fusion(self, rawls_image_1, rawls_image_2):
         """Fusion two rawls images together based on their number of samples
@@ -229,6 +353,87 @@ class Rawls():
 
         elif extension == 'png':
             self.to_png(outfile, gamma_convert)
+
+        elif extension == 'fits':
+
+            # using NASA fits file format
+            hdu = fits.PrimaryHDU()
+            hdu.data = self.data
+
+            # add all rawls based comments (details of the scene)
+            hdu.header['Samples'] = "#Samples " + str(self.details.samples)
+
+            hdu.header['Filter'] = self.details.pixelfilter.to_rawls().replace('\n','').replace('\t', '')
+            hdu.header['Film'] = self.details.film.to_rawls().replace('\n','').replace('\t', '')
+            hdu.header['Sampler'] = self.details.sampler.to_rawls().replace('\n','').replace('\t', '')
+            hdu.header['Accel'] = self.details.accelerator.to_rawls().replace('\n','').replace('\t', '')
+            hdu.header['Inte'] = self.details.integrator.to_rawls().replace('\n','').replace('\t', '')
+            hdu.header['Camera'] = self.details.camera.to_rawls().replace('\n','').replace('\t', '')
+            hdu.header['LookAt'] = self.details.lookAt.to_rawls().replace('\n','').replace('\t', '')
+
+            # save additionnals comments data
+            additionals = ""
+            for key, value in self.details.additionals.items():
+                additionals += key + ' ' + value + "#"
+
+            hdu.header['Extra'] = additionals[:-1]
+
+            hdu.writeto(outfile, overwrite=True)
+
+    def save_v2(self, outfile, gamma_convert=True):
+        """Save rawls image into new file
+        
+        Arguments:
+            outfile: {str} -- output filename (rawls or png)
+            gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
+        """
+
+        # check if expected extension can be managed
+        extension = outfile.split('.')[-1]
+
+        if extension not in extensions:
+            raise Exception("Can't save image using `" + extension +
+                            "` extension..")
+
+        # check if necessary to construct output folder
+        folder_path = os.path.split(outfile)
+
+        if len(folder_path[0]) > 1:
+
+            if not os.path.exists(folder_path[0]):
+                os.makedirs(folder_path[0])
+
+        # save image using specific extension
+        if extension == 'rawls':
+            h, w, c = self.shape
+            f = open(outfile, 'wb')
+
+            f.write(b'IHDR\n')
+            f.write(bytes(str(self.data.ndim * 4), 'utf-8') + b'\n')
+            f.write(
+                struct.pack('i', w) + b' ' + struct.pack('i', h) + b' ' +
+                struct.pack('i', c) + b'\n')
+
+            f.write(b'COMMENTS\n')
+            f.write(bytes(self.details.to_rawls() + '\n', 'utf-8'))
+
+            # save additionnals comments data
+            for key, value in self.details.additionals.items():
+                add_str = '#{0} {1}'.format(key, value)
+                f.write(bytes(add_str + '\n', 'utf-8'))
+
+            f.write(b'DATA\n')
+            # integer is based on 4 bytes
+            f.write(struct.pack('i', h * w * c * 4) + b'\n')
+
+            for i in range(h):
+                for j in range(w):
+
+                    for k in range(c):
+                        f.write(struct.pack('f', self.data[i][j][k]))
+                f.write(b'\n')
+
+            f.close()
 
     def __clamp(self, n, smallest, largest):
         """Clamp number using two numbers
