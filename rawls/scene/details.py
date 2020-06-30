@@ -199,7 +199,7 @@ class Details():
         Returns:
             {str} -- details information for .rawls file
         """
-        return '#Samples: {0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}'.format(
+        return '#Samples {0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}'.format(
             self.samples, self.pixelfilter.to_rawls(), self.film.to_rawls(),
             self.sampler.to_rawls(), self.accelerator.to_rawls(),
             self.integrator.to_rawls(), self.camera.to_rawls(),

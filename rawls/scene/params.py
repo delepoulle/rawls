@@ -94,10 +94,10 @@ class Params():
 
             # check if value is digit or not
             if self.params_values[index].replace('.', '', 1).isdigit():
-                output += '"{0} {1}" [{2} ]' \
+                output += '"{0} {1}" [{2} ] ' \
                     .format(self.params_types[index], p, self.params_values[index])
             else:
-                output += '"{0} {1}" ["{2}" ]' \
+                output += '"{0} {1}" ["{2}" ] ' \
                     .format(self.params_types[index], p, self.params_values[index])
 
         return output

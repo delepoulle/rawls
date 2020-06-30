@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.scene.params &mdash; rawls v1.0.0 documentation</title>
+  <title>rawls.scene.params &mdash; rawls v1.0.1 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                1.0.0
+                1.0.1
               </div>
             
           
@@ -247,10 +247,10 @@
 
             <span class="c1"># check if value is digit or not</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-                <span class="n">output</span> <span class="o">+=</span> <span class="s1">&#39;&quot;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&quot; [</span><span class="si">{2}</span><span class="s1"> ]&#39;</span> \
+                <span class="n">output</span> <span class="o">+=</span> <span class="s1">&#39;&quot;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&quot; [</span><span class="si">{2}</span><span class="s1"> ] &#39;</span> \
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params_types</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_values</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">output</span> <span class="o">+=</span> <span class="s1">&#39;&quot;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&quot; [&quot;</span><span class="si">{2}</span><span class="s1">&quot; ]&#39;</span> \
+                <span class="n">output</span> <span class="o">+=</span> <span class="s1">&#39;&quot;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&quot; [&quot;</span><span class="si">{2}</span><span class="s1">&quot; ] &#39;</span> \
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params_types</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_values</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">output</span></div></div>
