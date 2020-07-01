@@ -46,100 +46,6 @@ class Rawls():
         self.gamma_converted = gamma_converted
 
     @classmethod
-    def load_v2(self, filepath):
-        """Open data of rawls or fits file
-        
-        Arguments:
-            filepath: {str} -- path of the .rawls or .fits file to open
-
-        Returns:
-            {Rawls} : Rawls instance
-        """
-
-        if 'rawls' not in filepath:
-            raise Exception('filepath used is not valid')
-
-        f = open(filepath, "rb")
-
-        # finding data into files
-        ihdr_line = 'IHDR'
-        ihdr_found = False
-
-        comments_line = 'COMMENTS'
-        comments_found = False
-
-        data_line = 'DATA'
-        data_found = False
-
-        # prepare rawls object data
-        img_chanels = None
-        img_width = None
-        img_height = None
-
-        comments = ""
-        data = None
-
-        # read first line
-        line = f.readline()
-        line = line.decode('utf-8')
-
-        while not ihdr_found:
-
-            if ihdr_line in line:
-                ihdr_found = True
-
-                # read info line
-                f.readline()
-
-                values = f.readline().strip().replace(b' ', b'')
-                img_width, img_height, img_chanels = struct.unpack(
-                    'III', values)
-
-                #data = np.empty((img_height, img_width, img_chanels), 'float32')
-
-        line = f.readline()
-        line = line.decode('utf-8')
-
-        while not comments_found:
-
-            if comments_line in line:
-                comments_found = True
-
-        # get comments information
-        while not data_found:
-
-            line = f.readline()
-            line = line.decode('utf-8')
-
-            if data_line in line:
-                data_found = True
-            else:
-                comments += line
-
-        # default read data size
-        line = f.readline()
-
-        buffer = b''
-        # read buffer image data (here samples)
-        for y in range(img_height):
-
-            line = f.read(4 * img_chanels * img_width)
-            buffer += line
-
-            f.read(1)
-
-        data = np.array(
-            np.ndarray(shape=(img_height, img_width, img_chanels),
-                       dtype='float32',
-                       buffer=buffer))
-
-        f.close()
-
-        details = Details.fromcomments(comments)
-
-        return Rawls(data.shape, data, details)
-
-    @classmethod
     def load(self, filepath):
         """Open data of rawls or fits file
         
@@ -185,15 +91,14 @@ class Rawls():
                 if ihdr_line in line:
                     ihdr_found = True
 
-                    # read info line
-                    f.readline()
+                    # read shape info line
+                    shape_size = int(f.readline().replace(b'\n', b''))
 
-                    values = f.readline().strip().replace(b' ', b'')
+                    values = f.read(shape_size)
+                    f.read(1)
+
                     img_width, img_height, img_chanels = struct.unpack(
                         'III', values)
-
-                    data = np.empty((img_height, img_width, img_chanels),
-                                    'float32')
 
             line = f.readline()
             line = line.decode('utf-8')
@@ -217,19 +122,21 @@ class Rawls():
             # default read data size
             line = f.readline()
 
+            buffer = b''
             # read buffer image data (here samples)
-            for y in range(img_height):
-                for x in range(img_width):
+            for _ in range(img_height):
 
-                    # read the float bytes
-                    line = f.read(4 * img_chanels)
-                    values = struct.unpack('f' * img_chanels, line)
+                line = f.read(4 * img_chanels * img_width)
+                buffer += line
 
-                    for c in range(img_chanels):
-                        data[y][x][c] = values[c]
+                # skip new line char
+                f.read(1)
 
-                    # skip new line
-                    f.read(1)
+            # build numpy array from
+            data = np.array(
+                np.ndarray(shape=(img_height, img_width, img_chanels),
+                           dtype='float32',
+                           buffer=buffer))
 
             f.close()
 
@@ -330,7 +237,7 @@ class Rawls():
             f.write(b'IHDR\n')
             f.write(bytes(str(self.data.ndim * 4), 'utf-8') + b'\n')
             f.write(
-                struct.pack('i', w) + b' ' + struct.pack('i', h) + b' ' +
+                struct.pack('i', w) + struct.pack('i', h) +
                 struct.pack('i', c) + b'\n')
 
             f.write(b'COMMENTS\n')
@@ -350,7 +257,7 @@ class Rawls():
 
                     for k in range(c):
                         f.write(struct.pack('f', self.data[i][j][k]))
-                    f.write(b'\n')
+                f.write(b'\n')
 
             f.close()
 
@@ -389,61 +296,6 @@ class Rawls():
             hdu.header['Extra'] = additionals[:-1]
 
             hdu.writeto(outfile, overwrite=True)
-
-    def save_v2(self, outfile, gamma_convert=True):
-        """Save rawls image into new file
-        
-        Arguments:
-            outfile: {str} -- output filename (rawls or png)
-            gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
-        """
-
-        # check if expected extension can be managed
-        extension = outfile.split('.')[-1]
-
-        if extension not in extensions:
-            raise Exception("Can't save image using `" + extension +
-                            "` extension..")
-
-        # check if necessary to construct output folder
-        folder_path = os.path.split(outfile)
-
-        if len(folder_path[0]) > 1:
-
-            if not os.path.exists(folder_path[0]):
-                os.makedirs(folder_path[0])
-
-        # save image using specific extension
-        if extension == 'rawls':
-            h, w, c = self.shape
-            f = open(outfile, 'wb')
-
-            f.write(b'IHDR\n')
-            f.write(bytes(str(self.data.ndim * 4), 'utf-8') + b'\n')
-            f.write(
-                struct.pack('i', w) + b' ' + struct.pack('i', h) + b' ' +
-                struct.pack('i', c) + b'\n')
-
-            f.write(b'COMMENTS\n')
-            f.write(bytes(self.details.to_rawls() + '\n', 'utf-8'))
-
-            # save additionnals comments data
-            for key, value in self.details.additionals.items():
-                add_str = '#{0} {1}'.format(key, value)
-                f.write(bytes(add_str + '\n', 'utf-8'))
-
-            f.write(b'DATA\n')
-            # integer is based on 4 bytes
-            f.write(struct.pack('i', h * w * c * 4) + b'\n')
-
-            for i in range(h):
-                for j in range(w):
-
-                    for k in range(c):
-                        f.write(struct.pack('f', self.data[i][j][k]))
-                f.write(b'\n')
-
-            f.close()
 
     def __clamp(self, n, smallest, largest):
         """Clamp number using two numbers
