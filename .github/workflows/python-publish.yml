@@ -4,8 +4,8 @@
 name: pypi
 
 on:
-  push:
-    branches: [ master ]
+  release:
+    types: [created]
 
 jobs:
   deploy:
