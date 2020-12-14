@@ -22,7 +22,7 @@ class RawlsStats():
         mean_samples_per_element: {float} -- statistic which gives mean number of samples used (if Rawls images do not have same number of samples)
         expected_shape: {(int, int, int)} -- describe expected shape of an Rawls image element
     """
-    def __init__(self, rawls_images):
+    def __init__(self, rawls_images): 
         """Init RawlsStats instance using list of Rawls instances
         
         Arguments:
@@ -198,6 +198,17 @@ class RawlsStats():
 
         kurtosis_values = kurtosis(self.data, axis=0, nan_policy='raise')
         return Rawls(self.expected_shape, kurtosis_values, self.details)
+
+    def mon(self):
+        """Compute Median Of meaNs on `.rawls` samples
+        
+        Returns:
+            {Rawls} -- new rawls object with MON data of rawls files
+        """
+
+        median_values = np.meadian(self.data, axis=0)
+
+        return Rawls(self.expected_shape, median_values, self.details)
 
     def __str__(self):
         """Display RawlsStats information
