@@ -266,7 +266,7 @@ class RawlsStats():
             #print(f'Dynamic rho computed using entropy ({utils.get_entropy(variance_evolution(means))}): {rho}')
             
         if rho > int(k_elements / 2):
-            raise f"Error, rho set to {rho} is too high depending of k={k_elements}"
+            raise(f"Error, rho set to {rho} is too high depending of k={k_elements}")
         
         # get lower and higher center indices (to generalize with case of even number of elements)
         lower_index = None

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.rawls &mdash; rawls v1.0.4 documentation</title>
+  <title>rawls.rawls &mdash; rawls v1.0.6 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.0.4
+                1.0.6
               </div>
             
           
@@ -179,6 +179,9 @@
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#rawls.rawls.Rawls" title="rawls.rawls.Rawls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rawls</span></code></a>(shape, data, details[, gamma_converted])</p></td>
 <td><p>Rawls class used to open <cite>.rawls</cite> path image</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rawls.rawls.RawlsSamples" title="rawls.rawls.RawlsSamples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RawlsSamples</span></code></a>(shape, data, samples, details)</p></td>
+<td><p>RawlsSamples class used to open <cite>.rawls</cite> path image of only 1 sample with its sample coord</p></td>
 </tr>
 </tbody>
 </table>
@@ -373,6 +376,59 @@
 <dt id="rawls.rawls.Rawls.v_flip">
 <code class="sig-name descname">v_flip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#Rawls.v_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.Rawls.v_flip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flip vectically current Rawls instance</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rawls.rawls.RawlsSamples">
+<em class="property">class </em><code class="sig-prename descclassname">rawls.rawls.</code><code class="sig-name descname">RawlsSamples</code><span class="sig-paren">(</span><em class="sig-param">shape</em>, <em class="sig-param">data</em>, <em class="sig-param">samples</em>, <em class="sig-param">details</em>, <em class="sig-param">gamma_converted=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#RawlsSamples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.RawlsSamples" title="Permalink to this definition">¶</a></dt>
+<dd><p>RawlsSamples class used to open <cite>.rawls</cite> path image of only 1 sample with its sample coord</p>
+<dl class="attribute">
+<dt id="rawls.rawls.RawlsSamples.shape">
+<code class="sig-name descname">shape</code><a class="headerlink" href="#rawls.rawls.RawlsSamples.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>{(int, int, int)} – describe shape of the image</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.rawls.RawlsSamples.data">
+<code class="sig-name descname">data</code><a class="headerlink" href="#rawls.rawls.RawlsSamples.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>{ndarray} – buffer data numpy array</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.rawls.RawlsSamples.samples">
+<code class="sig-name descname">samples</code><a class="headerlink" href="#rawls.rawls.RawlsSamples.samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>{ndarray} – buffer with samples coord</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.rawls.RawlsSamples.details">
+<code class="sig-name descname">details</code><a class="headerlink" href="#rawls.rawls.RawlsSamples.details" title="Permalink to this definition">¶</a></dt>
+<dd><p>{Details} – details instance information</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rawls.rawls.RawlsSamples.gamma_converted">
+<code class="sig-name descname">gamma_converted</code><a class="headerlink" href="#rawls.rawls.RawlsSamples.gamma_converted" title="Permalink to this definition">¶</a></dt>
+<dd><p>{Details} – specify if Rawls instance is gamma converted or not</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rawls.rawls.RawlsSamples.load">
+<em class="property">classmethod </em><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/rawls.html#RawlsSamples.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.rawls.RawlsSamples.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open data of rawls file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> – {str} – path of the .rawls or .fits file to open</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>RawlsSamples instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>{RawlsSamples}</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

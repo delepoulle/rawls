@@ -14,6 +14,7 @@ rawls.rawls
    .. autosummary::
    
       Rawls
+      RawlsSamples
    
    
 

@@ -450,7 +450,7 @@ class Rawls():
         """
 
         if '/' in outfile:
-            
+
             output_path, _ = os.path.split(outfile)
 
             if not os.path.exists(output_path):
@@ -523,7 +523,6 @@ class Rawls():
 
 
 class RawlsSamples(Rawls):
-
     """RawlsSamples class used to open `.rawls` path image of only 1 sample with its sample coord
 
     Attributes:
@@ -670,7 +669,6 @@ class RawlsSamples(Rawls):
                 np.ndarray(shape=(img_height, img_width, 2),
                            dtype='float32',
                            buffer=samples_buffer))
-            
 
             f.close()
 
