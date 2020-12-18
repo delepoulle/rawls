@@ -449,14 +449,9 @@ class Rawls():
             gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
         """
 
-        # TODO : improve this part
         if '/' in outfile:
-            folders = outfile.split('/')
-            del folders[-1]
-
-            output_path = ''
-            for folder in folders:
-                output_path = os.path.join(output_path, folder)
+            
+            output_path, _ = os.path.split(outfile)
 
             if not os.path.exists(output_path):
                 os.makedirs(output_path)
@@ -525,3 +520,160 @@ class Rawls():
         return "--------------------------------------------------------\nShape: \n\t{0}\nDetails: \n{1}\nAdditionnals:{2}\nGamma converted: \n\t{3}\n--------------------------------------------------------".format(
             self.shape, self.details, additionals_comments,
             self.gamma_converted)
+
+
+class RawlsSamples(Rawls):
+
+    """RawlsSamples class used to open `.rawls` path image of only 1 sample with its sample coord
+
+    Attributes:
+        shape: {(int, int, int)} -- describe shape of the image
+        data: {ndarray} -- buffer data numpy array
+        samples: {ndarray} -- buffer with samples coord
+        details: {Details} -- details instance information
+        gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not
+    """
+    def __init__(self, shape, data, samples, details, gamma_converted=False):
+        """RawlsSamples constructor
+
+        Attributes:
+            shape: {(int, int, int)} -- describe shape of the image
+            data: {ndrray} -- buffer data numpy array
+            samples: {ndarray} -- buffer with samples coord
+            details: {Details} -- details instance information
+            gamma_converted: {Details} -- specify if Rawls instance is gamma converted or not
+        """
+
+        super().__init__(shape, data, details, gamma_converted)
+        self.samples = samples
+
+    @classmethod
+    def load(self, filepath):
+        """Open data of rawls file
+        
+        Arguments:
+            filepath: {str} -- path of the .rawls or .fits file to open
+
+        Returns:
+            {RawlsSamples} : RawlsSamples instance
+        """
+
+        extension = filepath.split('.')[-1]
+
+        if extension not in ['rawls']:
+            raise Exception('filepath used is not valid')
+
+        if '.rawls' in filepath:
+            f = open(filepath, "rb")
+
+            # finding data into files
+            ihdr_line = 'IHDR'
+            ihdr_found = False
+
+            comments_line = 'COMMENTS'
+            comments_found = False
+
+            data_line = 'DATA'
+            data_found = False
+
+            samples_line = 'COORDS'
+            samples_found = False
+
+            # prepare rawls object data
+            img_chanels = None
+            img_width = None
+            img_height = None
+
+            comments = ""
+            data = None
+
+            # read first line
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not ihdr_found:
+
+                if ihdr_line in line:
+                    ihdr_found = True
+
+                    # read shape info line
+                    shape_size = int(f.readline().replace(b'\n', b''))
+
+                    values = f.read(shape_size)
+                    f.read(1)
+
+                    img_width, img_height, img_chanels = struct.unpack(
+                        'III', values)
+
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not comments_found:
+
+                if comments_line in line:
+                    comments_found = True
+
+            # get comments information
+            while not data_found:
+
+                line = f.readline()
+                line = line.decode('utf-8')
+
+                if data_line in line:
+                    data_found = True
+                else:
+                    comments += line
+
+            # default read data size
+            line = f.readline()
+
+            buffer = b''
+            # read buffer image data (here samples)
+            for _ in range(img_height):
+
+                line = f.read(4 * img_chanels * img_width)
+                buffer += line
+
+                # skip new line char
+                f.read(1)
+
+            # build numpy array from
+            data = np.array(
+                np.ndarray(shape=(img_height, img_width, img_chanels),
+                           dtype='float32',
+                           buffer=buffer))
+
+            # get samples information
+            while not samples_found:
+
+                line = f.readline()
+                line = line.decode('utf-8')
+
+                if samples_line in line:
+                    samples_found = True
+
+            # default read data size
+            line = f.readline()
+
+            samples_buffer = b''
+            # read buffer image data (here samples)
+            for _ in range(img_height):
+
+                line = f.read(4 * 2 * img_width)
+                samples_buffer += line
+
+                # skip new line char
+                f.read(1)
+
+            # build numpy array from
+            samples_data = np.array(
+                np.ndarray(shape=(img_height, img_width, 2),
+                           dtype='float32',
+                           buffer=samples_buffer))
+            
+
+            f.close()
+
+            #details = Details.fromcomments(comments)
+
+            return RawlsSamples(data.shape, data, samples_data, None)
