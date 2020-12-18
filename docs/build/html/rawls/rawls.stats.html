@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.stats &mdash; rawls v1.0.4 documentation</title>
+  <title>rawls.stats &mdash; rawls v1.0.6 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.0.4
+                1.0.6
               </div>
             
           
@@ -286,6 +286,45 @@
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>{Rawls} – new rawls object with mean data of rawls files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rawls.stats.RawlsStats.mon">
+<code class="sig-name descname">mon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.mon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.mon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Median Of meaNs on <cite>.rawls</cite> samples</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>{Rawls} – new rawls object with MON data of rawls files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rawls.stats.RawlsStats.pak_mon">
+<code class="sig-name descname">pak_mon</code><span class="sig-paren">(</span><em class="sig-param">means</em>, <em class="sig-param">rho=None</em>, <em class="sig-param">alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.pak_mon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.pak_mon" title="Permalink to this definition">¶</a></dt>
+<dd><p>PAK-MON is an new version of Median Of meaNs (MON) which takes advantage of the best between the mean and the MON estimators.</p>
+<ul class="simple">
+<li><p>It gives better estimation of the mean using neighbordhood knowledge when outliers seems to not be detected.</p></li>
+<li><p>Automatic settings of <cite>rho</cite> and <cite>alpha</cite> parameters are based on the variance evolution from <cite>means</cite> and shannon entropy.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>[</strong><strong>{float}</strong><strong>] </strong><strong>-- list of the means to manage</strong> (<em>means</em>) – </p></li>
+<li><p><strong>rho</strong> – {float} – number of neighbors to taken as confident</p></li>
+<li><p><strong>alpha</strong> – {float} – confidence parameter according to the distance from the neighbour (a in [0, 1]).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – invalid <cite>rho</cite> parameter value</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>final estimated value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>{float}</p>
 </dd>
 </dl>
 </dd></dl>
