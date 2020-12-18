@@ -3,9 +3,11 @@
 
 # main imports
 import numpy as np
+import math
 
 # stats import
 from scipy.stats import skew, kurtosis
+from ipfml import utils
 
 # modules imports
 from .rawls import Rawls
@@ -206,9 +208,105 @@ class RawlsStats():
             {Rawls} -- new rawls object with MON data of rawls files
         """
 
-        median_values = np.meadian(self.data, axis=0)
+        median_values = np.median(self.data, axis=0)
 
         return Rawls(self.expected_shape, median_values, self.details)
+
+
+    def __variance_evolution(self, means):
+        """Extract variance evolution when removing max element from current mean distribution
+
+        Args:
+            means [{float}] -- list of extract means
+
+        Returns:
+            [{float}] -- variance evolution
+        """
+        distances = []
+        l = means.copy()
+        
+        for _ in range(len(means)):
+            
+            l.pop(l.index(max(l)))
+            
+            if len(l) > 2:
+                distances.append(np.var(l))
+            
+        return distances
+
+
+    def pak_mon(self, means, rho=None, alpha=None):
+        """PAK-MON is an new version of Median Of meaNs (MON) which takes advantage of the best between the mean and the MON estimators.
+
+        - It gives better estimation of the mean using neighbordhood knowledge when outliers seems to not be detected.
+        - Automatic settings of `rho` and `alpha` parameters are based on the variance evolution from `means` and shannon entropy.
+
+        Args:
+            means [{float}] -- list of the means to manage
+            rho: {float} -- number of neighbors to taken as confident
+            alpha: {float} -- confidence parameter according to the distance from the neighbour (a \in [0, 1]).
+
+        Raises:
+            Exception: invalid `rho` parameter value
+
+        Returns:
+            {float}: final estimated value
+        """
+        sorted_means = sorted(means)
+        k_elements = len(means)
+        middle_index = int(k_elements / 2)
+        
+        # use of entropy from {means} in order to determine dynamically {alpha} and {rho} parameter
+        if alpha == None:
+            alpha = utils.get_entropy(self.__variance_evolution(means))
+            #print(f'Dynamic alpha computed using entropy ({utils.get_entropy(variance_evolution(means))}): {alpha}')
+            
+        if rho == None:
+            rho = int(middle_index * utils.get_entropy(self.__variance_evolution(means)))
+            #print(f'Dynamic rho computed using entropy ({utils.get_entropy(variance_evolution(means))}): {rho}')
+            
+        if rho > int(k_elements / 2):
+            raise f"Error, rho set to {rho} is too high depending of k={k_elements}"
+        
+        # get lower and higher center indices (to generalize with case of even number of elements)
+        lower_index = None
+        higher_index = None
+            
+        # compute the median
+        if k_elements % 2 == 0:
+            
+            lower_index = middle_index - 1
+            higher_index = middle_index
+            
+            # classical median when even number of elements
+            median = sorted_means[lower_index] * 0.5 + sorted_means[middle_index] * 0.5
+            
+        else:
+            lower_index = middle_index - 1
+            higher_index = middle_index - 1
+            
+            # classical when odd number of elements
+            median = sorted_means[middle_index - 1]
+        
+        # add neighborhood information
+        sum_to_divide = 1
+        weighted_median = median # default only median
+        
+        for i in range(1, rho + 1):
+            
+            # confidence {alpha} parameter using distance criterion
+            mult_factor = math.pow(alpha, i)
+            
+            # add left and right neighbor contribution
+            weighted_median += sorted_means[lower_index - i] * mult_factor
+            weighted_median += sorted_means[higher_index + i] * mult_factor
+            
+            # weighting contribution to take in account
+            sum_to_divide += 2 * mult_factor
+        
+        # weighted median with neigborhood information
+        return weighted_median / sum_to_divide
+
 
     def __str__(self):
         """Display RawlsStats information

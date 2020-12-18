@@ -29,7 +29,7 @@ class TestCommand(distutils.command.check.check):
 
 setup(
     name='rawls',
-    version='1.0.5',
+    version='1.0.6',
     description='RAW Light Simulation file reader/converter package',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
@@ -49,7 +49,8 @@ setup(
         'numpy',
         'Pillow',
         'scipy',
-        'astropy'
+        'astropy',
+        'ipfml'
     ],
     cmdclass={
         'test': TestCommand,
