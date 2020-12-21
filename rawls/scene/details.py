@@ -70,8 +70,16 @@ class Details():
         """
         comments_line = comments.split('\n')
 
-        samples = None
+        samples = 1 # default number of sample..
         additionals = {}  # init additionals
+
+        film = Film('', [], [], [])
+        pixelfilter = Filter('', [], [], [])
+        sampler = Sampler('', [], [], [])
+        accelerator = Accelerator('', [], [], [])
+        integrator = Integrator('', [], [], [])
+        camera = Camera('', [], [], [])
+        lookAt = LookAt([0, 0, 0], [0, 0, 0], [0, 0, 0])
 
         for index, line in enumerate(comments_line):
 
