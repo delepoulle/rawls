@@ -223,7 +223,7 @@ class RawlsStats():
             [{float}] -- variance evolution
         """
         distances = []
-        l = means.copy()
+        l = list(means).copy()
         
         for _ in range(len(means)):
             
@@ -235,23 +235,8 @@ class RawlsStats():
         return distances
 
 
-    def pak_mon(self, means, rho=None, alpha=None):
-        """PAK-MON is an new version of Median Of meaNs (MON) which takes advantage of the best between the mean and the MON estimators.
+    def __pak_mon_pixel(self, means, rho=None, alpha=None):
 
-        - It gives better estimation of the mean using neighbordhood knowledge when outliers seems to not be detected.
-        - Automatic settings of `rho` and `alpha` parameters are based on the variance evolution from `means` and shannon entropy.
-
-        Args:
-            means [{float}] -- list of the means to manage
-            rho: {float} -- number of neighbors to taken as confident
-            alpha: {float} -- confidence parameter according to the distance from the neighbour (a \in [0, 1]).
-
-        Raises:
-            Exception: invalid `rho` parameter value
-
-        Returns:
-            {float}: final estimated value
-        """
         sorted_means = sorted(means)
         k_elements = len(means)
         middle_index = int(k_elements / 2)
@@ -306,6 +291,27 @@ class RawlsStats():
         
         # weighted median with neigborhood information
         return weighted_median / sum_to_divide
+
+    def pak_mon(self, alpha=None, rho=None):
+        """PAK-MON is an new version of Median Of meaNs (MON) which takes advantage of the best between the mean and the MON estimators.
+
+        - It gives better estimation of the mean using neighbordhood knowledge when outliers seems to not be detected.
+        - Automatic settings of `rho` and `alpha` parameters are based on the variance evolution from `means` and shannon entropy.
+
+        Args:
+            rho: {float} -- number of neighbors to taken as confident
+            alpha: {float} -- confidence parameter according to the distance from the neighbour (a \in [0, 1]).
+
+        Raises:
+            Exception: invalid `rho` parameter value
+
+        Returns:
+            {float}: final estimated value
+        """
+        intern_pakmon = lambda x: self.__pak_mon_pixel(x, alpha, rho)
+        pak_mon_values = np.apply_along_axis(func1d=intern_pakmon, axis=0, arr=self.data)
+
+        return Rawls(self.expected_shape, pak_mon_values, self.details)
 
 
     def __str__(self):

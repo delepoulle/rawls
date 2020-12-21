@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rawls.stats &mdash; rawls v1.0.6 documentation</title>
+  <title>rawls.stats &mdash; rawls v1.0.8 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.0.6
+                1.0.8
               </div>
             
           
@@ -303,7 +303,7 @@
 
 <dl class="method">
 <dt id="rawls.stats.RawlsStats.pak_mon">
-<code class="sig-name descname">pak_mon</code><span class="sig-paren">(</span><em class="sig-param">means</em>, <em class="sig-param">rho=None</em>, <em class="sig-param">alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.pak_mon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.pak_mon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pak_mon</code><span class="sig-paren">(</span><em class="sig-param">alpha=None</em>, <em class="sig-param">rho=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rawls/stats.html#RawlsStats.pak_mon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rawls.stats.RawlsStats.pak_mon" title="Permalink to this definition">¶</a></dt>
 <dd><p>PAK-MON is an new version of Median Of meaNs (MON) which takes advantage of the best between the mean and the MON estimators.</p>
 <ul class="simple">
 <li><p>It gives better estimation of the mean using neighbordhood knowledge when outliers seems to not be detected.</p></li>
@@ -312,7 +312,6 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>[</strong><strong>{float}</strong><strong>] </strong><strong>-- list of the means to manage</strong> (<em>means</em>) – </p></li>
 <li><p><strong>rho</strong> – {float} – number of neighbors to taken as confident</p></li>
 <li><p><strong>alpha</strong> – {float} – confidence parameter according to the distance from the neighbour (a in [0, 1]).</p></li>
 </ul>
