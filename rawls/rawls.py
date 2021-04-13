@@ -124,6 +124,7 @@ class Rawls():
 
             buffer = b''
             # read buffer image data (here samples)
+            print("rawls loading")
             for _ in range(img_height):
 
                 line = f.read(4 * img_chanels * img_width)
