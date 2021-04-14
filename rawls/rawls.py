@@ -45,6 +45,23 @@ class Rawls():
         self.details = details
         self.gamma_converted = gamma_converted
 
+
+    @classmethod
+    def load_pix(self, filepath, x, y):
+        """Read a pixel in a rawls file
+
+        Arguments:
+           filepath: {str} -- path of the .rawls or .fits file to open
+           x: {int} -- horizontal coordinate of the pixel
+           y: {int} -- vertical coordinate of the pixel 
+
+        Returns:
+            à préciser
+            {(float, float, float)} -- tuple this the illumation values (3 for RGB)
+        """    
+
+        return (0.0,0.0,0.0)
+
     @classmethod
     def load(self, filepath):
         """Open data of rawls or fits file
@@ -69,7 +86,7 @@ class Rawls():
             ihdr_found = False
 
             comments_line = 'COMMENTS'
-            comments_found = False
+            comments_found = False 
 
             data_line = 'DATA'
             data_found = False
