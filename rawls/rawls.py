@@ -57,10 +57,87 @@ class Rawls():
 
         Returns:
             à préciser
-            {(float, float, float)} -- tuple this the illumation values (3 for RGB)
+            {[float]} -- list of float, the illumation values (3 for RGB)
         """    
 
-        return (0.0,0.0,0.0)
+        extension = filepath.split('.')[-1]
+
+        if extension not in ['rawls', 'fits']:
+            raise Exception('filepath used is not valid')
+
+        if '.rawls' in filepath:
+            f = open(filepath, "rb")
+
+            # finding data into files
+            ihdr_line = 'IHDR'
+            ihdr_found = False
+
+            comments_line = 'COMMENTS'
+            comments_found = False 
+
+            data_line = 'DATA'
+            data_found = False
+
+            # prepare rawls object data
+            img_chanels = None
+            img_width = None
+            img_height = None
+
+            comments = ""
+            data = None
+
+            # read first line
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not ihdr_found:
+
+                if ihdr_line in line:
+                    ihdr_found = True
+
+                    # read shape info line
+                    shape_size = int(f.readline().replace(b'\n', b''))
+
+                    values = f.read(shape_size)
+                    f.read(1)
+
+                    img_width, img_height, img_chanels = struct.unpack(
+                        'III', values)
+
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not comments_found:
+
+                if comments_line in line:
+                    comments_found = True
+
+            # get comments information
+            while not data_found:
+
+                line = f.readline()
+                line = line.decode('utf-8')
+
+                if data_line in line:
+                    data_found = True
+                else:
+                    comments += line
+
+            # default read data size
+            line = f.readline()
+
+            buffer = b''
+            # read buffer image data (here samples)
+            print("rawls loading")
+            decale = (x + (y * img_width)) * img_chanels
+            pixel = np.fromfile(f,'<f4',count = img_chanels, offset = f.tell() + decale)
+            print("decale = ",decale)
+
+            f.close()
+
+            details = Details.fromcomments(comments)
+
+            return pixel
 
     @classmethod
     def load(self, filepath):
