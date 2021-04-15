@@ -131,7 +131,6 @@ class Rawls():
             print("rawls loading")
             decale = (x + (y * img_width)) * img_chanels * 4 + y
             pixel = np.fromfile(f,dtype='float32',count = img_chanels, offset=decale)
-            print("decale = ",decale)
 
             f.close()
 
