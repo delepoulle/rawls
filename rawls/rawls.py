@@ -45,16 +45,20 @@ class Rawls():
         self.details = details
         self.gamma_converted = gamma_converted
 
+
     @classmethod
-    def load(self, filepath):
-        """Open data of rawls or fits file
-        
+    def load_pix(self, filepath, x, y):
+        """Read a pixel in a rawls file
+
         Arguments:
-            filepath: {str} -- path of the .rawls or .fits file to open
+           filepath: {str} -- path of the .rawls or .fits file to open
+           x: {int} -- horizontal coordinate of the pixel
+           y: {int} -- vertical coordinate of the pixel 
 
         Returns:
-            {Rawls} : Rawls instance
-        """
+            à préciser
+            {[float]} -- list of float, the illumation values (3 for RGB)
+        """    
 
         extension = filepath.split('.')[-1]
 
@@ -69,7 +73,7 @@ class Rawls():
             ihdr_found = False
 
             comments_line = 'COMMENTS'
-            comments_found = False
+            comments_found = False 
 
             data_line = 'DATA'
             data_found = False
@@ -124,6 +128,96 @@ class Rawls():
 
             buffer = b''
             # read buffer image data (here samples)
+            print("rawls loading")
+            decale = (x + (y * img_width)) * img_chanels * 4 + y
+            pixel = np.fromfile(f,dtype='float32',count = img_chanels, offset=decale)
+
+            f.close()
+
+            details = Details.fromcomments(comments)
+
+            return pixel
+
+    @classmethod
+    def load(self, filepath):
+        """Open data of rawls or fits file
+        
+        Arguments:
+            filepath: {str} -- path of the .rawls or .fits file to open
+
+        Returns:
+            {Rawls} : Rawls instance
+        """
+
+        extension = filepath.split('.')[-1]
+
+        if extension not in ['rawls', 'fits']:
+            raise Exception('filepath used is not valid')
+
+        if '.rawls' in filepath:
+            f = open(filepath, "rb")
+
+            # finding data into files
+            ihdr_line = 'IHDR'
+            ihdr_found = False
+
+            comments_line = 'COMMENTS'
+            comments_found = False 
+
+            data_line = 'DATA'
+            data_found = False
+
+            # prepare rawls object data
+            img_chanels = None
+            img_width = None
+            img_height = None
+
+            comments = ""
+            data = None
+
+            # read first line
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not ihdr_found:
+
+                if ihdr_line in line:
+                    ihdr_found = True
+
+                    # read shape info line
+                    shape_size = int(f.readline().replace(b'\n', b''))
+
+                    values = f.read(shape_size)
+                    f.read(1)
+
+                    img_width, img_height, img_chanels = struct.unpack(
+                        'III', values)
+
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not comments_found:
+
+                if comments_line in line:
+                    comments_found = True
+
+            # get comments information
+            while not data_found:
+
+                line = f.readline()
+                line = line.decode('utf-8')
+
+                if data_line in line:
+                    data_found = True
+                else:
+                    comments += line
+
+            # default read data size
+            line = f.readline()
+
+            buffer = b''
+            # read buffer image data (here samples)
+            print("rawls loading")
             for _ in range(img_height):
 
                 line = f.read(4 * img_chanels * img_width)
