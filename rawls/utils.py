@@ -31,6 +31,8 @@ def create_CSV(filepath, x, y, out_filepath):
     samplesPixel = []
     for file in files:
         samplesPixel.append(Rawls.load_pix(file,x,y))
+    if filepath.endswith("/"):
+        filepath = filepath[:-1]
     name_file_CSV = filepath.split('/')[-1] + "_" + str(x) + "_" + str(y)
     if not exists(out_filepath):
         makedirs(out_filepath)

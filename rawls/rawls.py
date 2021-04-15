@@ -128,7 +128,6 @@ class Rawls():
 
             buffer = b''
             # read buffer image data (here samples)
-            print("rawls loading")
             decale = (x + (y * img_width)) * img_chanels * 4 + y
             pixel = np.fromfile(f,dtype='float32',count = img_chanels, offset=decale)
 
@@ -217,7 +216,6 @@ class Rawls():
 
             buffer = b''
             # read buffer image data (here samples)
-            print("rawls loading")
             for _ in range(img_height):
 
                 line = f.read(4 * img_chanels * img_width)
