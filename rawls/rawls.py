@@ -424,7 +424,7 @@ class Rawls():
         >>> rawls_img = Rawls.load(path)
         >>> rawls_pil_img = rawls_img.to_pil()
         >>> np.array(rawls_pil_img).shape
-        (100, 100, 3)
+        (133, 300, 3)
         """
         if gamma_convert:
             self.gammaConvert()  # convert image to gamma if necessary
