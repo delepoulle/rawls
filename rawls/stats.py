@@ -43,7 +43,7 @@ class RawlsStats():
         >>> rawls_stats.nelements
         2
         >>> rawls_stats.mean_samples_per_element
-        1000.0
+        1.0
         """
 
         shapes = []
@@ -88,7 +88,7 @@ class RawlsStats():
         >>> rawls_stats.nelements
         2
         >>> rawls_stats.mean_samples_per_element
-        1000.0
+        1.0
         """
 
         # check if given paths are corrects

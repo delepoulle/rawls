@@ -1,3 +1,4 @@
+import shutil
 from setuptools import setup
 import distutils.command.check
 
@@ -20,16 +21,20 @@ class TestCommand(distutils.command.check.check):
 
         # pass test using doctest
         doctest.testmod(scene)
+        print('Scene module')
         doctest.testmod(rawls)
+        print('Rawls module')
         doctest.testmod(stats)
+        print('Stats module')
         doctest.testmod(utils)
+        print('Utils module')
 
         distutils.command.check.check.run(self)
 
 
 setup(
     name='rawls',
-    version='1.0.8',
+    version='1.0.9',
     description='RAW Light Simulation file reader/converter package',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
@@ -50,7 +55,9 @@ setup(
         'Pillow',
         'scipy',
         'astropy',
-        'ipfml'
+        'ipfml',
+        'pandas',
+        'shutil'
     ],
     cmdclass={
         'test': TestCommand,

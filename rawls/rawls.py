@@ -45,6 +45,82 @@ class Rawls():
         self.details = details
         self.gamma_converted = gamma_converted
 
+    def load_header(filepath):
+        """The header code for load/load_pix functions
+
+        Arguments:
+           filepath: {str} -- path of the .rawls or .fits file to open
+
+        Returns:
+            {[_io.BufferedReader,int,int,int,str]} -- the list is composed of (the first line of data,image width, image height, image chanel, comments)
+        """
+        extension = filepath.split('.')[-1]
+
+        if extension not in ['rawls', 'fits']:
+            raise Exception('filepath used is not valid')
+
+        if '.rawls' in filepath:
+            f = open(filepath, "rb")
+
+            # finding data into files
+            ihdr_line = 'IHDR'
+            ihdr_found = False
+
+            comments_line = 'COMMENTS'
+            comments_found = False 
+
+            data_line = 'DATA'
+            data_found = False
+
+            # prepare rawls object data
+            img_chanels = None
+            img_width = None
+            img_height = None
+
+            comments = ""
+            data = None
+
+            # read first line
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not ihdr_found:
+
+                if ihdr_line in line:
+                    ihdr_found = True
+
+                    # read shape info line
+                    shape_size = int(f.readline().replace(b'\n', b''))
+
+                    values = f.read(shape_size)
+                    f.read(1)
+
+                    img_width, img_height, img_chanels = struct.unpack(
+                        'III', values)
+
+            line = f.readline()
+            line = line.decode('utf-8')
+
+            while not comments_found:
+
+                if comments_line in line:
+                    comments_found = True
+
+            # get comments information
+            while not data_found:
+
+                line = f.readline()
+                line = line.decode('utf-8')
+
+                if data_line in line:
+                    data_found = True
+                else:
+                    comments += line
+
+            # default read data size
+            line = f.readline()
+            res = [f,img_width,img_height,img_chanels,comments]
+            return res
 
     @classmethod
     def load_pix(self, filepath, x, y):
@@ -56,86 +132,31 @@ class Rawls():
            y: {int} -- vertical coordinate of the pixel 
 
         Returns:
-            à préciser
             {[float]} -- list of float, the illumation values (3 for RGB)
+
+        Example :
+            >>> from rawls.rawls import Rawls
+            >>> path = 'images/example_1.rawls'
+            >>> rawls_img = Rawls.load_pix(path,0,0)
+            >>> rawls_img
+            array([0.00487518, 0.00327873, 0.00086975], dtype=float32)
         """    
+        l = self.load_header(filepath)
+        f = l[0]
+        img_width = l[1]
+        img_height = l[2]
+        img_chanels = l[3]
+        comments = l[4]
 
-        extension = filepath.split('.')[-1]
+        # read buffer image data (here samples)
+        decale = (x + (y * img_width)) * img_chanels * 4 + y
+        pixel = np.fromfile(f,dtype='float32',count = img_chanels, offset=decale)
 
-        if extension not in ['rawls', 'fits']:
-            raise Exception('filepath used is not valid')
+        f.close()
 
-        if '.rawls' in filepath:
-            f = open(filepath, "rb")
+        details = Details.fromcomments(comments)
 
-            # finding data into files
-            ihdr_line = 'IHDR'
-            ihdr_found = False
-
-            comments_line = 'COMMENTS'
-            comments_found = False 
-
-            data_line = 'DATA'
-            data_found = False
-
-            # prepare rawls object data
-            img_chanels = None
-            img_width = None
-            img_height = None
-
-            comments = ""
-            data = None
-
-            # read first line
-            line = f.readline()
-            line = line.decode('utf-8')
-
-            while not ihdr_found:
-
-                if ihdr_line in line:
-                    ihdr_found = True
-
-                    # read shape info line
-                    shape_size = int(f.readline().replace(b'\n', b''))
-
-                    values = f.read(shape_size)
-                    f.read(1)
-
-                    img_width, img_height, img_chanels = struct.unpack(
-                        'III', values)
-
-            line = f.readline()
-            line = line.decode('utf-8')
-
-            while not comments_found:
-
-                if comments_line in line:
-                    comments_found = True
-
-            # get comments information
-            while not data_found:
-
-                line = f.readline()
-                line = line.decode('utf-8')
-
-                if data_line in line:
-                    data_found = True
-                else:
-                    comments += line
-
-            # default read data size
-            line = f.readline()
-
-            buffer = b''
-            # read buffer image data (here samples)
-            decale = (x + (y * img_width)) * img_chanels * 4 + y
-            pixel = np.fromfile(f,dtype='float32',count = img_chanels, offset=decale)
-
-            f.close()
-
-            details = Details.fromcomments(comments)
-
-            return pixel
+        return pixel
 
     @classmethod
     def load(self, filepath):
@@ -146,95 +167,42 @@ class Rawls():
 
         Returns:
             {Rawls} : Rawls instance
+        
+        Example :
+            >>> from rawls.rawls import Rawls
+            >>> path = 'images/example_1.rawls'
+            >>> rawls_img = Rawls.load(path)
+            >>> rawls_img.data[0][0]
+            array([0.00487518, 0.00327873, 0.00086975], dtype=float32)
         """
 
-        extension = filepath.split('.')[-1]
+        l = self.load_header(filepath)
+        f = l[0]
+        img_width = l[1]
+        img_height = l[2]
+        img_chanels = l[3]
+        comments = l[4]
+        buffer = b''
+        # read buffer image data (here samples)
+        for _ in range(img_height):
 
-        if extension not in ['rawls', 'fits']:
-            raise Exception('filepath used is not valid')
+            line = f.read(4 * img_chanels * img_width)
+            buffer += line
 
-        if '.rawls' in filepath:
-            f = open(filepath, "rb")
+            # skip new line char
+            f.read(1)
 
-            # finding data into files
-            ihdr_line = 'IHDR'
-            ihdr_found = False
+        # build numpy array from
+        data = np.array(
+            np.ndarray(shape=(img_height, img_width, img_chanels),
+                        dtype='float32',
+                        buffer=buffer))
 
-            comments_line = 'COMMENTS'
-            comments_found = False 
+        f.close()
 
-            data_line = 'DATA'
-            data_found = False
+        details = Details.fromcomments(comments)
 
-            # prepare rawls object data
-            img_chanels = None
-            img_width = None
-            img_height = None
-
-            comments = ""
-            data = None
-
-            # read first line
-            line = f.readline()
-            line = line.decode('utf-8')
-
-            while not ihdr_found:
-
-                if ihdr_line in line:
-                    ihdr_found = True
-
-                    # read shape info line
-                    shape_size = int(f.readline().replace(b'\n', b''))
-
-                    values = f.read(shape_size)
-                    f.read(1)
-
-                    img_width, img_height, img_chanels = struct.unpack(
-                        'III', values)
-
-            line = f.readline()
-            line = line.decode('utf-8')
-
-            while not comments_found:
-
-                if comments_line in line:
-                    comments_found = True
-
-            # get comments information
-            while not data_found:
-
-                line = f.readline()
-                line = line.decode('utf-8')
-
-                if data_line in line:
-                    data_found = True
-                else:
-                    comments += line
-
-            # default read data size
-            line = f.readline()
-
-            buffer = b''
-            # read buffer image data (here samples)
-            for _ in range(img_height):
-
-                line = f.read(4 * img_chanels * img_width)
-                buffer += line
-
-                # skip new line char
-                f.read(1)
-
-            # build numpy array from
-            data = np.array(
-                np.ndarray(shape=(img_height, img_width, img_chanels),
-                           dtype='float32',
-                           buffer=buffer))
-
-            f.close()
-
-            details = Details.fromcomments(comments)
-
-            return Rawls(data.shape, data, details)
+        return Rawls(data.shape, data, details)
 
         if '.fits' in filepath:
 
@@ -516,7 +484,7 @@ class Rawls():
         >>> rawls_img = Rawls.load(path)
         >>> rawls_pil_img = rawls_img.to_pil()
         >>> np.array(rawls_pil_img).shape
-        (100, 100, 3)
+        (133, 300, 3)
         """
         if gamma_convert:
             self.gammaConvert()  # convert image to gamma if necessary
