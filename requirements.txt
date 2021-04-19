@@ -6,3 +6,5 @@ autodoc
 sphinx==v2.2.0 
 sphinx_rtd_theme
 astropy
+pandas
+OpenEXR

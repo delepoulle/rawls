@@ -7,7 +7,7 @@ import numpy as np
 import struct
 import copy
 import os
-
+import OpenEXR, array
 # image processing imports
 from PIL import Image
 
@@ -17,7 +17,7 @@ from .scene.details import Details
 # astropy
 from astropy.io import fits
 
-extensions = ['png', 'rawls', 'fits']
+extensions = ['png', 'rawls', 'fits', 'exr']
 expected_comments = ['']
 
 
@@ -45,17 +45,15 @@ class Rawls():
         self.details = details
         self.gamma_converted = gamma_converted
 
-    @classmethod
-    def load(self, filepath):
-        """Open data of rawls or fits file
-        
+    def load_header(filepath):
+        """The header code for load/load_pix functions
+
         Arguments:
-            filepath: {str} -- path of the .rawls or .fits file to open
+           filepath: {str} -- path of the .rawls or .fits file to open
 
         Returns:
-            {Rawls} : Rawls instance
+            {[_io.BufferedReader,int,int,int,str]} -- the list is composed of (the first line of data,image width, image height, image chanel, comments)
         """
-
         extension = filepath.split('.')[-1]
 
         if extension not in ['rawls', 'fits']:
@@ -69,7 +67,7 @@ class Rawls():
             ihdr_found = False
 
             comments_line = 'COMMENTS'
-            comments_found = False
+            comments_found = False 
 
             data_line = 'DATA'
             data_found = False
@@ -121,28 +119,90 @@ class Rawls():
 
             # default read data size
             line = f.readline()
+            res = [f,img_width,img_height,img_chanels,comments]
+            return res
 
-            buffer = b''
-            # read buffer image data (here samples)
-            for _ in range(img_height):
+    @classmethod
+    def load_pix(self, filepath, x, y):
+        """Read a pixel in a rawls file
 
-                line = f.read(4 * img_chanels * img_width)
-                buffer += line
+        Arguments:
+           filepath: {str} -- path of the .rawls or .fits file to open
+           x: {int} -- horizontal coordinate of the pixel
+           y: {int} -- vertical coordinate of the pixel 
 
-                # skip new line char
-                f.read(1)
+        Returns:
+            {[float]} -- list of float, the illumation values (3 for RGB)
 
-            # build numpy array from
-            data = np.array(
-                np.ndarray(shape=(img_height, img_width, img_chanels),
-                           dtype='float32',
-                           buffer=buffer))
+        Example :
+            >>> from rawls.rawls import Rawls
+            >>> path = 'images/example_1.rawls'
+            >>> rawls_img = Rawls.load_pix(path,0,0)
+            >>> rawls_img
+            array([0.00487518, 0.00327873, 0.00086975], dtype=float32)
+        """    
+        l = self.load_header(filepath)
+        f = l[0]
+        img_width = l[1]
+        img_height = l[2]
+        img_chanels = l[3]
+        comments = l[4]
 
-            f.close()
+        # read buffer image data (here samples)
+        decale = (x + (y * img_width)) * img_chanels * 4 + y
+        pixel = np.fromfile(f,dtype='float32',count = img_chanels, offset=decale)
 
-            details = Details.fromcomments(comments)
+        f.close()
 
-            return Rawls(data.shape, data, details)
+        details = Details.fromcomments(comments)
+
+        return pixel
+
+    @classmethod
+    def load(self, filepath):
+        """Open data of rawls or fits file
+        
+        Arguments:
+            filepath: {str} -- path of the .rawls or .fits file to open
+
+        Returns:
+            {Rawls} : Rawls instance
+        
+        Example :
+            >>> from rawls.rawls import Rawls
+            >>> path = 'images/example_1.rawls'
+            >>> rawls_img = Rawls.load(path)
+            >>> rawls_img.data[0][0]
+            array([0.00487518, 0.00327873, 0.00086975], dtype=float32)
+        """
+
+        l = self.load_header(filepath)
+        f = l[0]
+        img_width = l[1]
+        img_height = l[2]
+        img_chanels = l[3]
+        comments = l[4]
+        buffer = b''
+        # read buffer image data (here samples)
+        for _ in range(img_height):
+
+            line = f.read(4 * img_chanels * img_width)
+            buffer += line
+
+            # skip new line char
+            f.read(1)
+
+        # build numpy array from
+        data = np.array(
+            np.ndarray(shape=(img_height, img_width, img_chanels),
+                        dtype='float32',
+                        buffer=buffer))
+
+        f.close()
+
+        details = Details.fromcomments(comments)
+
+        return Rawls(data.shape, data, details)
 
         if '.fits' in filepath:
 
@@ -263,6 +323,9 @@ class Rawls():
 
         elif extension == 'png':
             self.to_png(outfile, gamma_convert)
+
+        elif extension == 'exr':
+            self.to_exr(outfile, gamma_convert)
 
         elif extension == 'fits':
 
@@ -461,6 +524,42 @@ class Rawls():
 
         self.to_pil(gamma_convert).save(outfile)
 
+    def to_exr(self, outfile, gamma_convert=True):
+        """Save rawls image into EXR
+        
+        Arguments:
+            outfile: {str} -- EXR output filename
+            gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
+        """
+
+        if '/' in outfile:
+
+            output_path, _ = os.path.split(outfile)
+
+            if not os.path.exists(output_path):
+                os.makedirs(output_path)
+
+        if '.exr' not in outfile:
+            raise Exception('output filename is not `.exr` format')
+        h, w, c = self.shape
+        if c == 3:
+            # data = array.array('f', [ 1.0 ] * w * h).tostring()
+            dataR = []
+            dataG = []
+            dataB = []
+            for j in range(h):
+                for i in range(w):
+                    dataR.append(self.data[j][i][0])
+                    dataG.append(self.data[j][i][1])
+                    dataB.append(self.data[j][i][2])
+            dataR_array = array.array('f', dataR).tostring()
+            dataG_array = array.array('f', dataG).tostring()
+            dataB_array = array.array('f', dataB).tostring()
+            exr = OpenEXR.OutputFile(outfile, OpenEXR.Header(w,h))
+            
+            exr.writePixels({'R': dataR_array, 'G': dataG_array, 'B': dataB_array})
+            # exr.writePixels({'R': data, 'G': data, 'B': data})
+            
     def h_flip(self):
         """Flip horizontally current Rawls instance 
         """

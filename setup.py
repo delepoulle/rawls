@@ -1,3 +1,4 @@
+import shutil
 from setuptools import setup
 import distutils.command.check
 
@@ -54,7 +55,9 @@ setup(
         'Pillow',
         'scipy',
         'astropy',
-        'ipfml'
+        'ipfml',
+        'pandas',
+        'OpenEXR'
     ],
     cmdclass={
         'test': TestCommand,
