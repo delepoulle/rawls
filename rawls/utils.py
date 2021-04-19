@@ -26,6 +26,19 @@ def create_CSV(filepath, x, y, out_filepath, nb_samples = -1):
     Raises:
         Exception: Invalid input filepath, need at least one image rawls
 
+    >>> from rawls.rawls import Rawls
+    >>> from rawls.utils import create_CSV
+    >>> path = 'images/'
+    >>> out = 'images/'
+    >>> create_CSV(path,0,0,out)
+    images//images_0_0.csv recorded
+    >>> import pandas as pd
+    >>> df = pd.read_csv('images//images_0_0.csv',sep=',',header=0)
+    >>> print(len(df.columns))
+    4
+    >>> data = df[["0_0_R"]].to_numpy()
+    >>> print(data.mean())
+    0.0048503875
     """
     files = []
     for f in listdir(filepath):
@@ -52,6 +65,7 @@ def create_CSV(filepath, x, y, out_filepath, nb_samples = -1):
         row_title = [str(x) + "_" + str(y) + "_" + "R" , str(x) + "_" + str(y) + "_" + "G" , str(x) + "_" + str(y) + "_" + "B"]
         writer.writerow(row_title)
         writer.writerows(samplesPixel)
+    print(out_filepath,"recorded")
 
 def create_CSV_zone(filepath, x1, y1, x2, y2, out_filepath, nb_samples = -1):
     """create a CSV file with all the samples
