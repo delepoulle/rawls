@@ -35,7 +35,7 @@ def create_CSV(filepath, x, y, out_filepath, nb_samples = -1):
     >>> import pandas as pd
     >>> df = pd.read_csv('images//images_0_0.csv',sep=',',header=0)
     >>> print(len(df.columns))
-    4
+    3
     >>> data = df[["0_0_R"]].to_numpy()
     >>> print(data.mean())
     0.0048503875
