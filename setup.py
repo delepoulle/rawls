@@ -57,8 +57,6 @@ setup(
         'astropy',
         'ipfml',
         'pandas',
-        'shutil',
-        'array',
         'OpenEXR'
     ],
     cmdclass={
