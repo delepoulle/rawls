@@ -8,3 +8,5 @@ sphinx_rtd_theme
 astropy
 pandas
 shutil
+array
+OpenEXR

@@ -57,7 +57,9 @@ setup(
         'astropy',
         'ipfml',
         'pandas',
-        'shutil'
+        'shutil',
+        'array',
+        'OpenEXR'
     ],
     cmdclass={
         'test': TestCommand,
