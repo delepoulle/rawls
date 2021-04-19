@@ -7,7 +7,7 @@ import numpy as np
 import struct
 import copy
 import os
-
+import OpenEXR, array
 # image processing imports
 from PIL import Image
 
@@ -17,7 +17,7 @@ from .scene.details import Details
 # astropy
 from astropy.io import fits
 
-extensions = ['png', 'rawls', 'fits']
+extensions = ['png', 'rawls', 'fits', 'exr']
 expected_comments = ['']
 
 
@@ -324,6 +324,9 @@ class Rawls():
         elif extension == 'png':
             self.to_png(outfile, gamma_convert)
 
+        elif extension == 'exr':
+            self.to_exr(outfile, gamma_convert)
+
         elif extension == 'fits':
 
             # using NASA fits file format
@@ -521,6 +524,42 @@ class Rawls():
 
         self.to_pil(gamma_convert).save(outfile)
 
+    def to_exr(self, outfile, gamma_convert=True):
+        """Save rawls image into EXR
+        
+        Arguments:
+            outfile: {str} -- EXR output filename
+            gamma_convert: {bool} -- necessary or not to convert using gamma (default: True)
+        """
+
+        if '/' in outfile:
+
+            output_path, _ = os.path.split(outfile)
+
+            if not os.path.exists(output_path):
+                os.makedirs(output_path)
+
+        if '.exr' not in outfile:
+            raise Exception('output filename is not `.exr` format')
+        h, w, c = self.shape
+        if c == 3:
+            # data = array.array('f', [ 1.0 ] * w * h).tostring()
+            dataR = []
+            dataG = []
+            dataB = []
+            for j in range(h):
+                for i in range(w):
+                    dataR.append(self.data[j][i][0])
+                    dataG.append(self.data[j][i][1])
+                    dataB.append(self.data[j][i][2])
+            dataR_array = array.array('f', dataR).tostring()
+            dataG_array = array.array('f', dataG).tostring()
+            dataB_array = array.array('f', dataB).tostring()
+            exr = OpenEXR.OutputFile(outfile, OpenEXR.Header(w,h))
+            
+            exr.writePixels({'R': dataR_array, 'G': dataG_array, 'B': dataB_array})
+            # exr.writePixels({'R': data, 'G': data, 'B': data})
+            
     def h_flip(self):
         """Flip horizontally current Rawls instance 
         """
