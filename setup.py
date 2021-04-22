@@ -49,7 +49,7 @@ setup(
     author='Jérôme BUISINE',
     author_email='jerome.buisine@univ-littoral.fr',
     license='MIT',
-    packages=['rawls', 'rawls.scene'],
+    packages=['rawls', 'rawls.scene', 'rawls.rawls'],
     install_requires=[
         'numpy',
         'Pillow',
