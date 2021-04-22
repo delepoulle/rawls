@@ -57,7 +57,7 @@ target/
 .python-version
 
 # Docs
-!docs/build
+docs/build
 test_rawls.py
 
 # IDE
