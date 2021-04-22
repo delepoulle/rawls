@@ -34,7 +34,7 @@ class TestCommand(distutils.command.check.check):
 
 setup(
     name='rawls',
-    version='1.1.4',
+    version='1.1.5',
     description='RAW Light Simulation file reader/converter package',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
@@ -49,7 +49,7 @@ setup(
     author='Jérôme BUISINE',
     author_email='jerome.buisine@univ-littoral.fr',
     license='MIT',
-    packages=['rawls', 'rawls.scene', 'rawls.rawls'],
+    packages=['rawls', 'rawls.scene'],
     install_requires=[
         'numpy',
         'Pillow',
