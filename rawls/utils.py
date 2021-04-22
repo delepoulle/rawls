@@ -1,7 +1,7 @@
 """Utils function for .rawls file
 """
 #main imports
-from os import listdir, name, makedirs, chdir, remove, rmdir
+from os import listdir, name, makedirs, chdir, remove, rmdir, getcwd
 from os.path import isfile, join,exists
 import csv
 import glob
@@ -49,11 +49,18 @@ def create_CSV(filepath, x, y, out_filepath, nb_samples = -1):
     samplesPixel = []
     if(nb_samples == -1):
         for file in files:
-            samplesPixel.append(Rawls.load_pix(file,x,y))
+            if file.endswith(".rawls"):
+                samplesPixel.append(Rawls.load_pix(file,x,y))
     else:
+        range = 0
         for i in range(nb_samples):
-            file = files[i]
-            samplesPixel.append(Rawls.load_pix(file,x,y))
+            finish = False
+            while(finish == False):
+                file = files[range]
+                if file.endswith(".rawls"):
+                    samplesPixel.append(Rawls.load_pix(file,x,y))
+                    finish = True
+                range += 1
     if filepath.endswith("/"):
         filepath = filepath[:-1]
     file_name_CSV = filepath.split('/')[-1] + "_" + str(x) + "_" + str(y)
@@ -92,22 +99,26 @@ def create_CSV_zone(filepath, x1, y1, x2, y2, out_filepath, nb_samples = -1):
         filepath = filepath[:-1]
     if out_filepath.endswith("/"):
         out_filepath = out_filepath[:-1]
+    if out_filepath.startswith("/home") == False:
+        if out_filepath.startswith("/") == False:
+            out_filepath = "/" + out_filepath
+        cwd = getcwd()
+        out_filepath = cwd + out_filepath
+        print(out_filepath)
     #create a temp repertory
-    temp_out_filepath = out_filepath + "/" +  filepath.split('/')[-1]
+    temp_out_filepath = "/tmp/" + filepath.split('/')[-1]
     for j in range(y2-y1+1):
         for i in range(x2-x1+1):
-            create_CSV(filepath,i+1,j+1,temp_out_filepath,nb_samples)
+            create_CSV(filepath,x1+i,y1+j,temp_out_filepath,nb_samples)
     chdir(temp_out_filepath)
     file_extension = '.csv'
     all_filenames = [i for i in glob.glob(f"*{file_extension}")]
     #combine all files in the list
     combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames ])
-    file_name_CSV = filepath.split('/')[-1] + "_" + str(x1) + "_" + str(y1) + "_to_" + str(x2) + "_" + str(y2)
-    combined_csv.to_csv( file_name_CSV + ".csv", index=False, encoding='utf-8-sig')
-    shutil.move(file_name_CSV + ".csv", "../" + file_name_CSV + ".csv")
-    chdir("../")
-    shutil.rmtree("./" + filepath.split('/')[-1])
-
+    file_name_CSV = filepath.split('/')[-1] + "_" + str(x1) + "_" + str(y1) + "_to_" + str(x2) + "_" + str(y2) + ".csv"
+    combined_csv.to_csv( file_name_CSV , index=False, encoding='utf-8-sig')
+    shutil.move(file_name_CSV, out_filepath + "/" + file_name_CSV)
+    shutil.rmtree(temp_out_filepath)
 def check_file_paths(filepaths):
     """check filepaths input extension
     
