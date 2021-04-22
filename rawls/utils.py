@@ -9,6 +9,8 @@ from posix import POSIX_FADV_WILLNEED
 import pandas as pd
 import shutil
 
+from pandas.io.parsers import read_csv
+
 #modules imports
 from .rawls import Rawls
 # utils functions
@@ -104,17 +106,31 @@ def create_CSV_zone(filepath, x1, y1, x2, y2, out_filepath, nb_samples = -1):
             out_filepath = "/" + out_filepath
         cwd = getcwd()
         out_filepath = cwd + out_filepath
-        print(out_filepath)
     #create a temp repertory
     temp_out_filepath = "/tmp/" + filepath.split('/')[-1]
     for j in range(y2-y1+1):
         for i in range(x2-x1+1):
             create_CSV(filepath,x1+i,y1+j,temp_out_filepath,nb_samples)
+    if nb_samples == -1:
+        nb_samples = 0
+        for name in listdir(filepath):
+            if name.endswith(".rawls"):
+                nb_samples += 1
     chdir(temp_out_filepath)
     file_extension = '.csv'
     all_filenames = [i for i in glob.glob(f"*{file_extension}")]
     #combine all files in the list
-    combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames ])
+    # combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames ], ignore_index=True)
+    reader = []
+    for f in all_filenames:
+        read = pd.read_csv(f)
+        reader.append(read)
+    for x in range(len(all_filenames)):
+        if x!=0:
+            for column in reader[x].columns:
+                for row in range(nb_samples):
+                    reader[0][column] = reader[x][column].iloc[row]
+    combined_csv = reader[0]
     file_name_CSV = filepath.split('/')[-1] + "_" + str(x1) + "_" + str(y1) + "_to_" + str(x2) + "_" + str(y2) + ".csv"
     combined_csv.to_csv( file_name_CSV , index=False, encoding='utf-8-sig')
     shutil.move(file_name_CSV, out_filepath + "/" + file_name_CSV)
