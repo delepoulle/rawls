@@ -48,6 +48,8 @@ def create_CSV(filepath, x, y, out_filepath, nb_samples = -1):
             files.append(filepath + "/" + f)
     if(len(files)==0):
         raise Exception('Unvalid input filepath images, need .rawls image')
+    if((len(files)<nb_samples) or nb_samples < -1):
+        raise Exception('Unvalid number for a samples')
     samplesPixel = []
     if(nb_samples == -1):
         for file in files:
