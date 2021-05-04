@@ -54,15 +54,15 @@ def create_CSV(filepath, x, y, out_filepath, nb_samples = -1):
             if file.endswith(".rawls"):
                 samplesPixel.append(Rawls.load_pix(file,x,y))
     else:
-        range = 0
+        nb = 0
         for i in range(nb_samples):
             finish = False
             while(finish == False):
-                file = files[range]
+                file = files[nb]
                 if file.endswith(".rawls"):
                     samplesPixel.append(Rawls.load_pix(file,x,y))
                     finish = True
-                range += 1
+                nb += 1
     if filepath.endswith("/"):
         filepath = filepath[:-1]
     file_name_CSV = filepath.split('/')[-1] + "_" + str(x) + "_" + str(y)

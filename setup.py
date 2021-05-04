@@ -34,7 +34,7 @@ class TestCommand(distutils.command.check.check):
 
 setup(
     name='rawls',
-    version='1.1.5',
+    version='1.1.6',
     description='RAW Light Simulation file reader/converter package',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
